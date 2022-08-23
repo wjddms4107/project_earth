@@ -40,6 +40,10 @@ module.exports = {
         57: '228px',
         25: '100px',
       },
+      minWidth: {
+        57: '228px',
+        25: '100px',
+      },
       borderBottomWidth: {
         1: '1px',
       },
