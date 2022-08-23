@@ -65,7 +65,7 @@ export default function SideBar() {
       <header
         className={`${
           open ? 'pl-56' : 'pl-24 '
-        } box-border sticky w-full bg-achromatic-bg_paper z-10 duration-300 border-b-2 border-blue-center_border`}
+        } box-border fixed w-full bg-achromatic-bg_paper z-10 duration-300 border-b-2 border-blue-center_border`}
       >
         <div className="px-8">
           <div className="flex items-center h-16">
@@ -179,7 +179,7 @@ export default function SideBar() {
             })}
           </ul>
         </div>
-        <div className="h-screen flex-1 mt-16 p-7">
+        <div className="h-auto flex-1 mt-16 p-7">
           <Outlet />
         </div>
       </div>
