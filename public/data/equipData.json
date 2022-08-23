@@ -1,0 +1,36 @@
+{
+  "message": "SUCCESS",
+  "results": {
+    "truck_count": 4,
+    "excavators_state": {
+        "idle": 0,
+        "load": 110,
+        "unload": 0,
+        "travel": 250,
+        "utilization_rate": 0.6944444444444445
+    },
+    "backhoe_state": {
+        "idle": 20,
+        "load": 0,
+        "unload": 230,
+        "travel": 150,
+        "utilization_rate": 0.4044444444444445
+
+    },
+    "bulldozer_state": {
+        "idle": 0,
+        "load": 130,
+        "unload": 0,
+        "travel": 100,
+        "utilization_rate": 0.554534534
+    },
+    "wheel_loader_state": {
+        "idle": 250,
+        "load": 0,
+        "unload": 110,
+        "travel": 170,
+        "utilization_rate": 0.344534534
+
+    }
+  }
+}
