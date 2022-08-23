@@ -65,9 +65,9 @@ export default function SideBar() {
       <header
         className={`${
           open ? 'pl-56' : 'pl-24 '
-        } box-border fixed w-full bg-white duration-300 border-b-2 border-blue-center_border`}
+        } box-border fixed w-full bg-achromatic-bg_paper duration-300 border-b-2 border-blue-center_border`}
       >
-        <div className="px-2 sm:px-6 lg:px-8">
+        <div className="px-8">
           <div className="flex items-center h-16">
             <BsHouseDoorFill className="text-blue text-2xl" />
             <MdOutlineArrowForwardIos className="text-blue-center_border mx-2" />
@@ -80,7 +80,7 @@ export default function SideBar() {
         <div
           className={`${
             open ? 'w-57' : 'w-25 '
-          }  relative bg-blue h-screen duration-300`}
+          } bg-blue h-screen duration-300 sticky top-0`}
         >
           <MdOutlineArrowBackIosNew
             className={`${open ? 'top-6 right-4' : 'top-6 right-9 rotate-180'}
@@ -179,7 +179,7 @@ export default function SideBar() {
             })}
           </ul>
         </div>
-        <div className="h-full flex-1 mt-16 p-7">
+        <div className="h-screen flex-1 mt-16 p-7">
           <Outlet />
         </div>
       </div>
