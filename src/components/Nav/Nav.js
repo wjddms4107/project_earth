@@ -10,7 +10,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 export default function SideBar() {
   const [open, setOpen] = useState(true);
   const [currMenu, setCurrMenu] = useState('');
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('Home');
   const location = useLocation();
 
   const MENU_DATA = [
@@ -29,7 +29,7 @@ export default function SideBar() {
           menu_id: 3,
           title: 'Analysis ',
           icon: BsGrid,
-          URL: '/equipment/analytics',
+          URL: '/equipment/analysis',
         },
         {
           menu_id: 4,
@@ -65,7 +65,7 @@ export default function SideBar() {
       <header
         className={`${
           open ? 'pl-56' : 'pl-24 '
-        } box-border fixed w-full bg-achromatic-bg_paper duration-300 border-b-2 border-blue-center_border`}
+        } box-border sticky w-full bg-achromatic-bg_paper z-10 duration-300 border-b-2 border-blue-center_border`}
       >
         <div className="px-8">
           <div className="flex items-center h-16">
@@ -79,8 +79,8 @@ export default function SideBar() {
       <div className="flex">
         <div
           className={`${
-            open ? 'w-57' : 'w-25 '
-          } bg-blue h-screen duration-300 sticky top-0`}
+            open ? 'w-57 min-w-57' : 'w-25 min-w-25'
+          } bg-blue z-20 h-screen duration-300 sticky top-0`}
         >
           <MdOutlineArrowBackIosNew
             className={`${open ? 'top-6 right-4' : 'top-6 right-9 rotate-180'}
