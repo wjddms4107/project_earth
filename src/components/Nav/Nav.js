@@ -79,7 +79,7 @@ export default function SideBar() {
       <div className="flex">
         <div
           className={`${
-            open ? 'w-57 min-w-57' : 'w-25 min-w-25'
+            open ? ' min-w-57' : 'min-w-25'
           } bg-blue z-20 h-screen duration-300 sticky top-0`}
         >
           <MdOutlineArrowBackIosNew
@@ -179,7 +179,7 @@ export default function SideBar() {
             })}
           </ul>
         </div>
-        <div className="h-auto flex-1 mt-16 p-7">
+        <div className="h-auto w-full mt-16 p-7">
           <Outlet />
         </div>
       </div>

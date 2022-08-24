@@ -1,30 +1,47 @@
 import React from 'react';
 
-const EquipDate = () => {
-  const date = new Date();
+const EquipDate = ({ time }) => {
+  // 월요일 구하기
+  function getMonday(d) {
+    d = new Date(d);
+    let day = d.getDay(),
+      diff = d.getDate() - day + (day === 0 ? -6 : 1);
+    return new Date(d.setDate(diff));
+  }
+  const mondayData = getMonday(new Date());
+  const mondayYear = mondayData.getFullYear().toString();
+  const mondayMonth = mondayData.getMonth() + 1;
+  const mondayDay = mondayData.getDate();
+  const finalMonday = `${mondayYear}년 ${
+    mondayMonth >= 10 ? mondayMonth : '0' + mondayMonth
+  }월 ${mondayDay >= 10 ? mondayDay : '0' + mondayDay}일 `;
 
-  const year = date.getFullYear().toString().slice(2);
+  // Date객체 가공하기
+  const date = new Date();
+  const year = date.getFullYear().toString();
   const month = date.getMonth() + 1;
   const day = date.getDate();
-  const weekday = date.toString().slice(0, 3);
-  const weekdayToKo = WEEKDAY_TO_KO.map(data => {
-    return data[weekday];
-  });
 
-  // console.log(date);
-  return <div> 기준 : 2022년 08년 03일 ~ 2022년 08년 06일</div>;
+  // 일별, 주별, 월별 기준 구하기
+  const dailyDate = `${year}년 ${month >= 10 ? month : '0' + month}월 ${
+    day >= 10 ? day : '0' + day
+  }일 `;
+  const weeklyDate =
+    time === 'weekly' && finalMonday !== dailyDate
+      ? `${finalMonday} ~ ${dailyDate}`
+      : dailyDate;
+  const monthlyDate = `${year}년 ${month >= 10 ? month : '0' + month}월`;
+
+  return (
+    <div>
+      기준 :{' '}
+      {time === 'daily'
+        ? dailyDate
+        : time === 'weekly'
+        ? weeklyDate
+        : monthlyDate}
+    </div>
+  );
 };
-
-const WEEKDAY_TO_KO = [
-  {
-    Mon: '월',
-    Tue: '화',
-    Wed: '수',
-    Thu: '목',
-    Fri: '금',
-    Sat: '토',
-    Sun: '일',
-  },
-];
 
 export default EquipDate;

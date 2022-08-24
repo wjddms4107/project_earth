@@ -47,6 +47,9 @@ module.exports = {
       borderBottomWidth: {
         1: '1px',
       },
+      inset: {
+        '131px': '131px',
+      },
     },
   },
   plugins: [],
