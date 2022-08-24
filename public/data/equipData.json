@@ -1,7 +1,13 @@
 {
   "message": "SUCCESS",
   "results": {
-    "truck_count": 4,
+    "truck_count": {
+      "구역A": 4,
+      "구역B": 2,
+      "구역C": 4,
+      "구역D": 6,
+      "구역E": 1
+  },
     "excavators_state": {
         "idle": 0,
         "load": 110,

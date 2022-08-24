@@ -4,8 +4,6 @@ import React from 'react';
 const EquipPieChart = ({ equipData, sort }) => {
   const isData = equipData.length !== 0;
   if (!isData) return <div>로딩중입니다.</div>;
-  // console.log('equipData:', equipData);
-  // console.log('sort:', sort);
 
   const data = [
     {
@@ -25,7 +23,6 @@ const EquipPieChart = ({ equipData, sort }) => {
       value: equipData[sort].unload,
     },
   ];
-  // console.log('data:', data);
   const COLORS = ['#FF4C65', '#FFC506', '#1CDFBB', '#47BEFF'];
 
   const RADIAN = Math.PI / 180;
@@ -40,8 +37,8 @@ const EquipPieChart = ({ equipData, sort }) => {
     name,
     value,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.34;
-    const xx = cx + radius * Math.cos(-midAngle * RADIAN);
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.31;
+    const xx = cx + radius * Math.cos(-midAngle * RADIAN) * 0.8;
     const yy = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
@@ -51,7 +48,7 @@ const EquipPieChart = ({ equipData, sort }) => {
         fill="white"
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline="central"
-        fontSize={19}
+        fontSize={16}
       >
         {value === 0 ? null : name}
       </text>
@@ -59,13 +56,13 @@ const EquipPieChart = ({ equipData, sort }) => {
   };
 
   return (
-    <PieChart width={300} height={300}>
+    <PieChart width={220} height={230}>
       <Pie
         data={data}
         cx="50%"
         cy="50%"
-        innerRadius={47}
-        outerRadius={135}
+        innerRadius={40}
+        outerRadius={110}
         labelLine={false}
         label={renderCustomizedLabel}
         fill="#8884d8"
