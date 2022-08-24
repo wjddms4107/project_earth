@@ -6,6 +6,7 @@ const timeStore = observable({
 
   onChangeTime(e) {
     this.ProgressTime = e.target.name;
+    this.equipTime = e.target.name;
   },
 });
 

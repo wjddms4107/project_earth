@@ -6,7 +6,7 @@ const Progress = observer(() => {
   return (
     <div className="relative">
       <div className="absolute top-3 right-10 flex justify-center py-1.5 h-11 w-36 rounded-full bg-achromatic-btn_action_select text-achromatic-text_secondary">
-        {TIME_DATA.map(({ id, timeData, name }) => {
+        {TIME_DATA.map(({ id, time, name }) => {
           return (
             <button
               onClick={e => timeStore.onChangeTime(e)}
@@ -18,7 +18,7 @@ const Progress = observer(() => {
               name={name}
               key={id}
             >
-              {timeData}
+              {time}
             </button>
           );
         })}
@@ -28,8 +28,8 @@ const Progress = observer(() => {
 });
 
 const TIME_DATA = [
-  { id: 1, timeData: '주별', name: 'weekly' },
-  { id: 2, timeData: '월별', name: 'monthly' },
+  { id: 1, time: '주별', name: 'weekly' },
+  { id: 2, time: '월별', name: 'monthly' },
 ];
 
 export default Progress;

@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 import EquipPieChart from './components/EquipPieChart';
 import TruckBarChart from './components/TruckBarChart';
 import EquipDate from './components/EquipDate';
+import timeStore from '../../stores/timeStore';
 
-const EquipAnalysis = () => {
+const EquipAnalysis = observer(() => {
   const navigate = useNavigate();
   const [equipData, setEquipData] = useState([]);
   const [rateData, setRateData] = useState([]);
   const [truckData, setTruckData] = useState([]);
-  const [time, setTime] = useState('daily');
 
   const getEquipData = async () => {
-    const queryString = `?select=${time}`;
+    const queryString = `?select=${timeStore.equipTime}`;
     navigate(`/equipment/analysis${queryString}`);
     //'/data/equipData.json'
     // `http://192.168.0.136:8000/equipment/analysis${queryString}`
@@ -66,48 +67,31 @@ const EquipAnalysis = () => {
 
   useEffect(() => {
     getEquipData();
-  }, [time]);
+  }, []);
 
-  const changeTime = e => {
-    setTime(e.target.name);
-  };
+  // console.log('equipData:', equipData);
+  // console.log('rateData:', rateData);
+  // console.log('truckData:', truckData);
 
   return (
     <div className="relative">
       <div className="absolute top-3 right-10 flex justify-center py-1.5 h-11 w-52 rounded-full bg-achromatic-btn_action_select text-achromatic-text_secondary">
-        <button
-          onClick={e => changeTime(e)}
-          className={
-            time === 'daily'
-              ? 'text-achromatic-bg_paper bg-blue-blue90 rounded-full h-8 w-16'
-              : 'h-8 w-16'
-          }
-          name="daily"
-        >
-          일별
-        </button>
-        <button
-          onClick={e => changeTime(e)}
-          className={
-            time === 'weekly'
-              ? 'text-achromatic-bg_paper bg-blue-blue90 rounded-full h-8 w-16 '
-              : 'h-8 w-16'
-          }
-          name="weekly"
-        >
-          주별
-        </button>
-        <button
-          onClick={e => changeTime(e)}
-          className={
-            time === 'monthly'
-              ? 'text-achromatic-bg_paper bg-blue-blue90 rounded-full h-8 w-16'
-              : 'h-8 w-16'
-          }
-          name="monthly"
-        >
-          월별
-        </button>
+        {TIME_DATA.map(({ id, time, name }) => {
+          return (
+            <button
+              onClick={e => timeStore.onChangeTime(e)}
+              className={
+                timeStore.equipTime === name
+                  ? 'text-achromatic-bg_paper bg-blue-blue90 rounded-full h-8 w-16 '
+                  : 'h-8 w-16'
+              }
+              name={name}
+              key={id}
+            >
+              {time}
+            </button>
+          );
+        })}
       </div>
 
       <div className="pb-1 text-xl font-bold">작업 장비 가동률</div>
@@ -116,7 +100,7 @@ const EquipAnalysis = () => {
         Time 비율입니다.
       </div>
       <div className="text-base text-achromatic-text_secondary">
-        <EquipDate time={time} />
+        <EquipDate time={timeStore.equipTime} />
       </div>
       <div className="flex justify-center mb-16 ">
         {EQUIPINFO_DATA.map(({ id, sort }) => {
@@ -142,13 +126,19 @@ const EquipAnalysis = () => {
       </div>
     </div>
   );
-};
+});
 
 const EQUIPINFO_DATA = [
   { id: 1, sort: 'excavators', name: 'excavators' },
   { id: 2, sort: 'backhoe', name: 'backhoe' },
   { id: 3, sort: 'bulldozer', name: 'bulldozer' },
   { id: 4, sort: 'wheel_loader', name: 'wheel_loader' },
+];
+
+const TIME_DATA = [
+  { id: 1, time: '일별', name: 'daily' },
+  { id: 2, time: '주별', name: 'weekly' },
+  { id: 3, time: '월별', name: 'monthly' },
 ];
 
 export default EquipAnalysis;
