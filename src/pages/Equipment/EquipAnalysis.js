@@ -119,7 +119,7 @@ const EquipAnalysis = () => {
         <EquipDate time={time} />
       </div>
       <div className="flex justify-center mb-16 ">
-        {EQUIPINFO_DATA.map(({ id, sort, name }) => {
+        {EQUIPINFO_DATA.map(({ id, sort }) => {
           return (
             <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
               <div className="flex justify-center align-middle relative text-2xl font-bold top-[131px]">
