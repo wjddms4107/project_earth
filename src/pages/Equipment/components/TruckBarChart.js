@@ -44,7 +44,7 @@ export default function TruckBarChart({ truckData }) {
       >
         <CartesianGrid fill="#FFFFFF" />
         <XAxis dataKey="name" />
-        <YAxis type="number" domain={[0, 10]} />
+        <YAxis type="number" domain={[0, 200]} />
         <Bar dataKey="pv" fill="#FFC506" minPointSize={0} barSize={70}>
           <LabelList dataKey="pv" content={renderCustomizedLabel} />
         </Bar>

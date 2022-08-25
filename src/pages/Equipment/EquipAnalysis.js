@@ -17,61 +17,50 @@ const EquipAnalysis = observer(() => {
     navigate(`/equipment/analysis${queryString}`);
     //'/data/equipData.json'
     // `http://192.168.0.136:8000/equipment/analysis${queryString}`
-    const res = await fetch('/data/equipData.json').then(res => res.json());
-    const equip = [res.results].map(data => {
-      return {
-        excavators: data.excavators_state,
-        backhoe: data.backhoe_state,
-        bulldozer: data.bulldozer_state,
-        wheel_loader: data.wheel_loader_state,
-      };
-    });
-    const rate = [res.results].map(data => {
-      return {
-        excavators: Math.floor(data.excavators_state.utilization_rate * 100),
-        backhoe: Math.floor(data.backhoe_state.utilization_rate * 100),
-        bulldozer: Math.floor(data.bulldozer_state.utilization_rate * 100),
-        wheel_loader: Math.floor(
-          data.wheel_loader_state.utilization_rate * 100
-        ),
-      };
-    });
-    const truckCount = [res.results].map(data => {
+    const res = await fetch(
+      `http://192.168.0.136:8000/equipment/analysis${queryString}`
+    ).then(res => res.json());
+    const equip = res.states;
+    const rate = res.utilization_rates;
+    const truckCount = [res.truck_count].map(data => {
       return [
         {
           name: 'A구역',
-          pv: data.truck_count.구역A,
+          pv: data.구역A,
         },
         {
           name: 'B구역',
-          pv: data.truck_count.구역B,
+          pv: data.구역B,
         },
         {
           name: 'C구역',
-          pv: data.truck_count.구역C,
+          pv: data.구역C,
         },
         {
           name: 'D구역',
-          pv: data.truck_count.구역D,
+          pv: data.구역D,
         },
         {
           name: 'E구역',
-          pv: data.truck_count.구역E,
+          pv: data.구역E,
         },
       ];
     });
-    setEquipData(equip[0]);
-    setRateData(rate[0]);
+    setEquipData(equip);
+    setRateData(rate);
     setTruckData(truckCount[0]);
   };
 
   useEffect(() => {
     getEquipData();
-  }, []);
+  }, [timeStore.equipTime]);
 
-  // console.log('equipData:', equipData);
-  // console.log('rateData:', rateData);
-  // console.log('truckData:', truckData);
+  const EQUIPINFO_DATA = [
+    { id: 1, sort: Object.keys(equipData)[0] },
+    { id: 2, sort: Object.keys(equipData)[1] },
+    { id: 3, sort: Object.keys(equipData)[2] },
+    { id: 4, sort: Object.keys(equipData)[3] },
+  ];
 
   return (
     <div className="relative">
@@ -93,7 +82,6 @@ const EquipAnalysis = observer(() => {
           );
         })}
       </div>
-
       <div className="pb-1 text-xl font-bold">작업 장비 가동률</div>
       <div className="text-base text-achromatic-text_secondary">
         중장비별 Idle, Travel, Load, Unload Time 비율과 작업 시간 대비 Not Idle
@@ -104,22 +92,22 @@ const EquipAnalysis = observer(() => {
       </div>
       <div className="flex justify-center mb-16 ">
         {EQUIPINFO_DATA.map(({ id, sort }) => {
-          return (
-            <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
-              <div className="flex justify-center align-middle relative text-2xl font-bold top-[131px]">
-                {rateData[sort]}%
+          if (sort)
+            return (
+              <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
+                <div className="flex justify-center align-middle relative text-2xl font-bold top-[131px]">
+                  {Math.floor(rateData[sort] * 100)}%
+                </div>
+                <div className="flex justify-center">
+                  <EquipPieChart key={id} equipData={equipData} sort={sort} />
+                </div>
+                <div className="flex pt-3 justify-center text-3xl font-bold">
+                  {sort}
+                </div>
               </div>
-              <div className="flex justify-center">
-                <EquipPieChart key={id} equipData={equipData} sort={sort} />
-              </div>
-              <div className="flex pt-3 justify-center text-3xl font-bold">
-                {sort}
-              </div>
-            </div>
-          );
+            );
         })}
       </div>
-
       <div className="pb-5 text-xl font-bold">운송 장비 가동률</div>
       <div className="w-full h-auto">
         <TruckBarChart truckData={truckData} />
@@ -127,13 +115,6 @@ const EquipAnalysis = observer(() => {
     </div>
   );
 });
-
-const EQUIPINFO_DATA = [
-  { id: 1, sort: 'excavators', name: 'excavators' },
-  { id: 2, sort: 'backhoe', name: 'backhoe' },
-  { id: 3, sort: 'bulldozer', name: 'bulldozer' },
-  { id: 4, sort: 'wheel_loader', name: 'wheel_loader' },
-];
 
 const TIME_DATA = [
   { id: 1, time: '일별', name: 'daily' },
