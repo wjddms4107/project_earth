@@ -8,21 +8,22 @@ const EquipPieChart = ({ equipData, sort }) => {
   const data = [
     {
       name: 'Idle',
-      value: equipData[sort].idle,
+      value: sort && equipData[sort].idle,
     },
     {
       name: 'Travel',
-      value: equipData[sort].travel,
+      value: sort && equipData[sort].travel,
     },
     {
       name: 'Load',
-      value: equipData[sort].load,
+      value: sort && equipData[sort].load,
     },
     {
       name: 'Unload',
-      value: equipData[sort].unload,
+      value: sort && equipData[sort].unload,
     },
   ];
+
   const COLORS = ['#FF4C65', '#FFC506', '#1CDFBB', '#47BEFF'];
 
   const RADIAN = Math.PI / 180;
@@ -37,7 +38,7 @@ const EquipPieChart = ({ equipData, sort }) => {
     name,
     value,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.31;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.37;
     const xx = cx + radius * Math.cos(-midAngle * RADIAN) * 0.8;
     const yy = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -70,9 +71,11 @@ const EquipPieChart = ({ equipData, sort }) => {
         paddingAngle={0}
         nameKey="name"
       >
-        {data.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index]} />
-        ))}
+        {equipData[sort]
+          ? data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index]} />
+            ))
+          : null}
       </Pie>
     </PieChart>
   );

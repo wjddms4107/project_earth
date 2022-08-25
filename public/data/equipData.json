@@ -1,42 +1,28 @@
 {
-  "message": "SUCCESS",
-  "results": {
-    "truck_count": {
-      "구역A": 4,
-      "구역B": 2,
-      "구역C": 4,
-      "구역D": 6,
-      "구역E": 1
-  },
-    "excavators_state": {
-        "idle": 0,
-        "load": 110,
-        "unload": 0,
-        "travel": 250,
-        "utilization_rate": 0.6944444444444445
+    "message": "SUCCESS",
+    "truck_count": {   
+        "구역A": 87,
+        "구역B": 0,
+        "구역C": 0,
+        "구역D": 0,
+        "구역E": 0
     },
-    "backhoe_state": {
-        "idle": 20,
-        "load": 0,
-        "unload": 230,
-        "travel": 150,
-        "utilization_rate": 0.4044444444444445
-
+    "status": {        
+        "excavators1": {    
+            "idle": 80,
+            "travel": 90,
+            "load": 70,
+            "unload": 50
+        },
+        "backhoe2": {
+            "idle": 30,
+            "travel": 30,
+            "load": 40,
+            "unload": 50
+        }
     },
-    "bulldozer_state": {
-        "idle": 0,
-        "load": 130,
-        "unload": 0,
-        "travel": 100,
-        "utilization_rate": 0.554534534
-    },
-    "wheel_loader_state": {
-        "idle": 250,
-        "load": 0,
-        "unload": 110,
-        "travel": 170,
-        "utilization_rate": 0.344534534
-
+    "utilization_rates": {
+        "excavators1": 0.237291666666666667,
+        "backhoe2": 0.44166666666666667
     }
-  }
 }
