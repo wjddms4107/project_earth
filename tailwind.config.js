@@ -49,6 +49,9 @@ module.exports = {
       },
       inset: {
         '131px': '131px',
+        '270px': '270px',
+        '200px': '200px',
+        '34px': '34px',
       },
     },
   },
