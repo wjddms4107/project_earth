@@ -17,10 +17,8 @@ const EquipAnalysis = observer(() => {
     navigate(`/equipment/analysis${queryString}`);
     //'/data/equipData.json'
     // `http://192.168.0.136:8000/equipment/analysis${queryString}`
-    const res = await fetch(
-      `http://192.168.0.136:8000/equipment/analysis${queryString}`
-    ).then(res => res.json());
-    const equip = res.states;
+    const res = await fetch('/data/equipData.json').then(res => res.json());
+    const equip = res.status;
     const rate = res.utilization_rates;
     const truckCount = [res.truck_count].map(data => {
       return [
