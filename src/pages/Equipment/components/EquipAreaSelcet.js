@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -14,10 +14,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: '14px',
   },
 }));
-
 export default function EquipAreaSelect({ area, handleArea }) {
   const classes = useStyles();
-
   return (
     <FormControl
       sx={{ minWidth: 120 }}

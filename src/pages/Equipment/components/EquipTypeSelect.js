@@ -27,8 +27,6 @@ export default function EquipTypeSelect({ type, handleType }) {
         labelId="demo-simple-select-filled-label"
         id="demo-simple-select-filled"
         className={classes.select}
-        // labelId="demo-select-small"
-        // id="demo-select-small"
         value={type}
         onChange={handleType}
       >

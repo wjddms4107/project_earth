@@ -6,17 +6,15 @@ import EquipListTable from './components/EquipListTable';
 
 const EquipList = () => {
   const navigate = useNavigate();
-  const [equipList, setEquipList] = useState([]);
 
+  const [equipList, setEquipList] = useState([]);
   const getEquipList = async () => {
     navigate('/equipment/list');
     // http://192.168.0.129:8000/equipment/list
     const res = await fetch('/data/equipListData.json').then(res => res.json());
     const list = res.message;
-
     setEquipList(list);
   };
-
   useEffect(() => {
     getEquipList();
   }, []);
@@ -31,7 +29,6 @@ const EquipList = () => {
         ? `?type=${type}`
         : `?${typeQuery}&${areaQuery}`;
     navigate(`/equipment/list${finalQuery}`);
-    //http://192.168.0.129:8000/equipment/list${finalQuery}
     fetch(`http://192.168.0.129:8000/equipment/list${finalQuery}`)
       .then(res => res.json())
       .then(data => setEquipList(data.message));
@@ -52,11 +49,6 @@ const EquipList = () => {
   const handleArea = event => {
     setArea(event.target.value);
   };
-
-  console.log('equipList:', equipList);
-  console.log('type:', type);
-  console.log('area:', area);
-
   return (
     <div className="px-4">
       <div className="bg-achromatic-bg_paper">
@@ -65,13 +57,10 @@ const EquipList = () => {
           <div className="flex">
             <div className="mx-16">
               <div className="text-sm font-semibold">장비 타입</div>
-              {/* <div className="w-[200px] border-2 "> */}
               <EquipTypeSelect type={type} handleType={handleType} />
-              {/* </div> */}
             </div>
             <div>
               <div className="text-sm font-semibold">장비 구역</div>
-              {/* <div className="w-[200px] border-2">장비 구역 셀렉트박스</div> */}
               <EquipAreaSelect area={area} handleArea={handleArea} />
             </div>
           </div>
@@ -113,5 +102,4 @@ const EquipList = () => {
     </div>
   );
 };
-
 export default EquipList;
