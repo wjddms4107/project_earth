@@ -1,6 +1,6 @@
 import { useState, Fragment } from 'react';
 import { useLocation, Link, Outlet } from 'react-router-dom';
-import { BsGrid, BsHouseDoorFill } from 'react-icons/bs';
+import { BsHouseDoorFill } from 'react-icons/bs';
 import {
   MdOutlineArrowBackIosNew,
   MdOutlineArrowForwardIos,
@@ -17,24 +17,22 @@ export default function SideBar() {
     {
       menu_id: 1,
       title: 'Home',
-      icon: BsGrid,
+      iconURL: '/images/home_icon.svg',
       URL: '/',
     },
     {
       menu_id: 2,
       title: 'Equipment',
-      icon: BsGrid,
+      iconURL: '/images/equipment_icon.svg',
       sub_categories: [
         {
           menu_id: 3,
           title: 'Analysis ',
-          icon: BsGrid,
           URL: '/equipment/analysis',
         },
         {
           menu_id: 4,
           title: 'List',
-          icon: BsGrid,
           URL: '/equipment/list',
         },
       ],
@@ -42,18 +40,17 @@ export default function SideBar() {
     {
       menu_id: 5,
       title: 'Progress',
-      icon: BsGrid,
+      iconURL: '/images/progress_icon.svg',
       URL: '/progress',
     },
     {
       menu_id: 6,
       title: 'Area',
-      icon: BsGrid,
+      iconURL: '/images/area_icon.svg',
       sub_categories: [
         {
           menu_id: 7,
           title: 'List',
-          icon: BsGrid,
           URL: '/area/list',
         },
       ],
@@ -88,18 +85,17 @@ export default function SideBar() {
             onClick={() => setOpen(!open)}
             alt="collapseButton"
           />
-          <div className="flex items-center w-full border-b-2 border-blue-center_border">
-            <h1
-              className={`text-achromatic-bg_paper p-4 origin-left text-2xl font-medium duration-300 ${
+          <div className="flex items-center w-full p-4 border-b-2 border-blue-center_border">
+            <img
+              src="images/musma_logo.svg"
+              className={`{text-achromatic-bg_paper h-8 w-20 origin-left duration-300 ${
                 !open && 'scale-0'
               }`}
-            >
-              mcas
-            </h1>
+              alt="area_icon"
+            />
           </div>
           <ul className="p-4">
             {MENU_DATA.map((Menu, index) => {
-              const Icon = Menu.icon;
               return (
                 // eslint-disable-next-line react/jsx-key
                 <Fragment>
@@ -112,7 +108,11 @@ export default function SideBar() {
                       currMenu === index ? setCurrMenu('') : setCurrMenu(index)
                     }
                   >
-                    <Icon className="text-achromatic-bg_paper text-lg" />
+                    <img
+                      src={Menu.iconURL}
+                      className="w-5"
+                      alt={`${Menu.title}_icon`}
+                    />
                     {!!Menu.URL ? (
                       <Link
                         to={`${Menu.URL}`}
@@ -179,7 +179,7 @@ export default function SideBar() {
             })}
           </ul>
         </div>
-        <div className="h-auto w-full mt-16 p-7">
+        <div className="bg-achromatic-bg_default h-auto flex-1 mt-16 p-7">
           <Outlet />
         </div>
       </div>
