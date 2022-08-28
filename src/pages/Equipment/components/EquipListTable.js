@@ -6,30 +6,23 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import '../../../index.css';
 
 const useStyles = makeStyles({
+  tableContainer: { border: '1px solid #D5DDE4', borderRadius: '4px' },
   table: {},
-  tableRow: {},
-  tableCell: {
-    width: '25%',
-    height: 42,
-    border: '1px solid #D5DDE4',
+  tableHead: {},
+  tableRow: {
+    height: 40,
     background: '#EFF2F5',
     padding: 'none',
   },
-  '.css-1q1u3t4-MuiTableRow-root': {
-    color: 'red',
-    fontSize: '100px',
-  },
-  '.css-6gz8hr-MuiTableCell-root': {
-    color: 'red',
-    fontSize: '100px',
+  tableCell: {
+    borderRight: '1px solid #D5DDE4',
   },
 });
 
 const StyledTableRow = withStyles(theme => ({
-  root: { border: '1px solid #D5DDE4' },
+  root: {},
 }))(TableRow);
 
 const StyledTableCell = withStyles(theme => ({
@@ -83,14 +76,15 @@ export default function EquipListTable({ equipList }) {
   // console.log('rows:', rows);
 
   return (
-    <TableContainer>
-      <Table className={classes.table}>
+    <TableContainer className={classes.tableContainer}>
+      <Table>
         <TableHead>
           <TableRow className={classes.tableRow}>
             <TableCell
               className={classes.tableCell}
               padding="none"
               align="center"
+              width="25%"
             >
               시리얼
             </TableCell>
@@ -98,6 +92,7 @@ export default function EquipListTable({ equipList }) {
               className={classes.tableCell}
               padding="none"
               align="center"
+              width="25%"
             >
               타입
             </TableCell>
@@ -105,14 +100,11 @@ export default function EquipListTable({ equipList }) {
               className={classes.tableCell}
               padding="none"
               align="center"
+              width="25%"
             >
               소유주
             </TableCell>
-            <TableCell
-              className={classes.tableCell}
-              padding="none"
-              align="center"
-            >
+            <TableCell padding="none" align="center" width="25%">
               구역
             </TableCell>
           </TableRow>
