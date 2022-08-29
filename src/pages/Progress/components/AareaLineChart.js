@@ -8,44 +8,10 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  {
-    day: '1',
-    a_area: 10,
-    b_area: 10,
-  },
-  {
-    day: '2',
-    a_area: 30,
-    b_area: 30,
-  },
-  {
-    day: '3',
-    a_area: 25,
-    b_area: 20,
-  },
-  {
-    day: '4',
-    a_area: 60,
-    b_area: 60,
-  },
-  {
-    day: '5',
-    a_area: 70,
-    b_area: 70,
-  },
-  {
-    day: '6',
-    a_area: 55,
-    b_area: 65,
-  },
-  {
-    day: '7',
-    a_area: 95,
-    b_area: 95,
-  },
-];
-export default function AareaLineChart() {
+export default function AareaLineChart({ areaData }) {
+  const isData = areaData.length !== 0;
+  if (!isData) return <div>로딩중입니다.</div>;
+
   const CustomizedLabel = props => {
     const { x, y, value } = props;
 
@@ -63,7 +29,7 @@ export default function AareaLineChart() {
         <LineChart
           width={500}
           height={200}
-          data={data}
+          data={areaData}
           syncId="anyId"
           margin={{
             top: 20,
@@ -72,12 +38,16 @@ export default function AareaLineChart() {
             bottom: 50,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="white" />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke="#FFFFFF"
+            fill="#FFFFFF"
+          />
           <XAxis dataKey="day" />
           <YAxis domain={[0, 100]} />
           <Line
             type="linear"
-            dataKey="a_area"
+            dataKey="구역A"
             stroke="#036DB7"
             activeDot={false}
             strokeWidth={5}
@@ -92,7 +62,7 @@ export default function AareaLineChart() {
         <LineChart
           width={500}
           height={200}
-          data={data}
+          data={areaData}
           syncId="anyId"
           margin={{
             top: 20,
@@ -101,12 +71,16 @@ export default function AareaLineChart() {
             bottom: 50,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" stroke="white" />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            stroke="#FFFFFF"
+            fill="#FFFFFF"
+          />
           <XAxis dataKey="day" />
           <YAxis domain={[0, 100]} />
           <Line
             type="linear"
-            dataKey="b_area"
+            dataKey="구역B"
             stroke="#036DB7"
             activeDot={false}
             strokeWidth={5}
