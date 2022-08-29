@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import EquipDetailBarChart from './components/EquipDetailBarChart';
+import EquipDetailDataAPI from '../../assets/data/equipDetailData.json';
+import backhoe from '../../assets/images/backhoe.jpeg';
+import bulldozer from '../../assets/images/bulldozer.jpeg';
+import excuvators from '../../assets/images/excuvators.jpeg';
+import wheel_loader from '../../assets/images/wheel_loader.jpeg';
+import previous from '../../assets/images/previous.svg';
 
 const EquipDetail = () => {
   let { equipment_id } = useParams();
@@ -9,10 +15,11 @@ const EquipDetail = () => {
   const [equipDetailData, setEquipDetailData] = useState([]);
 
   const getEquipDetailData = async () => {
-    // `http://192.168.0.129:8000/equipment/${equipment_id}`
-    const res = await fetch('/data/equipDetailData.json').then(res =>
-      res.json()
-    );
+    //
+    // const res = await fetch(`http://192.168.0.129:8000/equipment/${equipment_id}`).then(res =>
+    //   res.json()
+    // );
+    const res = EquipDetailDataAPI;
     const detailBarChart = res.availablete_rating;
     const equipDetail = res.message;
     setDatailBarChartData(detailBarChart);
@@ -36,7 +43,7 @@ const EquipDetail = () => {
         <div className="w-2/5 mr-10">
           <div className="flex mb-3 ">
             <img
-              src="/images/previous.svg"
+              src={previous}
               alt="previous"
               onClick={() => navigate('/equipment/list')}
             />
@@ -47,12 +54,12 @@ const EquipDetail = () => {
           <img
             src={
               equipDetailData.equipment_type === 'backhoe'
-                ? '/images/backhoe.jpeg'
+                ? backhoe
                 : equipDetailData.equipment_type === 'wheel_loader'
-                ? '/images/wheel_loader.jpeg'
+                ? wheel_loader
                 : equipDetailData.equipment_type === 'bulldozer'
-                ? '/images/bulldozer.jpeg'
-                : '/images/excuvators.jpeg'
+                ? bulldozer
+                : excuvators
             }
             alt="equipment"
             width={494}
