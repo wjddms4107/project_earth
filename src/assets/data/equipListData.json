@@ -4,28 +4,28 @@
             "equipment_id": 1,
             "equipment_type": "backhoe",
             "serial_number": "backhoe-000",
-            "equipment_owner": "백호주인",
+            "equipment_company": "백호주인",
             "equipment_area": "구역A"
         },
         {
             "equipment_id": 2,
             "equipment_type": "wheel_loader",
             "serial_number": "wheel_loader-008",
-            "equipment_owner": "휠로더주인",
+            "equipment_company": "휠로더주인",
             "equipment_area": "구역B"
         },
 		{
             "equipment_id": 3,
             "equipment_type": "bulldozer",
             "serial_number": "bulldozer-008",
-            "equipment_owner": "불도저주인",
+            "equipment_company": "불도저주인",
             "equipment_area": "구역B"
         },
         {
             "equipment_id": 4,
             "equipment_type": "excavators",
             "serial_number": "excavators-008",
-            "equipment_owner": "이캐베이터주인",
+            "equipment_company": "이캐베이터주인",
             "equipment_area": "구역B"
         }
     ]

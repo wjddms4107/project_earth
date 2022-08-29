@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { withStyles, makeStyles } from '@material-ui/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -32,41 +33,41 @@ const StyledTableCell = withStyles(theme => ({
 function createData(
   serial_number,
   equipment_type,
-  equipment_owner,
+  equipment_company,
   equipment_area,
   equipment_id
 ) {
   return {
     serial_number,
     equipment_type,
-    equipment_owner,
+    equipment_company,
     equipment_area,
     equipment_id,
   };
 }
 export default function EquipListTable({ equipList }) {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const isData = equipList.length !== 0;
   if (!isData) return <div>로딩중입니다.</div>;
 
   const goToDetailPage = equipment_id => {
-    // navigate(`/equipment/${equipment_id}`);
-    // console.log(`/equipment/${equipment_id}`);
+    navigate(`/equipment/${equipment_id}`);
   };
 
   const rows = equipList.map(
     ({
       serial_number,
       equipment_type,
-      equipment_owner,
+      equipment_company,
       equipment_area,
       equipment_id,
     }) =>
       createData(
         serial_number,
         equipment_type,
-        equipment_owner,
+        equipment_company,
         equipment_area,
         equipment_id
       )
@@ -122,7 +123,7 @@ export default function EquipListTable({ equipList }) {
                 {row.equipment_type}
               </StyledTableCell>
               <StyledTableCell padding="none" align="center">
-                {row.equipment_owner}
+                {row.equipment_company}
               </StyledTableCell>
               <StyledTableCell padding="none" align="center">
                 {row.equipment_area}
