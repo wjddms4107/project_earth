@@ -6,6 +6,11 @@ import {
   MdOutlineArrowForwardIos,
 } from 'react-icons/md';
 import { IoIosArrowDown } from 'react-icons/io';
+import musma_logo from '../../assets/images/musma_logo.svg';
+import home_icon from '../../assets/images/home_icon.svg';
+import equipment_icon from '../../assets/images/equipment_icon.svg';
+import progress_icon from '../../assets/images/progress_icon.svg';
+import area_icon from '../../assets/images/area_icon.svg';
 
 export default function SideBar() {
   const [open, setOpen] = useState(true);
@@ -17,13 +22,13 @@ export default function SideBar() {
     {
       menu_id: 1,
       title: 'Home',
-      iconURL: '/images/home_icon.svg',
+      iconURL: home_icon,
       URL: '/',
     },
     {
       menu_id: 2,
       title: 'Equipment',
-      iconURL: '/images/equipment_icon.svg',
+      iconURL: equipment_icon,
       sub_categories: [
         {
           menu_id: 3,
@@ -40,13 +45,13 @@ export default function SideBar() {
     {
       menu_id: 5,
       title: 'Progress',
-      iconURL: '/images/progress_icon.svg',
+      iconURL: progress_icon,
       URL: '/progress',
     },
     {
       menu_id: 6,
       title: 'Area',
-      iconURL: '/images/area_icon.svg',
+      iconURL: area_icon,
       sub_categories: [
         {
           menu_id: 7,
@@ -87,7 +92,7 @@ export default function SideBar() {
           />
           <div className="flex items-center w-full p-4 border-b-2 border-blue-center_border">
             <img
-              src="images/musma_logo.svg"
+              src={musma_logo}
               className={`{text-achromatic-bg_paper h-8 w-20 origin-left duration-300 ${
                 !open && 'scale-0'
               }`}
