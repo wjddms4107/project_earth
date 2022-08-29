@@ -1,10 +1,11 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import timeStore from '../../stores/timeStore';
+import AareaLineChart from './components/AareaLineChart';
 
 const Progress = observer(() => {
   return (
-    <div className="relative">
+    <div className="relative bg-achromatic-bg_default">
       <div className="absolute top-3 right-10 flex justify-center py-1.5 h-11 w-36 rounded-full bg-achromatic-btn_action_select text-achromatic-text_secondary">
         {TIME_DATA.map(({ id, time, name }) => {
           return (
@@ -22,6 +23,9 @@ const Progress = observer(() => {
             </button>
           );
         })}
+      </div>
+      <div>
+        <AareaLineChart />
       </div>
     </div>
   );
