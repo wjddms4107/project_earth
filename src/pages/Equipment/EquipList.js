@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import EquipTypeSelect from './components/EquipTypeSelect';
 import EquipAreaSelect from './components/EquipAreaSelcet';
 import EquipListTable from './components/EquipListTable';
+import EquipListDataAPI from '../../assets/data/equipListData.json';
 
 const EquipList = () => {
   const navigate = useNavigate();
@@ -10,7 +11,10 @@ const EquipList = () => {
   const getEquipList = async () => {
     navigate('/equipment/list');
     // `http://192.168.0.129:8000/equipment/list`
-    const res = await fetch('/data/equipListData.json').then(res => res.json());
+    // const res = await fetch(`http://192.168.0.129:8000/equipment/list`).then(
+    //   res => res.json()
+    // );
+    const res = EquipListDataAPI;
     const list = res.message;
     setEquipList(list);
   };

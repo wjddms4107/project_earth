@@ -5,6 +5,7 @@ import EquipPieChart from './components/EquipPieChart';
 import TruckBarChart from './components/TruckBarChart';
 import EquipDate from './components/EquipDate';
 import timeStore from '../../stores/timeStore';
+import EquipDataAPI from '../../assets/data/equipData.json';
 
 const EquipAnalysis = observer(() => {
   const navigate = useNavigate();
@@ -15,9 +16,10 @@ const EquipAnalysis = observer(() => {
   const getEquipData = async () => {
     const queryString = `?select=${timeStore.equipTime}`;
     navigate(`/equipment/analysis${queryString}`);
-    //'/data/equipData.json'
-    // `http://192.168.0.136:8000/equipment/analysis${queryString}`
-    const res = await fetch('/data/equipData.json').then(res => res.json());
+    // const res = await fetch(`http://192.168.0.136:8000/equipment/analysis${queryString}`).then(res =>
+    //   res.json()
+    // );
+    const res = EquipDataAPI;
     const equip = res.status;
     const rate = res.utilization_rates;
     const truckCount = [res.truck_count].map(data => {
