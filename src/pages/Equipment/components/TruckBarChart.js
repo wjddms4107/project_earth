@@ -43,10 +43,10 @@ export default function TruckBarChart({ truckData }) {
         }}
       >
         <CartesianGrid fill="#FFFFFF" />
-        <XAxis dataKey="name" />
-        <YAxis type="number" domain={[0, 200]} />
-        <Bar dataKey="pv" fill="#FFC506" minPointSize={0} barSize={70}>
-          <LabelList dataKey="pv" content={renderCustomizedLabel} />
+        <XAxis dataKey="area_name" dy={10} />
+        <YAxis type="number" dx={-10} />
+        <Bar dataKey="count" fill="#FFC506" minPointSize={0} barSize={70}>
+          <LabelList dataKey="count" content={renderCustomizedLabel} />
         </Bar>
       </BarChart>
     </ResponsiveContainer>
