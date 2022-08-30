@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/styles';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { InputLabel } from '@mui/material';
 
 const useStyles = makeStyles(theme => ({
   select: {
