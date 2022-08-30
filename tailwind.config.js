@@ -52,6 +52,7 @@ module.exports = {
         1: '1px',
       },
       inset: {
+        '80px': '80px',
         '131px': '131px',
         '270px': '270px',
         '200px': '200px',
