@@ -1,105 +1,38 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
-import DataFilter from './dataFilter';
+import { useTranslation } from 'react-i18next';
+import '../../assets/locales/lang/i18next';
 
 export default function VehiclePieChart({ data }) {
   if (!data) return <div>로딩중입니다.</div>;
 
-  //////////////////////////////////////// NEW
-  const DATA = [
-    {
-      datetime: '2022-08-19T19:23:24+0900',
-      type: [
-        {
-          detection_info: 'blackhoe',
-          state: 'unload',
-        },
-        {
-          detection_info: 'rode_roller',
-          state: 'unload',
-        },
-        {
-          detection_info: 'blackhoe',
-          state: 'load',
-        },
-        {
-          detection_info: 'etc',
-          state: 'travel',
-        },
-        {
-          detection_info: 'excavator',
-          state: 'unload',
-        },
-        {
-          detection_info: 'excavator',
-          state: 'idle',
-        },
-        {
-          detection_info: 'excavator',
-          state: 'idle',
-        },
-        {
-          detection_info: 'excavator',
-          state: 'idle',
-        },
-        {
-          detection_info: 'excavator',
-          state: 'idle',
-        },
-      ],
-    },
-  ];
-  const alpha = new DataFilter(DATA[0]);
-  alpha.setCountByType();
-  alpha.setCountByState();
-  alpha.setTypeByState();
-  console.log(alpha);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { t } = useTranslation();
 
-  /**
-   * 이건 인사하는 함수입니다.
-   * @param {*} inputMap
-   * @returns
-   */
+  /**  */
   const mapToArray = inputMap => {
-    let array = [];
-
-    inputMap.forEach(function (value, key) {
-      let obj = {};
-      obj.name = key;
-      obj.value = value;
-      array.push(obj);
-    });
-
-    return array;
-  };
-  //////////////////////////////////////// NEW
-
-  //////////////////////////////////////// OLD
-  const countState = (data, state) => {
     let dataArray = [];
-    data.map(a => {
-      if (a.state === state) {
-        a.vehicle.map(b => {
-          let filteredData = { name: b.name, value: b.count };
-          return dataArray.push(filteredData);
-        });
-      }
-      return dataArray;
-    });
+    console.log(inputMap);
+    inputMap &&
+      inputMap.forEach(function (value, key) {
+        let obj = {};
+        obj.name = t(key);
+        obj.value = value;
+        dataArray.push(obj);
+      });
+
     return dataArray;
   };
-  //////////////////////////////////////// OLD
 
   const makeChartDATA = state => {
     const CHART_DATA = {
       name: state,
-      // value: countState(data[0].vehicle_state, state), // OLD
-      value: mapToArray(alpha.typeByState.get(state)), // NEW
+      value: mapToArray(data.typeByState.get(state)),
     };
     return CHART_DATA.value;
   };
 
-  console.log(makeChartDATA('unload'));
+  const COLORS = ['#FF4C65', '#FFC506', '#1CDFBB', '#47BEFF'];
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -113,7 +46,7 @@ export default function VehiclePieChart({ data }) {
     name,
     value,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.35;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -125,12 +58,10 @@ export default function VehiclePieChart({ data }) {
         textAnchor={x > cx ? 'start' : 'end'}
         dominantBaseline="central"
       >
-        {data[index].name} ({value}){/* {value === 0 ? null : name} */}
+        {value === 0 ? null : name}
       </text>
     );
   };
-
-  const COLORS = ['#FF4C65', '#FFC506', '#1CDFBB', '#47BEFF'];
 
   return (
     <article className="flex flex-wrap justify-center gap-10 mt-5">
@@ -141,19 +72,20 @@ export default function VehiclePieChart({ data }) {
             key={state.id}
           >
             {makeChartDATA(state.name).length > 0 ? (
-              <PieChart width={300} height={300}>
+              <PieChart width={270} height={270}>
                 <Pie
                   data={makeChartDATA(state.name)}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
                   label={renderCustomizedLabel}
-                  outerRadius={140}
+                  outerRadius={135}
                   fill="#8884d8"
                   nameKey="name"
                   dataKey="value"
+                  paddingAngle={0}
                 >
-                  {data.map((entry, index) => (
+                  {makeChartDATA(state.name).map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
@@ -162,7 +94,7 @@ export default function VehiclePieChart({ data }) {
                 </Pie>
               </PieChart>
             ) : (
-              <div className="flex justify-center items-center w-75 h-75 font-bold text-3xl">
+              <div className="flex justify-center items-center w-67.5 h-67.5 font-bold text-3xl">
                 NO DATA
               </div>
             )}
