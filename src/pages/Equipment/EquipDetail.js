@@ -15,10 +15,9 @@ const EquipDetail = () => {
   const [equipDetailData, setEquipDetailData] = useState([]);
 
   const getEquipDetailData = async () => {
-    //
-    // const res = await fetch(`http://192.168.0.129:8000/equipment/${equipment_id}`).then(res =>
-    //   res.json()
-    // );
+    // const res = await fetch(
+    //   `http://192.168.0.129:8000/equipment/${equipment_id}`
+    // ).then(res => res.json());
     const res = EquipDetailDataAPI;
     const detailBarChart = res.availablete_rating;
     const equipDetail = res.message;
