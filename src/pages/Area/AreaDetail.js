@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AreaDetailMap from './components/AreaDetailMap';
+import AareaDetailLineChart from './components/AreaDetailLineChart';
 import previous from '../../assets/images/previous.svg';
 import AreaDetailDataAPI from '../../assets/data/AreaDetailData.json';
 
@@ -59,6 +60,7 @@ const AreaDetail = () => {
         })}
       </div>
       <div className="text-2xl font-semibold">주간 공정률</div>
+      <AareaDetailLineChart />
     </>
   );
 };
