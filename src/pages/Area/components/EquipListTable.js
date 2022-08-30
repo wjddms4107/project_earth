@@ -16,7 +16,7 @@ export default function EquipListTable({ areaList }) {
   if (!areaList) return <div>로딩중입니다.</div>;
 
   const goToDetailPage = area_id => {
-    navigate(`area/list/${area_id}`);
+    navigate(`/area/detail/${area_id}`);
   };
 
   const rows = areaList.map(
