@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import timeStore from '../../stores/timeStore';
+import AareaLineChart from './components/AareaLineChart';
+import ProgressData from '../../assets/data/ProgressData.json';
 
 const Progress = observer(() => {
+  const navigate = useNavigate();
+  const [areaData, setAreaData] = useState([]);
+  const getProgressData = async () => {
+    const queryString = `?select=${timeStore.ProgressTime}`;
+    navigate(`/progress${queryString}`);
+    // const res = await fetch(
+    //   `http://192.168.0.136:8000/progress${queryString}`
+    // ).then(res => res.json());
+    const res = ProgressData;
+    setAreaData(res.results);
+  };
+
+  useEffect(() => {
+    getProgressData();
+  }, [timeStore.ProgressTime]);
+
   return (
-    <div className="relative">
+    <div className="relative bg-achromatic-bg_default">
       <div className="absolute top-3 right-10 flex justify-center py-1.5 h-11 w-36 rounded-full bg-achromatic-btn_action_select text-achromatic-text_secondary">
         {TIME_DATA.map(({ id, time, name }) => {
           return (
@@ -22,6 +41,9 @@ const Progress = observer(() => {
             </button>
           );
         })}
+      </div>
+      <div>
+        <AareaLineChart areaData={areaData} />
       </div>
     </div>
   );
