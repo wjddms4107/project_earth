@@ -39,8 +39,8 @@ export default function EquipListTable({ areaList }) {
   );
 
   return (
-    <TableContainer>
-      <Table className={classes.table}>
+    <TableContainer className={classes.tableContainer}>
+      <Table>
         <TableHead>
           <TableRow className={classes.tableRow}>
             <TableCell
@@ -57,11 +57,7 @@ export default function EquipListTable({ areaList }) {
             >
               구역 위치
             </TableCell>
-            <TableCell
-              className={classes.tableCell}
-              padding="none"
-              align="center"
-            >
+            <TableCell padding="none" align="center">
               카메라 위치
             </TableCell>
           </TableRow>
@@ -92,19 +88,21 @@ export default function EquipListTable({ areaList }) {
 }
 
 const useStyles = makeStyles({
+  tableContainer: { border: '1px solid #D5DDE4', borderRadius: '4px' },
   table: {},
-  tableRow: {},
-  tableCell: {
-    width: '25%',
-    height: 42,
-    border: '1px solid #D5DDE4',
+  tableHead: {},
+  tableRow: {
+    height: 40,
     background: '#EFF2F5',
     padding: 'none',
+  },
+  tableCell: {
+    borderRight: '1px solid #D5DDE4',
   },
 });
 
 const StyledTableRow = withStyles(theme => ({
-  root: { border: '1px solid #D5DDE4' },
+  root: {},
 }))(TableRow);
 
 const StyledTableCell = withStyles(theme => ({
