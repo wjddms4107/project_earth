@@ -38,18 +38,13 @@ export default function AareaLineChart({ areaData }) {
             bottom: 50,
           }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#FFFFFF"
-            fill="#FFFFFF"
-          />
-          <XAxis dataKey="day" />
-          <YAxis domain={[0, 100]} />
+          <CartesianGrid stroke="#FFFFFF" fill="#FFFFFF" />
+          <XAxis dataKey="day" dy={10} />
+          <YAxis domain={[0, 100]} dx={-10} />
           <Line
             type="linear"
             dataKey="구역A"
             stroke="#036DB7"
-            activeDot={false}
             strokeWidth={5}
             label={<CustomizedLabel />}
             dot={false}
@@ -71,18 +66,13 @@ export default function AareaLineChart({ areaData }) {
             bottom: 50,
           }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#FFFFFF"
-            fill="#FFFFFF"
-          />
-          <XAxis dataKey="day" />
-          <YAxis domain={[0, 100]} />
+          <CartesianGrid stroke="#FFFFFF" fill="#FFFFFF" />
+          <XAxis dataKey="day" dy={10} />
+          <YAxis domain={[0, 100]} dx={-10} />
           <Line
             type="linear"
             dataKey="구역B"
             stroke="#036DB7"
-            activeDot={false}
             strokeWidth={5}
             label={<CustomizedLabel />}
             dot={false}
