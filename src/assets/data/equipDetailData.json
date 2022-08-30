@@ -7,31 +7,31 @@
   },
   "availablete_rating": [
       {
-          "date": "mon",
+          "date": "월",
           "rate": 0
       },
       {
-          "date": "tue",
+          "date": "화",
           "rate": 500
       },
       {
-          "date": "wed",
+          "date": "수",
           "rate": 340
       },
       {
-          "date": "thu",
+          "date": "목",
           "rate": 570
       },
       {
-          "date": "fri",
+          "date": "금",
           "rate": 10
       },
       {
-          "date": "sat",
+          "date": "토",
           "rate": 0
       },
       {
-          "date": "sun",
+          "date": "일",
           "rate": 0
       }
   ]
