@@ -1,0 +1,11 @@
+{
+  "backhoe": "백호우",
+  "excavators": "굴삭기",
+  "bulldozer": "불도저",
+  "truck": "트럭",
+  "wheel_loader": "휠로더",
+  "idle": "대기",
+  "travel": "이동",
+  "load": "적재",
+  "unload": "적하"
+}
