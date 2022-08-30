@@ -19,7 +19,7 @@ const Router = () => {
           <Route path="/equipment/:equipment_id" element={<EquipDetail />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/area/list" element={<AreaList />} />
-          <Route path="/area/detail" element={<AreaDetail />} />
+          <Route path="/area/detail/:area_id" element={<AreaDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

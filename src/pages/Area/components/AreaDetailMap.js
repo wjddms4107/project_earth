@@ -21,18 +21,14 @@ export default function AreaDetailMap({ areaMapData }) {
 
 function Map({ areaMapData }) {
   const center = {
-    lat: Number(areaMapData[0].latitude),
-    lng: Number(areaMapData[0].longitude),
+    lat: Number(areaMapData.latitude),
+    lng: Number(areaMapData.longitude),
   };
 
   const marker = {
-    lat: Number(areaMapData[0].latitude),
-    lng: Number(areaMapData[0].longitude),
+    lat: Number(areaMapData.cam_latitude),
+    lng: Number(areaMapData.cam_longitude),
   };
-
-  // { lat: 36.27561, lng: 126.909785 }
-  console.log(areaMapData[0]);
-  // console.log(centerObj);
 
   const containerStyle = {
     width: 'auto',

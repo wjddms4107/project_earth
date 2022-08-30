@@ -1,27 +1,12 @@
 {
-  "message": "SUCCESS",
-  "area_list": {
-      "1": "구역A",
-      "2": "구역B"
-  },
-  "results": [
-      {
-          "area_id": 1,
-          "area_name": "구역A",
-          "address": "충남 부여군 부여읍 사비로 33",
-          "latitude": "36.275610",
-          "longitude": "126.909785",
-          "cam_latitude": "36.275835",
-          "cam_longitude": "126.909788"
-      },
-      {
-          "area_id": 2,
-          "area_name": "구역B",
-          "address": "충남 부여군 부여읍 금성로 5",
-          "latitude": "36.276907",
-          "longitude": "126.918963",
-          "cam_latitude": "36.276433",
-          "cam_longitude": "126.919087"
-      }
-  ]
+    "message": "SUCCESS",
+    "results": {
+        "area_id": 1,
+        "area_name": "구역A",
+        "address": "충남 부여군 부여읍 사비로 33",
+        "latitude": "36.275610",
+        "longitude": "126.909785",
+        "cam_latitude": "36.275835",
+        "cam_longitude": "126.909788"
+    }
 }

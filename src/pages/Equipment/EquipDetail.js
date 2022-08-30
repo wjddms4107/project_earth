@@ -13,9 +13,7 @@ const EquipDetail = () => {
   let navigate = useNavigate();
   const [datailBarChartData, setDatailBarChartData] = useState([]);
   const [equipDetailData, setEquipDetailData] = useState([]);
-
   const getEquipDetailData = async () => {
-    //
     // const res = await fetch(`http://192.168.0.129:8000/equipment/${equipment_id}`).then(res =>
     //   res.json()
     // );

@@ -16,7 +16,7 @@ export default function EquipListTable({ areaList }) {
   if (!areaList) return <div>로딩중입니다.</div>;
 
   const goToDetailPage = area_id => {
-    navigate(`/list/${area_id}`);
+    navigate(`/area/detail/${area_id}`);
   };
 
   const rows = areaList.map(
@@ -100,14 +100,6 @@ const useStyles = makeStyles({
     border: '1px solid #D5DDE4',
     background: '#EFF2F5',
     padding: 'none',
-  },
-  '.css-1q1u3t4-MuiTableRow-root': {
-    color: 'red',
-    fontSize: '100px',
-  },
-  '.css-6gz8hr-MuiTableCell-root': {
-    color: 'red',
-    fontSize: '100px',
   },
 });
 

@@ -1,34 +1,40 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import AreaDetailMap from './components/AreaDetailMap';
 import AareaDetailLineChart from './components/AreaDetailLineChart';
 import previous from '../../assets/images/previous.svg';
 import AreaDetailDataAPI from '../../assets/data/AreaDetailData.json';
 
 const AreaDetail = () => {
+  let { area_id } = useParams();
   const navigate = useNavigate();
-
   const [areaMapData, setAreaMapData] = useState([]);
-
   const getAreaDetailData = async () => {
-    //
-    // const res = await fetch(`http://192.168.0.129:8000/equipment/${equipment_id}`).then(res =>
+    // const res = await fetch(`http://192.168.0.129:8000/area/detail/${area_id}`).then(res =>
     //   res.json()
     // );
     const res = AreaDetailDataAPI;
     const areaMap = res.results;
     setAreaMapData(areaMap);
   };
-
   useEffect(() => {
     getAreaDetailData();
   }, []);
-  // console.log(areaMapData[0]);
 
   const EQUIP_DETAIL_DATA = [
-    { id: 1, title: 'Area Name', area: 123123 },
-    { id: 2, title: 'GPS', lan: 36.123, lng: 126.123 },
-    { id: 3, title: 'Camera GPS', lan: 36.34, lng: 126.324 },
+    { id: 1, title: 'Area Name', area: areaMapData.area_name },
+    {
+      id: 2,
+      title: 'GPS',
+      lan: areaMapData.latitude,
+      lng: areaMapData.longitude,
+    },
+    {
+      id: 3,
+      title: 'Camera GPS',
+      lan: areaMapData.cam_latitude,
+      lng: areaMapData.cam_longitude,
+    },
   ];
   return (
     <>
@@ -38,7 +44,7 @@ const AreaDetail = () => {
           alt="previous"
           onClick={() => navigate('/area/list')}
         />
-        <div className="text-4xl font-bold ml-2">00구역</div>
+        <div className="text-4xl font-bold ml-2">{areaMapData.area_name}</div>
       </div>
       <div className="flex">
         <div className="w-1/3 mr-10">
