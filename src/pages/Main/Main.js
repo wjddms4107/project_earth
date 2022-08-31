@@ -1,80 +1,84 @@
 import Streamedian from '../Streamedian';
-import VehiclePieChart from './VehiclePieChart';
-import ProcessPieChart from './ProcessPieChart';
-import TableChart from './TableChart';
+import { VehiclePieChart } from './VehiclePieChart';
+import { ProcessPieChart } from './ProcessPieChart';
+import { TableChart } from './TableChart';
 import { useState, useEffect } from 'react';
 import DataFilter from './dataFilter';
 
-export default function Main() {
+export const Main = () => {
   const [data, setData] = useState();
   const [tableList, setTableList] = useState([]);
 
   async function request() {
-    const res = await fetch('http://192.168.0.136:8000');
-    const result = await res.json();
-    setData(result);
+    try {
+      const res = await fetch('http://192.168.0.136:8000');
+      const result = await res.json();
+      if (result.message === 'Not_Detected') {
+        throw Error('Not_Detected');
+      } else {
+        setData(result.message[0]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     // request();
     setData(DATA[0]);
-  }, []);
 
-  useEffect(() => {
     const timer = setInterval(() => {
       // request();
       setData(DATA[0]);
-    }, 10000);
+    }, 1000 * 10);
+    return () => clearInterval(timer);
+  }, []);
 
-    if (!!data && data !== 'Not_Detected') {
-      // let newClass = new DataFilter(data.message[0]);
-      const newClass = new DataFilter(DATA[0]);
+  useEffect(() => {
+    if (data && data !== 'Not_Detected') {
+      let newClass = new DataFilter(data);
       newClass.setCountByType();
       newClass.setCountByState();
       newClass.setTypeByState();
       setTableList(current => {
         const newCurrent = [...current];
-        newCurrent.length >= 20 && newCurrent.pop();
+        newCurrent.length >= 10 && newCurrent.pop();
         newCurrent.unshift(newClass);
         return newCurrent;
       });
     }
-    return () => clearInterval(timer);
   }, [data]);
 
   return (
     <section className="flex justify-center items-start max-full w-full px-10 pt-3 gap-5">
-      <div className="leftPanel flex justify-center items-start flex-col w-2/3 h-fit gap-10">
-        <div className="vehicleChart">
+      <div className=" flex justify-center items-start flex-col w-2/3 h-fit gap-12">
+        <div className="w-full">
           <h1 className="text-2xl font-bold">상태별 중장비</h1>
           <VehiclePieChart data={tableList[0]} />
         </div>
-        <div className="processChart">
+        <div className="w-full">
           <h1 className="text-2xl font-bold">구역별 공정률</h1>
-          {/* <ProcessPieChart /> */}
+          <ProcessPieChart data={tableList[0]} />
         </div>
       </div>
 
-      <div className="rightPanel flex justify-center items-start flex-col w-1/3 h-fit gap-10">
-        <div className="videoOut">
+      <div className="flex justify-center items-start flex-col w-1/3 h-fit gap-12">
+        <div className="w-full">
           <h1 className="text-2xl font-bold">CCTV</h1>
-          <div className="w-full max-h-fit mt-5">
-            <Streamedian
-              id="test"
-              url="rtsp://admin:rnrxhqn2022@223.171.146.19:10000/ISAP/streaming/channels/101"
-            />
+          <div className="mt-5">
+            <Streamedian id="test" url="rtsp://192.168.0.102/stream1" />
           </div>
         </div>
-        <div>
+        <div className="w-full">
           <h1 className="text-2xl font-bold">시간별 중장비 상태</h1>
-          <div className="statusChart mt-5">
+          <div className="mt-5">
             <TableChart data={tableList} />
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
 const DATA = [
   {
@@ -92,10 +96,6 @@ const DATA = [
         detection_info: 'backhoe',
         state: 'load',
       },
-      // {
-      //   detection_info: 'bulldozer',
-      //   state: 'travel',
-      // },
       {
         detection_info: 'excavators',
         state: 'unload',
