@@ -12,7 +12,6 @@ export default function VehiclePieChart({ data }) {
   /**  */
   const mapToArray = inputMap => {
     let dataArray = [];
-    console.log(inputMap);
     inputMap &&
       inputMap.forEach(function (value, key) {
         let obj = {};
@@ -32,37 +31,6 @@ export default function VehiclePieChart({ data }) {
     return CHART_DATA.value;
   };
 
-  const COLORS = ['#FF4C65', '#FFC506', '#1CDFBB', '#47BEFF'];
-
-  const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent,
-    index,
-    name,
-    value,
-  }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.35;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor={x > cx ? 'start' : 'end'}
-        dominantBaseline="central"
-      >
-        {value === 0 ? null : name}
-      </text>
-    );
-  };
-
   return (
     <article className="flex flex-wrap justify-center gap-10 mt-5">
       {CHART_LIST.map(state => {
@@ -72,7 +40,7 @@ export default function VehiclePieChart({ data }) {
             key={state.id}
           >
             {makeChartDATA(state.name).length > 0 ? (
-              <PieChart width={270} height={270}>
+              <PieChart width={210} height={210}>
                 <Pie
                   data={makeChartDATA(state.name)}
                   cx="50%"
@@ -94,7 +62,7 @@ export default function VehiclePieChart({ data }) {
                 </Pie>
               </PieChart>
             ) : (
-              <div className="flex justify-center items-center w-67.5 h-67.5 font-bold text-3xl">
+              <div className="flex justify-center items-center w-52.5 h-52.5 font-bold text-3xl">
                 NO DATA
               </div>
             )}
@@ -113,3 +81,34 @@ const CHART_LIST = [
   { id: 3, name: 'load' },
   { id: 4, name: 'unload' },
 ];
+
+const COLORS = ['#FF4C65', '#FFC506', '#1CDFBB', '#47BEFF'];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  index,
+  name,
+  value,
+}) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.35;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? 'start' : 'end'}
+      dominantBaseline="central"
+    >
+      {value === 0 ? null : name}
+    </text>
+  );
+};
