@@ -1,26 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { MenuItem, FormControl, Select } from '@mui/material';
 
-const useStyles = makeStyles(theme => ({
-  select: {
-    height: '32px',
-    width: '200px',
-    fontSize: '14px',
-  },
-  MenuItem: {
-    fontSize: '14px',
-  },
-}));
 export default function EquipAreaSelect({ area, handleArea }) {
   const classes = useStyles();
+
   return (
     <FormControl>
       <Select
-        labelId="demo-simple-select-filled-label"
-        id="demo-simple-select-filled"
         className={classes.select}
         value={area}
         onChange={handleArea}
@@ -36,3 +23,13 @@ export default function EquipAreaSelect({ area, handleArea }) {
     </FormControl>
   );
 }
+
+const useStyles = makeStyles(() => ({
+  select: {
+    height: '32px',
+    width: '200px',
+    '& .MuiSelect-select': {
+      padding: '4px 16px',
+    },
+  },
+}));
