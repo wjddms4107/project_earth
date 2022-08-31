@@ -33,23 +33,20 @@ const EquipPieChart = ({ equipData, sort }) => {
     midAngle,
     innerRadius,
     outerRadius,
-    x,
-    y,
     name,
     value,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.37;
-    const xx = cx + radius * Math.cos(-midAngle * RADIAN) * 0.65;
-    const yy = cy + radius * Math.sin(-midAngle * RADIAN);
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1;
+    const y = cy + radius * Math.sin(-midAngle * RADIAN) * 0.95;
 
     return (
       <text
-        x={xx}
-        y={yy}
+        x={x}
+        y={y}
         fill="white"
-        textAnchor={x > cx ? 'start' : 'end'}
+        textAnchor="middle"
         dominantBaseline="central"
-        fontSize={16}
       >
         {value === 0 ? null : name}
       </text>

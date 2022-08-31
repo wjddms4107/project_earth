@@ -23,7 +23,7 @@ export default function TruckBarChart({ truckData }) {
           x={x + width / 2}
           y={y - radius}
           textAnchor="middle"
-          dominantBaseline="middle"
+          dominantBaseline="top"
         >
           {value}회
         </text>
@@ -45,7 +45,7 @@ export default function TruckBarChart({ truckData }) {
         <CartesianGrid fill="#FFFFFF" />
         <XAxis dataKey="area_name" dy={10} />
         <YAxis type="number" dx={-10} />
-        <Bar dataKey="count" fill="#FFC506" minPointSize={0} barSize={70}>
+        <Bar dataKey="count" fill="#FFC506" barSize={70}>
           <LabelList dataKey="count" content={renderCustomizedLabel} />
         </Bar>
       </BarChart>
