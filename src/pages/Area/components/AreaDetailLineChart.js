@@ -8,9 +8,9 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-export default function AareaDetailLineChart() {
-  // const isData = areaData.length !== 0;
-  // if (!isData) return <div>로딩중입니다.</div>;
+export default function AareaDetailLineChart({ areaLineChartData }) {
+  const isData = areaLineChartData.length !== 0;
+  if (!isData) return <div>로딩중입니다.</div>;
 
   const CustomizedLabel = props => {
     const { x, y, value } = props;
@@ -28,7 +28,7 @@ export default function AareaDetailLineChart() {
         <LineChart
           width={500}
           height={200}
-          // data={areaData}
+          data={areaLineChartData}
           syncId="anyId"
           margin={{
             top: 20,
@@ -46,7 +46,7 @@ export default function AareaDetailLineChart() {
           <YAxis domain={[0, 100]} />
           <Line
             type="linear"
-            dataKey="구역A"
+            dataKey="progress"
             stroke="#036DB7"
             activeDot={false}
             strokeWidth={5}

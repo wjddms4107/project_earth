@@ -1,0 +1,35 @@
+{
+  "message": "SUCCESS",
+  "results": {
+      "구역A": [
+          {
+              "day": 29,
+              "progress": 10
+          },
+          {
+              "day": 30,
+              "progress": 19
+          },
+          {
+              "day": 31,
+              "progress": 39
+          },
+          {
+              "day": 1,
+              "progress": "없음"
+          },
+          {
+              "day": 2,
+              "progress": "없음"
+          },
+          {
+              "day": 3,
+              "progress": "없음"
+          },
+          {
+              "day": 4,
+              "progress": "없음"
+          }
+      ]
+  }
+}
