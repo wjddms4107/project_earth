@@ -7,7 +7,7 @@ import EquipList from './pages/Equipment/EquipList';
 import Progress from './pages/Progress/Progress';
 import AreaList from './pages/Area/AreaList';
 import EquipDetail from './pages/Equipment/EquipDetail';
-
+import AreaDetail from './pages/Area/AreaDetail';
 const Router = () => {
   return (
     <BrowserRouter>
@@ -19,10 +19,10 @@ const Router = () => {
           <Route path="/equipment/:equipment_id" element={<EquipDetail />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/area/list" element={<AreaList />} />
+          <Route path="/area/detail/:area_id" element={<AreaDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
 };
-
 export default Router;

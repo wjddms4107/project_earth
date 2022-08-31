@@ -16,39 +16,16 @@ const EquipAnalysis = observer(() => {
   const getEquipData = async () => {
     const queryString = `?select=${timeStore.equipTime}`;
     navigate(`/equipment/analysis${queryString}`);
-    // const res = await fetch(`http://192.168.0.136:8000/equipment/analysis${queryString}`).then(res =>
-    //   res.json()
-    // );
+    // const res = await fetch(
+    //   `http://192.168.0.136:8000/equipment/analysis${queryString}`
+    // ).then(res => res.json());
     const res = EquipDataAPI;
-    const equip = res.status;
+    const equip = res.states;
     const rate = res.utilization_rates;
-    const truckCount = [res.truck_count].map(data => {
-      return [
-        {
-          name: 'A구역',
-          pv: data.구역A,
-        },
-        {
-          name: 'B구역',
-          pv: data.구역B,
-        },
-        {
-          name: 'C구역',
-          pv: data.구역C,
-        },
-        {
-          name: 'D구역',
-          pv: data.구역D,
-        },
-        {
-          name: 'E구역',
-          pv: data.구역E,
-        },
-      ];
-    });
+    const truckCount = res.truck_count;
     setEquipData(equip);
     setRateData(rate);
-    setTruckData(truckCount[0]);
+    setTruckData(truckCount);
   };
 
   useEffect(() => {
@@ -92,20 +69,27 @@ const EquipAnalysis = observer(() => {
       </div>
       <div className="flex justify-center mb-16 ">
         {EQUIPINFO_DATA.map(({ id, sort }) => {
-          if (sort)
-            return (
-              <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
-                <div className="flex justify-center align-middle relative text-2xl font-bold top-[131px]">
-                  {Math.floor(rateData[sort] * 100)}%
-                </div>
-                <div className="flex justify-center">
-                  <EquipPieChart key={id} equipData={equipData} sort={sort} />
-                </div>
-                <div className="flex pt-3 justify-center text-3xl font-bold">
-                  {sort}
-                </div>
+          return (
+            <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
+              <div
+                className={
+                  rateData[sort] === 0
+                    ? 'flex justify-center align-middle relative text-4xl font-bold top-[131px] '
+                    : 'flex justify-center align-middle relative text-2xl font-bold top-[131px]'
+                }
+              >
+                {rateData[sort] === 0
+                  ? 'NO DATA'
+                  : `${Math.floor(rateData[sort] * 100)}%`}
               </div>
-            );
+              <div className="flex justify-center">
+                <EquipPieChart key={id} equipData={equipData} sort={sort} />
+              </div>
+              <div className="flex pt-3 justify-center text-3xl font-bold">
+                {sort}
+              </div>
+            </div>
+          );
         })}
       </div>
       <div className="pb-5 text-xl font-bold">운송 장비 가동률</div>

@@ -37,12 +37,12 @@ module.exports = {
     },
     extend: {
       width: {
-        75: '300px',
+        67.5: '270px',
         57: '228px',
         25: '100px',
       },
       height: {
-        75: '300px',
+        67.5: '270px',
       },
       minWidth: {
         57: '228px',
@@ -52,6 +52,7 @@ module.exports = {
         1: '1px',
       },
       inset: {
+        '80px': '80px',
         '131px': '131px',
         '270px': '270px',
         '200px': '200px',

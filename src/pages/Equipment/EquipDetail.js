@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import EquipDetailBarChart from './components/EquipDetailBarChart';
 import EquipDetailDataAPI from '../../assets/data/equipDetailData.json';
-import backhoe from '../../assets/images/backhoe.jpeg';
-import bulldozer from '../../assets/images/bulldozer.jpeg';
-import excuvators from '../../assets/images/excuvators.jpeg';
-import wheel_loader from '../../assets/images/wheel_loader.jpeg';
+import backhoe from '../../assets/images/backhoe.png';
+import bulldozer from '../../assets/images/bulldozer.png';
+import excuvators from '../../assets/images/excavators.png';
+import wheel_loader from '../../assets/images/wheel_loader.png';
 import previous from '../../assets/images/previous.svg';
 
 const EquipDetail = () => {
@@ -13,11 +13,10 @@ const EquipDetail = () => {
   let navigate = useNavigate();
   const [datailBarChartData, setDatailBarChartData] = useState([]);
   const [equipDetailData, setEquipDetailData] = useState([]);
-
   const getEquipDetailData = async () => {
-    // const res = await fetch(
-    //   `http://192.168.0.129:8000/equipment/${equipment_id}`
-    // ).then(res => res.json());
+    // const res = await fetch(`http://192.168.0.129:8000/equipment/${equipment_id}`).then(res =>
+    //   res.json()
+    // );
     const res = EquipDetailDataAPI;
     const detailBarChart = res.availablete_rating;
     const equipDetail = res.message;
