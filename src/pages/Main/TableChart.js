@@ -1,19 +1,19 @@
 import React, { Suspense } from 'react';
+import { makeStyles } from '@material-ui/styles';
 import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import Paper from '@mui/material/Paper';
 import { useTranslation } from 'react-i18next';
 import '../../assets/locales/lang/i18next';
 
-export default function TableChart({ data }) {
-  if (!data) return <div>로딩중입니다.</div>;
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const TableChart = ({ data }) => {
   const { t } = useTranslation();
+  const classes = useStyles();
+
+  if (!data) return <div>로딩중입니다.</div>;
 
   const typeToString = data => {
     let dataArray = [];
@@ -35,15 +35,12 @@ export default function TableChart({ data }) {
 
   return (
     <Suspense fallback="Loading...">
-      <TableContainer component={Paper}>
-        <Table
-          sx={{ minWidth: '100%', width: '100%' }}
-          aria-label="caption table"
-        >
+      <TableContainer className={classes.tableContainer} sx={{ width: '100%' }}>
+        <Table sx={{ width: '100%' }} aria-label="caption table">
           <TableHead>
-            <TableRow>
-              <TableCell>시간</TableCell>
-              <TableCell>중장비 개수</TableCell>
+            <TableRow className={classes.tableRow}>
+              <TableCell className={classes.tableCell}>시간</TableCell>
+              <TableCell className={classes.tableCell}>중장비 개수</TableCell>
               <TableCell>중장비 상태</TableCell>
             </TableRow>
           </TableHead>
@@ -67,4 +64,22 @@ export default function TableChart({ data }) {
       </TableContainer>
     </Suspense>
   );
-}
+};
+
+const useStyles = makeStyles({
+  tableContainer: {
+    border: '1px solid #D5DDE4',
+    borderRadius: '4px',
+    borderBottom: '0px',
+  },
+  table: {},
+  tableHead: {},
+  tableRow: {
+    height: 40,
+    background: '#EFF2F5',
+    padding: 'none',
+  },
+  tableCell: {
+    borderRight: '1px solid #D5DDE4',
+  },
+});
