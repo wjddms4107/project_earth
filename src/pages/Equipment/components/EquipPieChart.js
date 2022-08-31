@@ -15,7 +15,7 @@ const EquipPieChart = ({ equipData, sort }) => {
       value: sort && equipData[sort].travel,
     },
     {
-      name: 'Load',
+      name: 'Working',
       value: sort && equipData[sort].load,
     },
     {
@@ -39,7 +39,7 @@ const EquipPieChart = ({ equipData, sort }) => {
     value,
   }) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.37;
-    const xx = cx + radius * Math.cos(-midAngle * RADIAN) * 0.8;
+    const xx = cx + radius * Math.cos(-midAngle * RADIAN) * 0.65;
     const yy = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
