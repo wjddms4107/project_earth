@@ -45,8 +45,8 @@ export default function EquipDetailBarChart({ datailBarChartData }) {
         }}
       >
         <CartesianGrid fill="#FFFFFF" />
-        <XAxis dataKey="date" />
-        <YAxis type="number" domain={[0, 600]} />
+        <XAxis dataKey="date" dy={10} />
+        <YAxis type="number" dx={-10} />
         <Bar dataKey="rate" fill="#FFC506" minPointSize={0} barSize={70}>
           <LabelList dataKey="rate" content={renderCustomizedLabel} />
         </Bar>

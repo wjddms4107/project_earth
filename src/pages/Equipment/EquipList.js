@@ -10,7 +10,6 @@ const EquipList = () => {
   const [equipList, setEquipList] = useState([]);
   const getEquipList = async () => {
     navigate('/equipment/list');
-    // `http://192.168.0.129:8000/equipment/list`
     // const res = await fetch(`http://192.168.0.129:8000/equipment/list`).then(
     //   res => res.json()
     // );
@@ -26,11 +25,14 @@ const EquipList = () => {
     const typeQuery = `type=${type}`;
     const areaQuery = `area=${area}`;
     const finalQuery =
-      type === ''
+      (type === '') & (area !== '')
         ? `?area=${area}`
-        : area === ''
+        : (area === '') & (type !== '')
         ? `?type=${type}`
+        : (area === '') & (type === '')
+        ? ''
         : `?${typeQuery}&${areaQuery}`;
+
     navigate(`/equipment/list${finalQuery}`);
     fetch(`http://192.168.0.129:8000/equipment/list${finalQuery}`)
       .then(res => res.json())
@@ -53,12 +55,12 @@ const EquipList = () => {
     setArea(event.target.value);
   };
   return (
-    <div className="px-4">
-      <div className="bg-achromatic-bg_paper">
-        <div className="pb-1 text-2xl font-semibold">장비 리스트</div>
-        <div className="flex pt-7 pb-9 border-2 rounded-md border-achromatic-text_disabled justify-between">
-          <div className="flex">
-            <div className="mx-16">
+    <section className="flex justify-center items-start flex-col w-full px-10 pt-3 gap-5 ">
+      <div className="equipSelectContainer w-full">
+        <h1 className="text-2xl font-bold">장비 리스트</h1>
+        <div className="flex justify-between mt-5 px-14 py-10 gap-10 border-achromatic-text_disabled border-2 rounded-md bg-achromatic-bg_paper">
+          <div className="flex w-full gap-5">
+            <div className="equipSelect">
               <div className="text-sm font-semibold">장비 타입</div>
               <EquipTypeSelect type={type} handleType={handleType} />
             </div>
@@ -67,42 +69,32 @@ const EquipList = () => {
               <EquipAreaSelect area={area} handleArea={handleArea} />
             </div>
           </div>
-          <div className="flex">
-            <div className="mr-16">
-              <div className="text-sm font-semibold">&nbsp;&nbsp;</div>
-              <button
-                className="w-[270px] h-[34px] text-sm  border-2 rounded-md border-blue text-blue"
-                onClick={() => {
-                  getEquipList();
-                  clickInitialization();
-                }}
-              >
-                초기화
-              </button>
-            </div>
-            <div className="mr-16">
-              <div className="text-sm font-semibold">&nbsp;&nbsp;</div>
-              <button
-                className="w-[270px] h-[34px] text-sm border-2 rounded-md bg-blue text-achromatic-bg_default"
-                onClick={() => {
-                  type === '' && area === ''
-                    ? alert(
-                        '장비 타입이나 장비 구역 중 하나라도 선택해야 합니다.'
-                      )
-                    : clickSearch();
-                }}
-              >
-                조회
-              </button>
-            </div>
+          <div className="flex justify-end items-end w-full gap-5">
+            <button
+              className="resetButton max-w-[270px] min-w-[80px] w-full h-8 py-1 text-blue text-sm border-blue border-2 rounded-md"
+              onClick={() => {
+                getEquipList();
+                clickInitialization();
+              }}
+            >
+              초기화
+            </button>
+            <button
+              className="inqueryButton max-w-[270px] min-w-[80px] w-full h-8 py-1 text-achromatic-bg_default text-sm bg-blue border-2 rounded-md"
+              onClick={() => {
+                clickSearch();
+              }}
+            >
+              조 회
+            </button>
           </div>
         </div>
       </div>
-      <div className="pb-1 pt-12 text-2xl font-semibold">
+      <div className="pt-12 text-2xl font-semibold">
         조회 장비 ({equipList.length}대)
       </div>
       <EquipListTable equipList={equipList} />
-    </div>
+    </section>
   );
 };
 export default EquipList;

@@ -17,17 +17,16 @@ const useStyles = makeStyles(theme => ({
 export default function EquipAreaSelect({ area, handleArea }) {
   const classes = useStyles();
   return (
-    <FormControl
-      sx={{ minWidth: 120 }}
-      // InputProps={{ style: { fontSize: 40 } }}
-    >
+    <FormControl>
       <Select
         labelId="demo-simple-select-filled-label"
         id="demo-simple-select-filled"
         className={classes.select}
         value={area}
         onChange={handleArea}
+        displayEmpty={true}
       >
+        <MenuItem value="">전체</MenuItem>
         <MenuItem value="구역A">A구역</MenuItem>
         <MenuItem value="구역B">B구역</MenuItem>
         <MenuItem value="구역C">C구역</MenuItem>

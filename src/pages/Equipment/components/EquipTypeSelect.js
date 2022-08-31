@@ -19,17 +19,16 @@ export default function EquipTypeSelect({ type, handleType }) {
   const classes = useStyles();
 
   return (
-    <FormControl
-      sx={{ minWidth: 120 }}
-      // InputProps={{ style: { fontSize: 40 } }}
-    >
+    <FormControl>
       <Select
         labelId="demo-simple-select-filled-label"
         id="demo-simple-select-filled"
         className={classes.select}
         value={type}
         onChange={handleType}
+        displayEmpty={true}
       >
+        <MenuItem value="">전체</MenuItem>
         <MenuItem value="backhoe">backhoe</MenuItem>
         <MenuItem value="wheel_loader">wheel_loader</MenuItem>
         <MenuItem value="bulldozer">bulldozer</MenuItem>
