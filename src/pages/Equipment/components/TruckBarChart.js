@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-export default function TruckBarChart({ truckData }) {
+export const TruckBarChart = ({ truckData }) => {
   const isData = truckData.length !== 0;
   if (!isData) return <div>로딩중입니다.</div>;
 
@@ -51,4 +51,4 @@ export default function TruckBarChart({ truckData }) {
       </BarChart>
     </ResponsiveContainer>
   );
-}
+};

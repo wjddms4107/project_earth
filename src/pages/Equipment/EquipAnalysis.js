@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import EquipPieChart from './components/EquipPieChart';
-import TruckBarChart from './components/TruckBarChart';
-import EquipDate from './components/EquipDate';
-import timeStore from '../../stores/timeStore';
-import EquipDataAPI from '../../assets/data/equipData.json';
+// import EquipPieChart from './components/EquipPieChart';
+import { EquipPieChart, TruckBarChart, EquipDate } from './index';
+// import TruckBarChart from './components/TruckBarChart';
+// import EquipDate from './components/EquipDate';
+import timeStore from 'stores/timeStore';
+import EquipDataAPI from 'assets/data/equipData.json';
 
-const EquipAnalysis = observer(() => {
+export const EquipAnalysis = observer(() => {
   const navigate = useNavigate();
   const [equipData, setEquipData] = useState([]);
   const [rateData, setRateData] = useState([]);
@@ -74,12 +75,12 @@ const EquipAnalysis = observer(() => {
               <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
                 <div
                   className={
-                    rateData[sort] === 0
+                    !rateData[sort]
                       ? 'flex justify-center align-middle relative text-2xl font-bold top-[131px] '
                       : 'flex justify-center align-middle relative text-2xl font-bold top-[131px]'
                   }
                 >
-                  {rateData[sort] === 0
+                  {!rateData[sort]
                     ? 'NO DATA'
                     : `${Math.floor(rateData[sort] * 100)}%`}
                 </div>
@@ -107,5 +108,3 @@ const TIME_DATA = [
   { id: 2, time: '주별', name: 'weekly' },
   { id: 3, time: '월별', name: 'monthly' },
 ];
-
-export default EquipAnalysis;
