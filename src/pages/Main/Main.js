@@ -1,15 +1,16 @@
 import Streamedian from '../Streamedian';
-import { VehiclePieChart } from './VehiclePieChart';
-import { ProcessPieChart } from './ProcessPieChart';
-import { TableChart } from './TableChart';
+import { VehiclePieChart, ProcessPieChart, TableChart, DataFilter } from '.';
 import { useState, useEffect } from 'react';
-import DataFilter from './dataFilter';
 
 export const Main = () => {
   const [data, setData] = useState();
+  const [progressData, setProgressData] = useState();
   const [tableList, setTableList] = useState([]);
 
-  async function request() {
+  /**
+   * 상태별 중장비, 시간별 중장비 데이터 요청
+   */
+  const equipRequest = async () => {
     try {
       const res = await fetch('http://192.168.0.136:8000');
       const result = await res.json();
@@ -21,14 +22,30 @@ export const Main = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  /**
+   * 구역별 공정률 요청
+   */
+  const progressRequest = async () => {
+    try {
+      const res = await fetch(
+        'http://192.168.0.136:8000/progress?select=realtime'
+      );
+      const result = await res.json();
+      setProgressData(result.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    // request();
+    // equipRequest();
+    // progressRequest();
     setData(DATA[0]);
-
+    setProgressData(PROGRESS_RATE);
     const timer = setInterval(() => {
-      // request();
+      // equipRequest();
       setData(DATA[0]);
     }, 1000 * 10);
     return () => clearInterval(timer);
@@ -51,18 +68,18 @@ export const Main = () => {
 
   return (
     <section className="flex justify-center items-start max-full w-full px-10 pt-3 gap-5">
-      <div className=" flex justify-center items-start flex-col w-2/3 h-fit gap-12">
+      <div className="flex justify-center items-start flex-col w-3/5 h-fit gap-12">
         <div className="w-full">
           <h1 className="text-2xl font-bold">상태별 중장비</h1>
           <VehiclePieChart data={tableList[0]} />
         </div>
         <div className="w-full">
           <h1 className="text-2xl font-bold">구역별 공정률</h1>
-          <ProcessPieChart data={tableList[0]} />
+          <ProcessPieChart data={progressData} />
         </div>
       </div>
 
-      <div className="flex justify-center items-start flex-col w-1/3 h-fit gap-12">
+      <div className="flex justify-center items-start flex-col w-2/5 h-fit gap-12">
         <div className="w-full">
           <h1 className="text-2xl font-bold">CCTV</h1>
           <div className="mt-5">
@@ -118,4 +135,9 @@ const DATA = [
       },
     ],
   },
+];
+
+const PROGRESS_RATE = [
+  { name: '구역A', progress: 40 },
+  { name: '구역B', progress: 60 },
 ];
