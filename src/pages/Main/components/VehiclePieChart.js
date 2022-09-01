@@ -1,14 +1,22 @@
 import React from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
+import { COLORS, renderCustomizedLabel } from '.';
 import { useTranslation } from 'react-i18next';
-import '../../assets/locales/lang/i18next';
-import { COLORS, renderCustomizedLabel } from './VehiclePieChartLabel';
+import 'assets/locales/lang/i18next';
 
 export const VehiclePieChart = ({ data }) => {
   const { t } = useTranslation();
-  if (!data) return <div>로딩중입니다.</div>;
 
-  /**  */
+  const CHART_LIST = [
+    { id: 1, name: 'idle', value: 'idle' },
+    { id: 2, name: 'travel', value: 'travel' },
+    { id: 3, name: 'load', value: 'working' },
+    { id: 4, name: 'unload', value: 'unload' },
+  ];
+
+  /**
+   * Map 객체를 배열로 변환
+   */
   const mapToArray = inputMap => {
     let dataArray = [];
     inputMap &&
@@ -21,6 +29,8 @@ export const VehiclePieChart = ({ data }) => {
     return dataArray;
   };
 
+  if (!data) return <div>로딩중입니다.</div>;
+
   return (
     <article className="flex justify-start flex-wrap gap-10 mt-5">
       {CHART_LIST.map(state => {
@@ -30,15 +40,14 @@ export const VehiclePieChart = ({ data }) => {
             key={state.id}
           >
             {mapToArray(data.typeByState.get(state.name)).length > 0 ? (
-              <PieChart width={210} height={210}>
+              <PieChart width={190} height={190}>
                 <Pie
                   data={mapToArray(data.typeByState.get(state.name))}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  // label={VehiclePieChartLabel}
                   label={renderCustomizedLabel}
-                  outerRadius={105}
+                  outerRadius={95}
                   fill="#8884d8"
                   nameKey="name"
                   dataKey="value"
@@ -55,7 +64,7 @@ export const VehiclePieChart = ({ data }) => {
                 </Pie>
               </PieChart>
             ) : (
-              <div className="flex justify-center items-center w-[220px] h-[210px] font-bold text-3xl">
+              <div className="flex justify-center items-center w-[200px] h-[200px] font-bold text-3xl">
                 NO DATA
               </div>
             )}
@@ -67,10 +76,3 @@ export const VehiclePieChart = ({ data }) => {
     </article>
   );
 };
-
-const CHART_LIST = [
-  { id: 1, name: 'idle', value: 'idle' },
-  { id: 2, name: 'travel', value: 'travel' },
-  { id: 3, name: 'load', value: 'working' },
-  { id: 4, name: 'unload', value: 'unload' },
-];
