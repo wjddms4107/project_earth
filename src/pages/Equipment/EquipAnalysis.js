@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-// import EquipPieChart from './components/EquipPieChart';
 import { EquipPieChart, TruckBarChart, EquipDate } from './index';
-// import TruckBarChart from './components/TruckBarChart';
-// import EquipDate from './components/EquipDate';
 import timeStore from 'stores/timeStore';
 import EquipDataAPI from 'assets/data/equipData.json';
 
@@ -73,13 +70,7 @@ export const EquipAnalysis = observer(() => {
           {EQUIPINFO_DATA.map(({ id, sort }) => {
             return (
               <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
-                <div
-                  className={
-                    !rateData[sort]
-                      ? 'flex justify-center align-middle relative text-2xl font-bold top-[131px] '
-                      : 'flex justify-center align-middle relative text-2xl font-bold top-[131px]'
-                  }
-                >
+                <div className="flex justify-center align-middle relative text-2xl font-bold top-[131px]">
                   {!rateData[sort]
                     ? 'NO DATA'
                     : `${Math.floor(rateData[sort] * 100)}%`}

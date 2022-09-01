@@ -23,25 +23,25 @@
         }
     ],
     "states": {        
-        "excavators1": {    
+        "excavators_001": {    
             "idle": 80,
             "travel": 90,
             "load": 70,
             "unload": 50
         },
-        "backhoe2": {
+        "backhoe_002": {
             "idle": 30,
             "travel": 30,
             "load": 40,
             "unload": 50
         },
-        "bulldozer1": {
+        "bulldozer_001": {
             "idle": 0,
             "travel": 0,
             "load": 0,
             "unload": 0
         },
-        "whell_loader2": {
+        "whell_loader_002": {
             "idle": 0,
             "travel": 0,
             "load": 0,
@@ -49,9 +49,9 @@
         }
     },
     "utilization_rates": {
-        "excavators1": 0.237291666666666667,
-        "backhoe2": 0.44166666666666667,
-        "bulldozer1": 0,
-        "whell_loader2": 0
+        "excavators_001": 0.237291666666666667,
+        "backhoe_002": 0.44166666666666667,
+        "bulldozer_001": 0,
+        "whell_loader_002": 0
     }
 }
