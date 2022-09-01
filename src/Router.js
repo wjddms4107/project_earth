@@ -5,7 +5,7 @@ import { Main } from './pages/Main/Main';
 import EquipAnalysis from './pages/Equipment/EquipAnalysis';
 import EquipList from './pages/Equipment/EquipList';
 import Progress from './pages/Progress/Progress';
-import AreaList from './pages/Area/AreaList';
+import { AreaList } from './pages/Area/AreaList';
 import EquipDetail from './pages/Equipment/EquipDetail';
 import AreaDetail from './pages/Area/AreaDetail';
 const Router = () => {
