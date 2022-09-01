@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import EquipDetailBarChart from './components/EquipDetailBarChart';
-import EquipDetailDataAPI from '../../assets/data/equipDetailData.json';
-import backhoe from '../../assets/images/backhoe.png';
-import bulldozer from '../../assets/images/bulldozer.png';
-import excuvators from '../../assets/images/excavators.png';
-import wheel_loader from '../../assets/images/wheel_loader.png';
-import previous from '../../assets/images/previous.svg';
+import { EquipDetailBarChart } from './components/EquipDetailBarChart';
+import EquipDetailDataAPI from 'assets/data/equipDetailData.json';
+import backhoe from 'assets/images/backhoe.png';
+import bulldozer from 'assets/images/bulldozer.png';
+import excavators from 'assets/images/excavators.png';
+import wheel_loader from 'assets/images/wheel_loader.png';
+import previous from 'assets/images/previous.svg';
 
-const EquipDetail = () => {
+export const EquipDetail = () => {
   let { equipment_id } = useParams();
   let navigate = useNavigate();
+
   const [datailBarChartData, setDatailBarChartData] = useState([]);
   const [equipDetailData, setEquipDetailData] = useState([]);
+
   const getEquipDetailData = async () => {
-    // const res = await fetch(`http://192.168.0.129:8000/equipment/${equipment_id}`).then(res =>
-    //   res.json()
-    // );
+    // const res = await fetch(
+    //   `http://192.168.0.129:8000/equipment/detail/${equipment_id}`
+    // ).then(res => res.json());
+    // navigate(`/equipment/detail/${equipment_id}`);
     const res = EquipDetailDataAPI;
     const detailBarChart = res.availablete_rating;
     const equipDetail = res.message;
@@ -27,6 +30,19 @@ const EquipDetail = () => {
   useEffect(() => {
     getEquipDetailData();
   }, []);
+
+  const selectImage = data => {
+    switch (data) {
+      case 'backhoe':
+        return backhoe;
+      case 'wheel_loader':
+        return wheel_loader;
+      case 'bulldozer':
+        return bulldozer;
+      default:
+        return excavators;
+    }
+  };
 
   const EQUIP_DETAIL_DATA = [
     { id: 1, title: 'Serial Number', data: equipDetailData.serial_number },
@@ -44,21 +60,14 @@ const EquipDetail = () => {
               src={previous}
               alt="previous"
               onClick={() => navigate('/equipment/list')}
+              className="cursor-pointer"
             />
             <span className="text-4xl font-bold ml-2">
               {equipDetailData.serial_number}
             </span>
           </div>
           <img
-            src={
-              equipDetailData.equipment_type === 'backhoe'
-                ? backhoe
-                : equipDetailData.equipment_type === 'wheel_loader'
-                ? wheel_loader
-                : equipDetailData.equipment_type === 'bulldozer'
-                ? bulldozer
-                : excuvators
-            }
+            src={selectImage(equipDetailData.equipment_type)}
             alt="equipment"
             width={494}
             height={309}
@@ -84,5 +93,3 @@ const EquipDetail = () => {
     </>
   );
 };
-
-export default EquipDetail;

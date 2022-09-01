@@ -53,7 +53,7 @@ export default function EquipListTable({ equipList }) {
   if (!isData) return <div>로딩중입니다.</div>;
 
   const goToDetailPage = equipment_id => {
-    navigate(`/equipment/${equipment_id}`);
+    navigate(`/equipment/detail/${equipment_id}`);
   };
 
   const rows = equipList.map(
