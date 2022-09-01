@@ -9,7 +9,7 @@ import cctv from '../../../assets/images/cctv.svg';
 
 export default function AreaDetailMap({ areaMapData }) {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyA-14N8FNLXVKB9NeF1eSnYYq8pItkBUaI',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP,
   });
 
   const isData = areaMapData.length !== 0;
