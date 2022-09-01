@@ -10,59 +10,29 @@ import {
   TableRow,
 } from '@mui/material';
 
-const useStyles = makeStyles({
-  tableContainer: {
-    border: '1px solid #D5DDE4',
-    borderRadius: '4px',
-    borderBottom: 0,
-  },
-  tableRow: {
-    height: 40,
-    background: '#EFF2F5',
-  },
-  tableCell: {
-    width: '25%',
-    '&:last-child': {
-      borderRight: '0px',
-    },
-    '&.MuiTableCell-head': {
-      padding: 0,
-      textAlign: 'center',
-      borderRight: '1px solid #D5DDE4',
-    },
-    '&.MuiTableCell-body': {
-      height: 35,
-      padding: 0,
-      textAlign: 'center',
-    },
-  },
-});
-
-function createData(
-  serial_number,
-  equipment_type,
-  equipment_company,
-  equipment_area,
-  equipment_id
-) {
-  return {
-    serial_number,
-    equipment_type,
-    equipment_company,
-    equipment_area,
-    equipment_id,
-  };
-}
-export default function EquipListTable({ equipList }) {
+export const EquipListTable = ({ equipList }) => {
   const classes = useStyles();
   const navigate = useNavigate();
-
-  const isData = equipList.length !== 0;
-  if (!isData) return <div>로딩중입니다.</div>;
 
   const goToDetailPage = equipment_id => {
     navigate(`/equipment/${equipment_id}`);
   };
+
+  function createData(
+    serial_number,
+    equipment_type,
+    equipment_company,
+    equipment_area,
+    equipment_id
+  ) {
+    return {
+      serial_number,
+      equipment_type,
+      equipment_company,
+      equipment_area,
+      equipment_id,
+    };
+  }
 
   const rows = equipList.map(
     ({
@@ -81,6 +51,8 @@ export default function EquipListTable({ equipList }) {
       )
   );
 
+  if (!equipList) return <div>로딩중입니다.</div>;
+
   return (
     <TableContainer className={classes.tableContainer}>
       <Table>
@@ -97,6 +69,7 @@ export default function EquipListTable({ equipList }) {
             <TableRow
               onClick={() => goToDetailPage(row.equipment_id)}
               key={row.serial_number}
+              className={classes.tableBodyRow}
             >
               <TableCell className={classes.tableCell}>
                 {row.serial_number}
@@ -116,4 +89,35 @@ export default function EquipListTable({ equipList }) {
       </Table>
     </TableContainer>
   );
-}
+};
+
+const useStyles = makeStyles({
+  tableContainer: {
+    border: '1px solid #D5DDE4',
+    borderRadius: '4px',
+    borderBottom: 0,
+  },
+  tableRow: {
+    height: 40,
+    background: '#EFF2F5',
+  },
+  tableCell: {
+    width: '25%',
+    '&.MuiTableCell-head': {
+      padding: 0,
+      textAlign: 'center',
+      borderRight: '1px solid #D5DDE4',
+      '&:last-child': {
+        borderRight: '0px',
+      },
+    },
+    '&.MuiTableCell-body': {
+      height: 35,
+      padding: 0,
+      textAlign: 'center',
+    },
+  },
+  tableBodyRow: {
+    cursor: 'pointer',
+  },
+});

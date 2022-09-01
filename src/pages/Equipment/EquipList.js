@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import EquipTypeSelect from './components/EquipTypeSelect';
-import EquipAreaSelect from './components/EquipAreaSelcet';
-import EquipListTable from './components/EquipListTable';
-import EquipListDataAPI from '../../assets/data/equipListData.json';
+import { EquipTypeSelect, EquipAreaSelect, EquipListTable } from './index';
+import EquipListDataAPI from 'assets/data/equipListData.json';
 
-const EquipList = () => {
+export const EquipList = () => {
   const navigate = useNavigate();
   const [equipList, setEquipList] = useState([]);
   const [type, setType] = useState('');
@@ -98,4 +96,3 @@ const EquipList = () => {
     </section>
   );
 };
-export default EquipList;

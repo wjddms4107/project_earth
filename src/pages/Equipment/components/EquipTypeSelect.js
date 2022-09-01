@@ -1,17 +1,14 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/styles';
 import { MenuItem, FormControl, Select } from '@mui/material';
 
-export default function EquipTypeSelect({ type, handleType }) {
+export const EquipTypeSelect = ({ type, handleType }) => {
+  const classes = useStyles();
+
   return (
     <FormControl>
       <Select
-        sx={{
-          height: '32px',
-          width: '200px',
-          '& .MuiSelect-select': {
-            padding: '4px 16px',
-          },
-        }}
+        className={classes.select}
         value={type}
         onChange={handleType}
         displayEmpty={true}
@@ -24,4 +21,14 @@ export default function EquipTypeSelect({ type, handleType }) {
       </Select>
     </FormControl>
   );
-}
+};
+
+const useStyles = makeStyles(() => ({
+  select: {
+    height: '32px',
+    width: '200px',
+    '& .MuiSelect-select': {
+      padding: '4px 16px',
+    },
+  },
+}));

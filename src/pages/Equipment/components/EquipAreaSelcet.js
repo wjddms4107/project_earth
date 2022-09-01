@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { MenuItem, FormControl, Select } from '@mui/material';
 
-export default function EquipAreaSelect({ area, handleArea }) {
+export const EquipAreaSelect = ({ area, handleArea }) => {
   const classes = useStyles();
 
   return (
@@ -22,7 +22,7 @@ export default function EquipAreaSelect({ area, handleArea }) {
       </Select>
     </FormControl>
   );
-}
+};
 
 const useStyles = makeStyles(() => ({
   select: {
