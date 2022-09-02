@@ -15,7 +15,7 @@ export const EquipListTable = ({ equipList }) => {
   const navigate = useNavigate();
 
   const goToDetailPage = equipment_id => {
-    navigate(`/equipment/${equipment_id}`);
+    navigate(`/equipment/detail/${equipment_id}`);
   };
 
   function createData(

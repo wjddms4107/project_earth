@@ -5,31 +5,11 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  LabelList,
   ResponsiveContainer,
 } from 'recharts';
 
-export default function EquipDetailBarChart({ datailBarChartData }) {
-  const isData = datailBarChartData.length !== 0;
-  if (!isData) return <div>로딩중입니다.</div>;
-
-  const renderCustomizedLabel = props => {
-    const { x, y, width, value } = props;
-    const radius = 10;
-
-    return (
-      <g>
-        <text
-          x={x + width / 2}
-          y={y - radius}
-          textAnchor="middle"
-          dominantBaseline="middle"
-        >
-          {/* {value}회 */}
-        </text>
-      </g>
-    );
-  };
+export const EquipDetailBarChart = ({ datailBarChartData }) => {
+  if (!datailBarChartData) return <div>로딩중입니다.</div>;
 
   return (
     <ResponsiveContainer width="95%" height={300}>
@@ -45,10 +25,8 @@ export default function EquipDetailBarChart({ datailBarChartData }) {
         <CartesianGrid fill="#FFFFFF" />
         <XAxis dataKey="date" dy={10} />
         <YAxis type="number" dx={-10} />
-        <Bar dataKey="rate" fill="#FFC506" minPointSize={0} barSize={70}>
-          <LabelList dataKey="rate" content={renderCustomizedLabel} />
-        </Bar>
+        <Bar dataKey="rate" fill="#FFC506" barSize={70} />
       </BarChart>
     </ResponsiveContainer>
   );
-}
+};

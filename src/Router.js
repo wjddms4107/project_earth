@@ -4,7 +4,7 @@ import Nav from './components/Nav/Nav';
 import { Main } from './pages/Main/Main';
 import { EquipAnalysis } from './pages/Equipment/EquipAnalysis';
 import { EquipList } from './pages/Equipment/EquipList';
-import EquipDetail from './pages/Equipment/EquipDetail';
+import { EquipDetail } from './pages/Equipment/EquipDetail';
 import Progress from './pages/Progress/Progress';
 import { AreaList } from './pages/Area/AreaList';
 import AreaDetail from './pages/Area/AreaDetail';
@@ -16,7 +16,10 @@ const Router = () => {
           <Route path="/" element={<Main />} />
           <Route path="/equipment/analysis" element={<EquipAnalysis />} />
           <Route path="/equipment/list" element={<EquipList />} />
-          <Route path="/equipment/:equipment_id" element={<EquipDetail />} />
+          <Route
+            path="/equipment/detail/:equipment_id"
+            element={<EquipDetail />}
+          />
           <Route path="/progress" element={<Progress />} />
           <Route path="/area/list" element={<AreaList />} />
           <Route path="/area/detail/:area_id" element={<AreaDetail />} />
