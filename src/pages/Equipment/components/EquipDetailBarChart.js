@@ -22,7 +22,7 @@ export const EquipDetailBarChart = ({ datailBarChartData }) => {
           bottom: 40,
         }}
       >
-        <CartesianGrid fill="#FFFFFF" />
+        <CartesianGrid />
         <XAxis dataKey="date" dy={10} />
         <YAxis type="number" dx={-10} />
         <Bar dataKey="rate" fill="#FFC506" barSize={70} />

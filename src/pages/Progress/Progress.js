@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { AreaLineChart } from './components/AreaLineChart';
-import timeStore from 'stores/timeStore';
+import { ProgressLineChart } from './components/ProgressLineChart';
+import { timeStore } from 'stores/timeStore';
 import ProgressData from 'assets/data/ProgressData.json';
 
-const Progress = observer(() => {
+export const Progress = observer(() => {
   const navigate = useNavigate();
   const [areaData, setAreaData] = useState([]);
+
+  const TIME_DATA = [
+    { id: 1, time: '주별', name: 'weekly' },
+    { id: 2, time: '월별', name: 'monthly' },
+  ];
 
   const getProgressData = async () => {
     const queryString = `?select=${timeStore.ProgressTime}`;
@@ -44,15 +49,8 @@ const Progress = observer(() => {
         })}
       </div>
       <div>
-        <AreaLineChart areaData={areaData} />
+        <ProgressLineChart areaData={areaData} />
       </div>
     </div>
   );
 });
-
-const TIME_DATA = [
-  { id: 1, time: '주별', name: 'weekly' },
-  { id: 2, time: '월별', name: 'monthly' },
-];
-
-export default Progress;

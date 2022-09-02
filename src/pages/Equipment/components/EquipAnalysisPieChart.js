@@ -1,9 +1,9 @@
 import { PieChart, Pie, Cell } from 'recharts';
 import React from 'react';
+import { COLORS, renderCustomizedLabel } from '.';
 
-export const EquipPieChart = ({ equipData, sort }) => {
+export const EquipAnalysisPieChart = ({ equipData, sort }) => {
   const isData = equipData.length !== 0;
-  if (!isData) return <div>로딩중입니다.</div>;
 
   const data = [
     {
@@ -24,35 +24,7 @@ export const EquipPieChart = ({ equipData, sort }) => {
     },
   ];
 
-  const COLORS = ['#FF4C65', '#FFC506', '#1CDFBB', '#47BEFF'];
-
-  const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    name,
-    value,
-  }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1;
-    const y = cy + radius * Math.sin(-midAngle * RADIAN) * 0.95;
-
-    return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor="middle"
-        dominantBaseline="central"
-        fontSize={15}
-      >
-        {value === 0 ? null : name}
-      </text>
-    );
-  };
+  if (!isData) return <div>로딩중입니다.</div>;
 
   return (
     <PieChart width={220} height={230}>

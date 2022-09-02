@@ -19,8 +19,8 @@ export const AreaList = () => {
   }
 
   useEffect(() => {
-    request();
-    // setData(AREA_LIST.results);
+    // request();
+    setData(AREA_LIST.results);
   }, [location.search]);
 
   /**
@@ -43,18 +43,18 @@ export const AreaList = () => {
 
   return (
     <section className="flex justify-center items-start flex-col w-full px-10 pt-3 gap-5">
-      <div className="equipSelectContainer w-full">
+      <div className="w-full">
         <h1 className="text-2xl font-bold">구역 리스트</h1>
-        <div className="flex justify-between mt-5 px-14 py-10 gap-10 border-achromatic-text_disabled border-2 rounded-md">
+        <div className="flex justify-between mt-5 px-14 py-10 gap-10 bg-achromatic-bg_paper border-achromatic-text_disabled border-[1px] rounded-md">
           <div className="flex w-full gap-5">
-            <div className="equipSelect">
+            <div className="">
               <div className="text-sm font-semibold">이름</div>
               <AreaTypeSelect area={area} handleSelect={handleSelect} />
             </div>
           </div>
           <div className="flex justify-end items-end w-full gap-5">
             <button
-              className="resetButton max-w-[270px] min-w-[80px] w-full h-8 py-1 text-blue text-sm border-blue border-2 rounded-md"
+              className="max-w-[270px] min-w-[80px] w-full h-8 py-1 text-blue text-sm border-blue border-2 rounded-md"
               onClick={() => {
                 setArea('');
               }}
@@ -62,7 +62,7 @@ export const AreaList = () => {
               초기화
             </button>
             <button
-              className="inqueryButton max-w-[270px] min-w-[80px] w-full h-8 py-1 text-achromatic-bg_default text-sm bg-blue border-2 rounded-md"
+              className="max-w-[270px] min-w-[80px] w-full h-8 py-1 text-achromatic-bg_default text-sm bg-blue border-2 rounded-md"
               onClick={() => {
                 updateOffset(area);
               }}

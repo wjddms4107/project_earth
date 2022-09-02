@@ -5,9 +5,10 @@ import { Main } from './pages/Main/Main';
 import { EquipAnalysis } from './pages/Equipment/EquipAnalysis';
 import { EquipList } from './pages/Equipment/EquipList';
 import { EquipDetail } from './pages/Equipment/EquipDetail';
-import Progress from './pages/Progress/Progress';
+import { Progress } from './pages/Progress/Progress';
 import { AreaList } from './pages/Area/AreaList';
-import AreaDetail from './pages/Area/AreaDetail';
+import { AreaDetail } from './pages/Area/AreaDetail';
+
 const Router = () => {
   return (
     <BrowserRouter>

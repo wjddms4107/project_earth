@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const EquipDate = ({ time }) => {
+export const EquipAnalysisDate = ({ time }) => {
   // 월요일 구하기
   function getMonday(d) {
     d = new Date(d);

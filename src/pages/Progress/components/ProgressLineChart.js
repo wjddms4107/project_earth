@@ -8,7 +8,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-export const AreaLineChart = ({ areaData }) => {
+export const ProgressLineChart = ({ areaData }) => {
   const CustomizedLabel = props => {
     const { x, y, value, index } = props;
 

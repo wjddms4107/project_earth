@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { MenuItem, FormControl, Select } from '@mui/material';
 
-export const EquipAreaSelect = ({ area, handleArea }) => {
+export const EquipListAreaSelect = ({ area, handleArea }) => {
   const classes = useStyles();
 
   return (
@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
   select: {
     height: '32px',
     width: '200px',
+    fontSize: '14px',
     '& .MuiSelect-select': {
       padding: '4px 16px',
     },

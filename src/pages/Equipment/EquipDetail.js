@@ -52,7 +52,7 @@ export const EquipDetail = () => {
   ];
 
   return (
-    <>
+    <div className="px-10 pt-3">
       <div className="flex">
         <div className="w-2/5 mr-10">
           <div className="flex mb-3 ">
@@ -90,6 +90,6 @@ export const EquipDetail = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };

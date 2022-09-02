@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-const timeStore = observable({
+export const timeStore = observable({
   equipTime: 'daily',
   ProgressTime: 'weekly',
 
@@ -9,5 +9,3 @@ const timeStore = observable({
     this.equipTime = e.target.name;
   },
 });
-
-export default timeStore;

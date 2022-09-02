@@ -31,7 +31,7 @@ function Map({ areaMapData }) {
 
   const containerStyle = {
     width: 'auto',
-    height: '300px',
+    height: '310px',
   };
 
   const options = {

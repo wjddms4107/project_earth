@@ -1,6 +1,6 @@
-import Streamedian from 'components/Streamedian';
-import { VehiclePieChart, ProcessPieChart, TableChart } from '.';
 import { useState, useEffect } from 'react';
+import { VehiclePieChart, ProcessPieChart, TableChart } from '.';
+import Streamedian from 'components/Streamedian';
 import { DataFilter } from 'types/Main/dataFilter';
 
 export const Main = () => {
@@ -41,13 +41,13 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    equipRequest();
-    progressRequest();
-    // setData(DATA[0]);
-    // setProgressData(PROGRESS_RATE);
+    // equipRequest();
+    // progressRequest();
+    setData(DATA[0]);
+    setProgressData(PROGRESS_RATE);
     const timer = setInterval(() => {
-      equipRequest();
-      // setData(DATA[0]);
+      // equipRequest();
+      setData(DATA[0]);
     }, 1000 * 10);
     return () => clearInterval(timer);
   }, []);

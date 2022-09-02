@@ -1,16 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import AreaDetailMap from './components/AreaDetailMap';
-import AareaDetailLineChart from './components/AreaDetailLineChart';
-import previous from '../../assets/images/previous.svg';
-import AreaDetailDataAPI from '../../assets/data/AreaDetailData.json';
-import AreaDetaiLineChartAPI from '../../assets/data/AreaDetailLineChartAPI.json';
+import { AreaDetailMap, AareaDetailLineChart } from '.';
+import Streamedian from 'components/Streamedian';
+import previous from 'assets/images/previous.svg';
+import AreaDetailDataAPI from 'assets/data/AreaDetailData.json';
+import AreaDetaiLineChartAPI from 'assets/data/AreaDetailLineChartAPI.json';
 
-const AreaDetail = () => {
+export const AreaDetail = () => {
   let { area_id } = useParams();
   const navigate = useNavigate();
   const [areaMapData, setAreaMapData] = useState([]);
   const [areaLineChartData, setAreaLineChartData] = useState([]);
+
+  const EQUIP_DETAIL_DATA = [
+    { id: 1, title: 'Area Name', area: areaMapData.area_name },
+    {
+      id: 2,
+      title: 'GPS',
+      lan: areaMapData.latitude,
+      lng: areaMapData.longitude,
+    },
+    {
+      id: 3,
+      title: 'Camera GPS',
+      lan: areaMapData.cam_latitude,
+      lng: areaMapData.cam_longitude,
+    },
+  ];
+
   const getAreaDetailData = async () => {
     // const res = await fetch(
     //   `http://192.168.0.136:8000/area/detail/${area_id}`
@@ -33,24 +50,8 @@ const AreaDetail = () => {
     getAreaDetailData();
   }, []);
 
-  const EQUIP_DETAIL_DATA = [
-    { id: 1, title: 'Area Name', area: areaMapData.area_name },
-    {
-      id: 2,
-      title: 'GPS',
-      lan: areaMapData.latitude,
-      lng: areaMapData.longitude,
-    },
-    {
-      id: 3,
-      title: 'Camera GPS',
-      lan: areaMapData.cam_latitude,
-      lng: areaMapData.cam_longitude,
-    },
-  ];
-
   return (
-    <>
+    <div className="px-10 pt-3">
       <div className="flex mb-3 ">
         <img
           src={previous}
@@ -59,11 +60,13 @@ const AreaDetail = () => {
         />
         <div className="text-4xl font-bold ml-2">{areaMapData.area_name}</div>
       </div>
-      <div className="flex">
-        <div className="w-1/3 mr-10">
-          <div width={494} height={309} />
+      <div className="flex mt-5">
+        <div className="w-2/5 mr-10">
+          <div className="w-fit h-full">
+            <Streamedian id="test1" url={process.env.REACT_APP_RTSP_URL01} />
+          </div>
         </div>
-        <div className="w-2/3">
+        <div className="w-3/5 ">
           <AreaDetailMap areaMapData={areaMapData} />
         </div>
       </div>
@@ -80,8 +83,6 @@ const AreaDetail = () => {
       </div>
       <div className="text-2xl font-semibold">주간 공정률</div>
       <AareaDetailLineChart areaLineChartData={areaLineChartData} />
-    </>
+    </div>
   );
 };
-
-export default AreaDetail;

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { EquipPieChart, TruckBarChart, EquipDate } from './index';
-import timeStore from 'stores/timeStore';
+import {
+  EquipAnalysisPieChart,
+  EquipAnalysisBarChart,
+  EquipAnalysisDate,
+} from '.';
+import { timeStore } from 'stores/timeStore';
 import EquipDataAPI from 'assets/data/equipData.json';
 
 export const EquipAnalysis = observer(() => {
@@ -10,6 +14,19 @@ export const EquipAnalysis = observer(() => {
   const [equipData, setEquipData] = useState([]);
   const [rateData, setRateData] = useState([]);
   const [truckData, setTruckData] = useState([]);
+
+  const TIME_DATA = [
+    { id: 1, time: '일별', name: 'daily' },
+    { id: 2, time: '주별', name: 'weekly' },
+    { id: 3, time: '월별', name: 'monthly' },
+  ];
+
+  const EQUIPINFO_DATA = [
+    { id: 1, sort: Object.keys(equipData)[0] },
+    { id: 2, sort: Object.keys(equipData)[1] },
+    { id: 3, sort: Object.keys(equipData)[2] },
+    { id: 4, sort: Object.keys(equipData)[3] },
+  ];
 
   const getEquipData = async () => {
     const queryString = `?select=${timeStore.equipTime}`;
@@ -29,13 +46,6 @@ export const EquipAnalysis = observer(() => {
   useEffect(() => {
     getEquipData();
   }, [timeStore.equipTime]);
-
-  const EQUIPINFO_DATA = [
-    { id: 1, sort: Object.keys(equipData)[0] },
-    { id: 2, sort: Object.keys(equipData)[1] },
-    { id: 3, sort: Object.keys(equipData)[2] },
-    { id: 4, sort: Object.keys(equipData)[3] },
-  ];
 
   return (
     <div className="relative">
@@ -64,7 +74,7 @@ export const EquipAnalysis = observer(() => {
           Idle Time 비율입니다.
         </div>
         <div className="text-xl font-normal text-achromatic-text_secondary">
-          <EquipDate time={timeStore.equipTime} />
+          <EquipAnalysisDate time={timeStore.equipTime} />
         </div>
         <div className="flex justify-center mb-16 ">
           {EQUIPINFO_DATA.map(({ id, sort }) => {
@@ -76,7 +86,11 @@ export const EquipAnalysis = observer(() => {
                     : `${Math.floor(rateData[sort] * 100)}%`}
                 </div>
                 <div className="flex justify-center">
-                  <EquipPieChart key={id} equipData={equipData} sort={sort} />
+                  <EquipAnalysisPieChart
+                    key={id}
+                    equipData={equipData}
+                    sort={sort}
+                  />
                 </div>
                 <div className="flex pt-3 justify-center text-3xl font-bold">
                   {sort}
@@ -87,15 +101,9 @@ export const EquipAnalysis = observer(() => {
         </div>
         <div className="pb-5 text-2xl font-semibold">운송 장비 가동률</div>
         <div className="w-full h-auto">
-          <TruckBarChart truckData={truckData} />
+          <EquipAnalysisBarChart truckData={truckData} />
         </div>
       </div>
     </div>
   );
 });
-
-const TIME_DATA = [
-  { id: 1, time: '일별', name: 'daily' },
-  { id: 2, time: '주별', name: 'weekly' },
-  { id: 3, time: '월별', name: 'monthly' },
-];

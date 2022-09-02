@@ -16,7 +16,7 @@ export class DataFilter {
   setCountByType() {
     this.data.type.forEach(item => {
       let current = 0;
-      if (!!this.countByType.get(item.detection_info)) {
+      if (this.countByType.get(item.detection_info)) {
         current = this.countByType.get(item.detection_info);
       }
       this.countByType.set(item.detection_info, current + 1);
@@ -26,7 +26,7 @@ export class DataFilter {
   setCountByState() {
     this.data.type.forEach(item => {
       let current = 0;
-      if (!!this.countByState.get(item.state)) {
+      if (this.countByState.get(item.state)) {
         current = this.countByState.get(item.state);
       }
       this.countByState.set(item.state, current + 1);

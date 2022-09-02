@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { EquipTypeSelect, EquipAreaSelect, EquipListTable } from './index';
+import { EquipListTypeSelect, EquipListAreaSelect, EquipListTable } from '.';
 import EquipListDataAPI from 'assets/data/equipListData.json';
 
 export const EquipList = () => {
@@ -61,11 +61,11 @@ export const EquipList = () => {
           <div className="flex w-full gap-5">
             <div className="equipSelect">
               <div className="text-sm font-semibold">장비 타입</div>
-              <EquipTypeSelect type={type} handleType={handleType} />
+              <EquipListTypeSelect type={type} handleType={handleType} />
             </div>
             <div>
               <div className="text-sm font-semibold">장비 구역</div>
-              <EquipAreaSelect area={area} handleArea={handleArea} />
+              <EquipListAreaSelect area={area} handleArea={handleArea} />
             </div>
           </div>
           <div className="flex justify-end items-end w-full gap-5">
