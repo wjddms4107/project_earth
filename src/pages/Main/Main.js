@@ -1,74 +1,111 @@
-import Streamedian from '../Streamedian';
-import VehiclePieChart from './VehiclePieChart';
-import ProcessPieChart from './ProcessPieChart';
-import TableChart from './TableChart';
+import Streamedian from 'components/Streamedian';
+import { VehiclePieChart, ProcessPieChart, TableChart } from '.';
 import { useState, useEffect } from 'react';
-import DataFilter from './dataFilter';
+import { DataFilter } from 'types/Main/dataFilter';
 
-export default function Main() {
+export const Main = () => {
   const [data, setData] = useState();
+  const [progressData, setProgressData] = useState();
   const [tableList, setTableList] = useState([]);
 
-  async function request() {
-    const res = await fetch('http://192.168.0.129:8000');
-    const result = await res.json();
-    setData(result.message[0]);
-  }
+  /**
+   * 상태별 중장비, 시간별 중장비 데이터 요청
+   */
+  const equipRequest = async () => {
+    try {
+      const res = await fetch('http://192.168.0.136:8000');
+      const result = await res.json();
+      if (result.message === 'Not_Detected') {
+        throw Error('Not_Detected');
+      } else {
+        setData(result.message[0]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  /**
+   * 구역별 공정률 요청
+   */
+  const progressRequest = async () => {
+    try {
+      const res = await fetch(
+        'http://192.168.0.136:8000/progress?select=realtime'
+      );
+      const result = await res.json();
+      setProgressData(result.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const timer = setInterval(async () => {
-      // await request();
-      // const newClass = new DataFilter(data);
-      const newClass = new DataFilter(DATA[0]);
-      newClass.setCountByType();
-      newClass.setCountByState();
-      newClass.setTypeByState();
-
-      setTableList(current => {
-        const newCurrent = [...current];
-        newCurrent.length >= 20 && newCurrent.pop();
-        newCurrent.unshift(newClass);
-        return newCurrent;
-      });
-    }, 10000);
-
+    equipRequest();
+    progressRequest();
+    // setData(DATA[0]);
+    // setProgressData(PROGRESS_RATE);
+    const timer = setInterval(() => {
+      equipRequest();
+      // setData(DATA[0]);
+    }, 1000 * 10);
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (data && data !== 'Not_Detected') {
+      let newClass = new DataFilter(data);
+      newClass.setCountByType();
+      newClass.setCountByState();
+      newClass.setTypeByState();
+      setTableList(current => {
+        const newCurrent = [...current];
+        newCurrent.length >= 10 && newCurrent.pop();
+        newCurrent.unshift(newClass);
+        return newCurrent;
+      });
+    }
+  }, [data]);
+
   return (
     <section className="flex justify-center items-start max-full w-full px-10 pt-3 gap-5">
-      <div className="leftPanel flex justify-center items-start flex-col w-1/2 h-fit gap-10">
-        <div className="vehicleChart">
+      <div className="flex justify-center items-start flex-col w-3/5 h-fit gap-12">
+        <div className="w-full">
           <h1 className="text-2xl font-bold">상태별 중장비</h1>
           <VehiclePieChart data={tableList[0]} />
         </div>
-        <div className="processChart">
+        <div className="w-full">
           <h1 className="text-2xl font-bold">구역별 공정률</h1>
-          {/* <ProcessPieChart /> */}
+          <ProcessPieChart data={progressData} />
         </div>
       </div>
 
-      <div className="rightPanel flex justify-center items-start flex-col w-1/2 h-fit gap-10">
-        <div className="videoOut">
+      <div className="flex justify-center items-start flex-col w-2/5 h-fit gap-12">
+        <div className="w-full">
           <h1 className="text-2xl font-bold">CCTV</h1>
-          <div className="w-full max-h-fit mt-5">
-            <Streamedian id="test" url="rtsp://192.168.0.102/stream1" />
+          <div className="flex flex-col mt-5 gap-3">
+            <h2 className="text-xl font-semibold">구역A</h2>
+            <Streamedian id="test1" url={process.env.REACT_APP_RTSP_URL01} />
+          </div>
+          <div className="flex flex-col mt-5 gap-3">
+            <h2 className="text-xl font-semibold">구역B</h2>
+            <Streamedian id="test2" url={process.env.REACT_APP_RTSP_URL02} />
           </div>
         </div>
-        <div>
+        <div className="w-full">
           <h1 className="text-2xl font-bold">시간별 중장비 상태</h1>
-          <div className="statusChart mt-5">
+          <div className="mt-5">
             <TableChart data={tableList} />
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
 
 const DATA = [
   {
-    datetime: '2022-08-19T19:23:24+0900',
+    datetime: '2022-08-19T19:23:24',
     type: [
       {
         detection_info: 'backhoe',
@@ -82,10 +119,6 @@ const DATA = [
         detection_info: 'backhoe',
         state: 'load',
       },
-      // {
-      //   detection_info: 'bulldozer',
-      //   state: 'travel',
-      // },
       {
         detection_info: 'excavators',
         state: 'unload',
@@ -108,4 +141,9 @@ const DATA = [
       },
     ],
   },
+];
+
+const PROGRESS_RATE = [
+  { name: '구역A', progress: 40 },
+  { name: '구역B', progress: 60 },
 ];

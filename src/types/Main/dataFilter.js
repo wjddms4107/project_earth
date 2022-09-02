@@ -1,4 +1,4 @@
-export default class DataFilter {
+export class DataFilter {
   data;
   datetime;
   countByType;
