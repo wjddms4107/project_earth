@@ -13,8 +13,6 @@ export default function EquipDetailBarChart({ datailBarChartData }) {
   const isData = datailBarChartData.length !== 0;
   if (!isData) return <div>로딩중입니다.</div>;
 
-  // console.log('XAxis:', value);
-
   const renderCustomizedLabel = props => {
     const { x, y, width, value } = props;
     const radius = 10;

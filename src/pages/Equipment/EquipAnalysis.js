@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import EquipPieChart from './components/EquipPieChart';
-import TruckBarChart from './components/TruckBarChart';
-import EquipDate from './components/EquipDate';
-import timeStore from '../../stores/timeStore';
-import EquipDataAPI from '../../assets/data/equipData.json';
+import { EquipPieChart, TruckBarChart, EquipDate } from './index';
+import timeStore from 'stores/timeStore';
+import EquipDataAPI from 'assets/data/equipData.json';
 
-const EquipAnalysis = observer(() => {
+export const EquipAnalysis = observer(() => {
   const navigate = useNavigate();
   const [equipData, setEquipData] = useState([]);
   const [rateData, setRateData] = useState([]);
@@ -59,42 +57,38 @@ const EquipAnalysis = observer(() => {
           );
         })}
       </div>
-      <div className="pb-1 text-xl font-bold">작업 장비 가동률</div>
-      <div className="text-base text-achromatic-text_secondary">
-        중장비별 Idle, Travel, Load, Unload Time 비율과 작업 시간 대비 Not Idle
-        Time 비율입니다.
-      </div>
-      <div className="text-base text-achromatic-text_secondary">
-        <EquipDate time={timeStore.equipTime} />
-      </div>
-      <div className="flex justify-center mb-16 ">
-        {EQUIPINFO_DATA.map(({ id, sort }) => {
-          return (
-            <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
-              <div
-                className={
-                  rateData[sort] === 0
-                    ? 'flex justify-center align-middle relative text-4xl font-bold top-[131px] '
-                    : 'flex justify-center align-middle relative text-2xl font-bold top-[131px]'
-                }
-              >
-                {rateData[sort] === 0
-                  ? 'NO DATA'
-                  : `${Math.floor(rateData[sort] * 100)}%`}
+      <div className="px-10 pt-3">
+        <div className="pb-1 text-2xl font-semibold">작업 장비 가동률</div>
+        <div className="text-xl font-normal text-achromatic-text_secondary">
+          중장비별 Idle, Travel, Load, Unload Time 비율과 작업 시간 대비 Not
+          Idle Time 비율입니다.
+        </div>
+        <div className="text-xl font-normal text-achromatic-text_secondary">
+          <EquipDate time={timeStore.equipTime} />
+        </div>
+        <div className="flex justify-center mb-16 ">
+          {EQUIPINFO_DATA.map(({ id, sort }) => {
+            return (
+              <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
+                <div className="flex justify-center align-middle relative text-2xl font-bold top-[131px]">
+                  {!rateData[sort]
+                    ? 'NO DATA'
+                    : `${Math.floor(rateData[sort] * 100)}%`}
+                </div>
+                <div className="flex justify-center">
+                  <EquipPieChart key={id} equipData={equipData} sort={sort} />
+                </div>
+                <div className="flex pt-3 justify-center text-3xl font-bold">
+                  {sort}
+                </div>
               </div>
-              <div className="flex justify-center">
-                <EquipPieChart key={id} equipData={equipData} sort={sort} />
-              </div>
-              <div className="flex pt-3 justify-center text-3xl font-bold">
-                {sort}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="pb-5 text-xl font-bold">운송 장비 가동률</div>
-      <div className="w-full h-auto">
-        <TruckBarChart truckData={truckData} />
+            );
+          })}
+        </div>
+        <div className="pb-5 text-2xl font-semibold">운송 장비 가동률</div>
+        <div className="w-full h-auto">
+          <TruckBarChart truckData={truckData} />
+        </div>
       </div>
     </div>
   );
@@ -105,5 +99,3 @@ const TIME_DATA = [
   { id: 2, time: '주별', name: 'weekly' },
   { id: 3, time: '월별', name: 'monthly' },
 ];
-
-export default EquipAnalysis;
