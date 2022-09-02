@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import EquipTypeSelect from './components/EquipTypeSelect';
-import EquipListTable from './components/EquipListTable';
+import { AreaTypeSelect, AreaListTable } from '.';
 
-const EquipList = () => {
+export const AreaList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [area, setArea] = useState('');
   const [data, setData] = useState([]);
 
+  /**
+   * 구역 리스트 데이터 요청 함수
+   * @param {*} search
+   */
   async function request(search) {
     const res = await fetch(`http://192.168.0.129:8000/area/list${search}`);
     const result = await res.json();
@@ -16,16 +19,24 @@ const EquipList = () => {
   }
 
   useEffect(() => {
-    // await request();
-    setData(AREA_LIST.results);
+    request();
+    // setData(AREA_LIST.results);
   }, [location.search]);
 
+  /**
+   * 조회 버튼 클릭 시 쿼리 파라미터 수정 함수
+   * @param {*} areaIndex
+   */
   const updateOffset = areaIndex => {
     let queryString = '';
     area && (queryString = `?area=${areaIndex}`);
     navigate(queryString);
   };
 
+  /**
+   * Select 선택 시 state 저장 함수
+   * @param {*} event
+   */
   const handleSelect = event => {
     setArea(event.target.value);
   };
@@ -38,7 +49,7 @@ const EquipList = () => {
           <div className="flex w-full gap-5">
             <div className="equipSelect">
               <div className="text-sm font-semibold">이름</div>
-              <EquipTypeSelect area={area} handleSelect={handleSelect} />
+              <AreaTypeSelect area={area} handleSelect={handleSelect} />
             </div>
           </div>
           <div className="flex justify-end items-end w-full gap-5">
@@ -64,11 +75,10 @@ const EquipList = () => {
       <div className="pt-12 text-2xl font-semibold">
         조회 구역 ({data.length}개)
       </div>
-      <EquipListTable areaList={data} />
+      <AreaListTable areaList={data} />
     </section>
   );
 };
-export default EquipList;
 
 const AREA_LIST = {
   message: 'SUCCESS',
