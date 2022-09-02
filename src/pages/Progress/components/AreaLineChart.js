@@ -8,10 +8,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-export default function AareaLineChart({ areaData }) {
-  const isData = areaData.length !== 0;
-  if (!isData) return <div>로딩중입니다.</div>;
-
+export const AreaLineChart = ({ areaData }) => {
   const CustomizedLabel = props => {
     const { x, y, value, index } = props;
 
@@ -22,11 +19,12 @@ export default function AareaLineChart({ areaData }) {
     );
   };
 
-  const customLine = (one, two) => {
-    one.unshift({ day: null, progress: two });
-    return one;
+  const customizeLine = (LineData, value) => {
+    LineData.unshift({ day: null, progress: value });
+    return LineData;
   };
-  // console.log(test());
+
+  if (!areaData) return <div>로딩중입니다.</div>;
   return (
     <div className="pl-3 pt-14">
       {Object.keys(areaData).map(area => {
@@ -37,7 +35,7 @@ export default function AareaLineChart({ areaData }) {
               <LineChart
                 width={500}
                 height={200}
-                data={customLine(areaData[area], areaData[area][0].progress)}
+                data={customizeLine(areaData[area], areaData[area][0].progress)}
                 syncId="anyId"
                 margin={{
                   top: 20,
@@ -65,4 +63,4 @@ export default function AareaLineChart({ areaData }) {
       })}
     </div>
   );
-}
+};
