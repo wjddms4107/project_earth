@@ -1,9 +1,38 @@
-import { useNavigate } from 'react-router-dom';
+import { Fragment, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BsHouseDoorFill } from 'react-icons/bs';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
 export const Header = ({ open, title }) => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [headerTitle, setHeaderTitle] = useState([]);
+
+  const capitalizer = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
+  const makeHeaderTitle = headerTitle => {
+    if (headerTitle[0] === '') {
+      headerTitle[0] = 'home';
+    }
+
+    return headerTitle.map((item, index) => {
+      return (
+        <Fragment key={index}>
+          <MdOutlineArrowForwardIos className="text-blue-center_border mx-2" />
+          <span>{`${capitalizer(item)}`}</span>
+        </Fragment>
+      );
+    });
+  };
+
+  useEffect(() => {
+    let headerArray = location.pathname.split('/');
+    headerArray.shift();
+    setHeaderTitle(headerArray);
+  }, [location]);
 
   return (
     <header
@@ -17,8 +46,7 @@ export const Header = ({ open, title }) => {
             className="text-blue text-2xl cursor-pointer"
             onClick={() => navigate('/')}
           />
-          <MdOutlineArrowForwardIos className="text-blue-center_border mx-2" />
-          <span className="text-base">{title}</span>
+          {makeHeaderTitle(headerTitle)}
         </div>
       </div>
     </header>
