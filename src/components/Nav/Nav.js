@@ -1,10 +1,10 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { IoIosArrowDown } from 'react-icons/io';
-import home_icon from '../../assets/images/home_icon.svg';
-import equipment_icon from '../../assets/images/equipment_icon.svg';
-import progress_icon from '../../assets/images/progress_icon.svg';
-import area_icon from '../../assets/images/area_icon.svg';
+import home_icon from 'assets/images/home_icon.svg';
+import equipment_icon from 'assets/images/equipment_icon.svg';
+import progress_icon from 'assets/images/progress_icon.svg';
+import area_icon from 'assets/images/area_icon.svg';
 
 export const Nav = ({ open, setOpen }) => {
   const [currMenu, setCurrMenu] = useState('');
@@ -63,39 +63,33 @@ export const Nav = ({ open, setOpen }) => {
       {MENU_DATA.map((Menu, index) => {
         return (
           <Fragment key={index}>
-            <li
-              className={`flex items-center relative hover:bg-blue-blue90 h-10 gap-x-2 rounded-sm cursor-pointer ${
-                !open && 'justify-center'
-              }`}
-              onClick={() =>
-                currMenu === index
-                  ? setCurrMenu('')
-                  : (setCurrMenu(index), setOpen(true))
-              }
-            >
-              <img
-                src={Menu.iconURL}
-                className="w-5"
-                alt={`${Menu.title}_icon`}
-              />
-              {Menu.URL ? (
-                <Link
-                  to={`${Menu.URL}`}
+            <li>
+              <Link
+                to={Menu.URL ? `${Menu.URL}` : `${location.pathname}`}
+                className={`flex items-center relative hover:bg-blue-blue90 h-10 gap-x-2 rounded-sm cursor-pointer ${
+                  !open && 'justify-center'
+                }`}
+                onClick={() =>
+                  currMenu === index
+                    ? setCurrMenu('')
+                    : Menu.sub_categories === undefined ||
+                      (setCurrMenu(index), setOpen(true))
+                }
+              >
+                <img
+                  src={Menu.iconURL}
+                  className="w-5"
+                  alt={`${Menu.title}_icon`}
+                />
+
+                <span
                   className={`origin-left w-full h-full leading-10 text-achromatic-bg_paper text-base ${
                     !open && 'hidden scale-0'
                   } ${location.pathname === Menu.URL && 'font-bold'}`}
                 >
                   {Menu.title}
-                </Link>
-              ) : (
-                <Fragment>
-                  <span
-                    className={`origin-left w-full h-full leading-10 text-achromatic-bg_paper text-base ${
-                      !open && 'hidden scale-0'
-                    } ${location.pathname === Menu.URL && 'font-bold'}`}
-                  >
-                    {Menu.title}
-                  </span>
+                </span>
+                {Menu.sub_categories && (
                   <IoIosArrowDown
                     className={`${
                       currMenu === index
@@ -105,36 +99,37 @@ export const Nav = ({ open, setOpen }) => {
                       !open && 'hidden'
                     } absolute text-achromatic-bg_paper text-xl right-2 top-3 duration-300`}
                   />
-                </Fragment>
-              )}
+                )}
+              </Link>
             </li>
-            <ul
-              className={`origin-top-left h-0 scale-0 duration-300 ${
-                currMenu === index && 'h-fit scale-100'
-              }`}
-              index={index}
-            >
-              {Menu.sub_categories &&
-                Menu.sub_categories.map(Sub => {
+            {Menu.sub_categories && (
+              <ul
+                className={`origin-top-left h-0 scale-0 duration-300 ${
+                  currMenu === index && 'h-fit scale-100'
+                }`}
+                index={index}
+              >
+                {Menu.sub_categories.map(Sub => {
                   return (
-                    <li
+                    <Link
+                      to={Sub.URL ? `${Sub.URL}` : `${location.pathname}`}
                       key={Sub.menu_id}
                       className={`flex items-center relative hover:bg-blue-blue90 h-10 pl-7 gap-x-2 rounded-sm cursor-pointer ${
                         !open && 'justify-center'
                       }`}
                     >
-                      <Link
-                        to={`${Sub.URL}`}
+                      <span
                         className={`origin-left w-full h-full leading-10 text-achromatic-bg_paper text-base ${
                           !open && 'hidden scale-0'
                         } ${location.pathname === Sub.URL && 'font-bold'}`}
                       >
                         {Sub.title}
-                      </Link>
-                    </li>
+                      </span>
+                    </Link>
                   );
                 })}
-            </ul>
+              </ul>
+            )}
           </Fragment>
         );
       })}

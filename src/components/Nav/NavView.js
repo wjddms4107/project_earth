@@ -2,7 +2,7 @@ import { useState, Fragment } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
 import { MdOutlineArrowBackIosNew } from 'react-icons/md';
 import { Header, Nav } from '.';
-import musma_logo from '../../assets/images/musma_logo.svg';
+import musma_logo from 'assets/images/musma_logo.svg';
 
 export const NavView = () => {
   const [open, setOpen] = useState(true);
