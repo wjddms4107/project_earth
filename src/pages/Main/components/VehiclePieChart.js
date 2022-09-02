@@ -64,7 +64,7 @@ export const VehiclePieChart = ({ data }) => {
                 </Pie>
               </PieChart>
             ) : (
-              <div className="flex justify-center items-center w-[200px] h-[200px] font-bold text-3xl">
+              <div className="flex justify-center items-center w-[190px] h-[190px] font-bold text-3xl">
                 NO DATA
               </div>
             )}

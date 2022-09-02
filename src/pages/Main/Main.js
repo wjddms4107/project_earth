@@ -1,6 +1,7 @@
-import Streamedian from '../Streamedian';
-import { VehiclePieChart, ProcessPieChart, TableChart, DataFilter } from '.';
+import Streamedian from 'components/Streamedian';
+import { VehiclePieChart, ProcessPieChart, TableChart } from '.';
 import { useState, useEffect } from 'react';
+import { DataFilter } from 'types/Main/dataFilter';
 
 export const Main = () => {
   const [data, setData] = useState();
@@ -40,13 +41,13 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    // equipRequest();
-    // progressRequest();
-    setData(DATA[0]);
-    setProgressData(PROGRESS_RATE);
+    equipRequest();
+    progressRequest();
+    // setData(DATA[0]);
+    // setProgressData(PROGRESS_RATE);
     const timer = setInterval(() => {
-      // equipRequest();
-      setData(DATA[0]);
+      equipRequest();
+      // setData(DATA[0]);
     }, 1000 * 10);
     return () => clearInterval(timer);
   }, []);
@@ -82,8 +83,13 @@ export const Main = () => {
       <div className="flex justify-center items-start flex-col w-2/5 h-fit gap-12">
         <div className="w-full">
           <h1 className="text-2xl font-bold">CCTV</h1>
-          <div className="mt-5">
-            <Streamedian id="test" url="rtsp://192.168.0.102/stream1" />
+          <div className="flex flex-col mt-5 gap-3">
+            <h2 className="text-xl font-semibold">구역A</h2>
+            <Streamedian id="test1" url={process.env.REACT_APP_RTSP_URL01} />
+          </div>
+          <div className="flex flex-col mt-5 gap-3">
+            <h2 className="text-xl font-semibold">구역B</h2>
+            <Streamedian id="test2" url={process.env.REACT_APP_RTSP_URL02} />
           </div>
         </div>
         <div className="w-full">
