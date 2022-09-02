@@ -10,6 +10,7 @@ import {
 
 export const EquipDetailBarChart = ({ datailBarChartData }) => {
   if (!datailBarChartData) return <div>로딩중입니다.</div>;
+
   return (
     <ResponsiveContainer width="95%" height={300}>
       <BarChart
