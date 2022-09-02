@@ -1,60 +1,38 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { withStyles, makeStyles } from '@material-ui/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import { makeStyles } from '@material-ui/styles';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 
-const useStyles = makeStyles({
-  tableContainer: { border: '1px solid #D5DDE4', borderRadius: '4px' },
-  table: {},
-  tableHead: {},
-  tableRow: {
-    height: 40,
-    background: '#EFF2F5',
-    padding: 'none',
-  },
-  tableCell: {
-    borderRight: '1px solid #D5DDE4',
-  },
-});
-
-const StyledTableRow = withStyles(theme => ({
-  root: {},
-}))(TableRow);
-
-const StyledTableCell = withStyles(theme => ({
-  root: { height: 35 },
-}))(TableCell);
-
-function createData(
-  serial_number,
-  equipment_type,
-  equipment_company,
-  equipment_area,
-  equipment_id
-) {
-  return {
-    serial_number,
-    equipment_type,
-    equipment_company,
-    equipment_area,
-    equipment_id,
-  };
-}
-export default function EquipListTable({ equipList }) {
+export const EquipListTable = ({ equipList }) => {
   const classes = useStyles();
   const navigate = useNavigate();
-
-  const isData = equipList.length !== 0;
-  if (!isData) return <div>로딩중입니다.</div>;
 
   const goToDetailPage = equipment_id => {
     navigate(`/equipment/${equipment_id}`);
   };
+
+  function createData(
+    serial_number,
+    equipment_type,
+    equipment_company,
+    equipment_area,
+    equipment_id
+  ) {
+    return {
+      serial_number,
+      equipment_type,
+      equipment_company,
+      equipment_area,
+      equipment_id,
+    };
+  }
 
   const rows = equipList.map(
     ({
@@ -73,65 +51,73 @@ export default function EquipListTable({ equipList }) {
       )
   );
 
-  // console.log('equipList:', equipList);
-  // console.log('rows:', rows);
+  if (!equipList) return <div>로딩중입니다.</div>;
 
   return (
     <TableContainer className={classes.tableContainer}>
       <Table>
         <TableHead>
           <TableRow className={classes.tableRow}>
-            <TableCell
-              className={classes.tableCell}
-              padding="none"
-              align="center"
-              width="25%"
-            >
-              시리얼
-            </TableCell>
-            <TableCell
-              className={classes.tableCell}
-              padding="none"
-              align="center"
-              width="25%"
-            >
-              타입
-            </TableCell>
-            <TableCell
-              className={classes.tableCell}
-              padding="none"
-              align="center"
-              width="25%"
-            >
-              소유주
-            </TableCell>
-            <TableCell padding="none" align="center" width="25%">
-              구역
-            </TableCell>
+            <TableCell className={classes.tableCell}>시리얼</TableCell>
+            <TableCell className={classes.tableCell}>타입</TableCell>
+            <TableCell className={classes.tableCell}>소유주</TableCell>
+            <TableCell className={classes.tableCell}>구역</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <StyledTableRow
+            <TableRow
               onClick={() => goToDetailPage(row.equipment_id)}
               key={row.serial_number}
+              className={classes.tableBodyRow}
             >
-              <StyledTableCell padding="none" align="center">
+              <TableCell className={classes.tableCell}>
                 {row.serial_number}
-              </StyledTableCell>
-              <StyledTableCell padding="none" align="center">
+              </TableCell>
+              <TableCell className={classes.tableCell}>
                 {row.equipment_type}
-              </StyledTableCell>
-              <StyledTableCell padding="none" align="center">
+              </TableCell>
+              <TableCell className={classes.tableCell}>
                 {row.equipment_company}
-              </StyledTableCell>
-              <StyledTableCell padding="none" align="center">
+              </TableCell>
+              <TableCell className={classes.tableCell}>
                 {row.equipment_area}
-              </StyledTableCell>
-            </StyledTableRow>
+              </TableCell>
+            </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
-}
+};
+
+const useStyles = makeStyles({
+  tableContainer: {
+    border: '1px solid #D5DDE4',
+    borderRadius: '4px',
+    borderBottom: 0,
+  },
+  tableRow: {
+    height: 40,
+    background: '#EFF2F5',
+  },
+  tableCell: {
+    width: '25%',
+    '&.MuiTableCell-head': {
+      padding: 0,
+      textAlign: 'center',
+      borderRight: '1px solid #D5DDE4',
+      '&:last-child': {
+        borderRight: '0px',
+      },
+    },
+    '&.MuiTableCell-body': {
+      height: 35,
+      padding: 0,
+      textAlign: 'center',
+    },
+  },
+  tableBodyRow: {
+    cursor: 'pointer',
+  },
+});
