@@ -7,9 +7,9 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
-import { customizeLine } from 'utils/functions/main/mainFunction';
+import { customizeLine } from 'utils/functions/area/areaDetail';
 
-export default function AareaDetailLineChart({ areaLineChartData }) {
+export const AareaDetailLineChart = ({ areaLineChartData }) => {
   const isData = areaLineChartData.length !== 0;
   if (!isData) return <div>로딩중입니다.</div>;
 
@@ -54,4 +54,4 @@ export default function AareaDetailLineChart({ areaLineChartData }) {
       </ResponsiveContainer>
     </div>
   );
-}
+};

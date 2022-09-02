@@ -7,7 +7,7 @@ import {
 } from '@react-google-maps/api';
 import cctv from 'assets/images/cctv.svg';
 
-export default function AreaDetailMap({ areaMapData }) {
+export const AreaDetailMap = ({ areaMapData }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP,
   });
@@ -16,7 +16,7 @@ export default function AreaDetailMap({ areaMapData }) {
 
   if (!isLoaded) return <div>Loading...</div>;
   return <Map areaMapData={areaMapData} />;
-}
+};
 
 function Map({ areaMapData }) {
   const center = {
