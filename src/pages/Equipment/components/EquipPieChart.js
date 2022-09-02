@@ -1,7 +1,7 @@
 import { PieChart, Pie, Cell } from 'recharts';
 import React from 'react';
 
-const EquipPieChart = ({ equipData, sort }) => {
+export const EquipPieChart = ({ equipData, sort }) => {
   const isData = equipData.length !== 0;
   if (!isData) return <div>로딩중입니다.</div>;
 
@@ -15,7 +15,7 @@ const EquipPieChart = ({ equipData, sort }) => {
       value: sort && equipData[sort].travel,
     },
     {
-      name: 'Load',
+      name: 'Working',
       value: sort && equipData[sort].load,
     },
     {
@@ -33,23 +33,21 @@ const EquipPieChart = ({ equipData, sort }) => {
     midAngle,
     innerRadius,
     outerRadius,
-    x,
-    y,
     name,
     value,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.37;
-    const xx = cx + radius * Math.cos(-midAngle * RADIAN) * 0.8;
-    const yy = cy + radius * Math.sin(-midAngle * RADIAN);
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN) * 1;
+    const y = cy + radius * Math.sin(-midAngle * RADIAN) * 0.95;
 
     return (
       <text
-        x={xx}
-        y={yy}
+        x={x}
+        y={y}
         fill="white"
-        textAnchor={x > cx ? 'start' : 'end'}
+        textAnchor="middle"
         dominantBaseline="central"
-        fontSize={16}
+        fontSize={15}
       >
         {value === 0 ? null : name}
       </text>
@@ -80,5 +78,3 @@ const EquipPieChart = ({ equipData, sort }) => {
     </PieChart>
   );
 };
-
-export default EquipPieChart;
