@@ -7,17 +7,18 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
+import { customizeLine } from 'utils/functions/area/areaDetail';
 
-export default function AareaDetailLineChart() {
-  // const isData = areaData.length !== 0;
-  // if (!isData) return <div>로딩중입니다.</div>;
+export const AareaDetailLineChart = ({ areaLineChartData }) => {
+  const isData = areaLineChartData.length !== 0;
+  if (!isData) return <div>로딩중입니다.</div>;
 
   const CustomizedLabel = props => {
-    const { x, y, value } = props;
+    const { x, y, value, index } = props;
 
     return (
       <text x={x} y={y} dy={-20} fontSize={18} textAnchor="middle">
-        {value}
+        {index === 0 ? null : value}
       </text>
     );
   };
@@ -28,7 +29,7 @@ export default function AareaDetailLineChart() {
         <LineChart
           width={500}
           height={200}
-          // data={areaData}
+          data={customizeLine(areaLineChartData, areaLineChartData[0].progress)}
           syncId="anyId"
           margin={{
             top: 20,
@@ -37,16 +38,12 @@ export default function AareaDetailLineChart() {
             bottom: 50,
           }}
         >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#FFFFFF"
-            fill="#FFFFFF"
-          />
-          <XAxis dataKey="day" />
-          <YAxis domain={[0, 100]} />
+          <CartesianGrid />
+          <XAxis dataKey="day" dy={10} />
+          <YAxis domain={[0, 100]} dx={-10} />
           <Line
             type="linear"
-            dataKey="구역A"
+            dataKey="progress"
             stroke="#036DB7"
             activeDot={false}
             strokeWidth={5}
@@ -57,4 +54,4 @@ export default function AareaDetailLineChart() {
       </ResponsiveContainer>
     </div>
   );
-}
+};

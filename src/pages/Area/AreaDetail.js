@@ -4,19 +4,31 @@ import AreaDetailMap from './components/AreaDetailMap';
 import AareaDetailLineChart from './components/AreaDetailLineChart';
 import previous from '../../assets/images/previous.svg';
 import AreaDetailDataAPI from '../../assets/data/AreaDetailData.json';
+import AreaDetaiLineChartAPI from '../../assets/data/AreaDetailLineChartAPI.json';
 
 const AreaDetail = () => {
   let { area_id } = useParams();
   const navigate = useNavigate();
   const [areaMapData, setAreaMapData] = useState([]);
+  const [areaLineChartData, setAreaLineChartData] = useState([]);
   const getAreaDetailData = async () => {
-    // const res = await fetch(`http://192.168.0.129:8000/area/detail/${area_id}`).then(res =>
-    //   res.json()
-    // );
+    // const res = await fetch(
+    //   `http://192.168.0.136:8000/area/detail/${area_id}`
+    // ).then(res => res.json());
+    // const resChart = await fetch(
+    //   `http://192.168.0.136:8000/progress?select=weekly&area=${area_id}`
+    // ).then(res => res.json());
     const res = AreaDetailDataAPI;
+    const resChart = AreaDetaiLineChartAPI;
+
     const areaMap = res.results;
+    const areaChart = resChart.results;
+    const finalAreaChart = areaChart[Object.keys(areaChart)[0]];
+
     setAreaMapData(areaMap);
+    setAreaLineChartData(finalAreaChart);
   };
+
   useEffect(() => {
     getAreaDetailData();
   }, []);
@@ -36,6 +48,7 @@ const AreaDetail = () => {
       lng: areaMapData.cam_longitude,
     },
   ];
+
   return (
     <>
       <div className="flex mb-3 ">
@@ -54,7 +67,7 @@ const AreaDetail = () => {
           <AreaDetailMap areaMapData={areaMapData} />
         </div>
       </div>
-      <div className="flex h-56 p-20 m-6 bg-achromatic-bg_paper">
+      <div className="flex h-56 p-20 m-6">
         {EQUIP_DETAIL_DATA.map(({ id, title, area, lan, lng }) => {
           return (
             <div className="w-1/4" key={id}>
@@ -66,7 +79,7 @@ const AreaDetail = () => {
         })}
       </div>
       <div className="text-2xl font-semibold">주간 공정률</div>
-      <AareaDetailLineChart />
+      <AareaDetailLineChart areaLineChartData={areaLineChartData} />
     </>
   );
 };
