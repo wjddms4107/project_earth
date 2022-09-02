@@ -26,25 +26,26 @@ export const AreaLineChart = ({ areaData }) => {
 
   if (!areaData) return <div>로딩중입니다.</div>;
   return (
-    <div className="pl-3 pt-14">
+    <div className="pl-[40px] pt-[12px]">
+      <div className="text-2xl font-bold pb-6">지역별 공정률</div>
       {Object.keys(areaData).map(area => {
         return (
           <>
-            <h1 className="text-2xl font-semibold">{area}</h1>
-            <ResponsiveContainer width="95%" height={400} className="pt-7">
+            <h1 className="text-xl font-semibold pb-5">{area}</h1>
+            <ResponsiveContainer width="95%" height={400}>
               <LineChart
                 width={500}
                 height={200}
                 data={customizeLine(areaData[area], areaData[area][0].progress)}
                 syncId="anyId"
                 margin={{
-                  top: 20,
+                  top: 0,
                   right: 20,
                   left: 30,
                   bottom: 50,
                 }}
               >
-                <CartesianGrid stroke="#FFFFFF" fill="#FFFFFF" />
+                <CartesianGrid />
                 <XAxis dataKey="day" dy={10} />
                 <YAxis domain={[0, 100]} dx={-10} />
                 <Line
