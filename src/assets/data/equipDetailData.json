@@ -1,7 +1,7 @@
 {
   "message": {
     "equipment_type": "backhoe",
-      "serial_number": "excavators-000",
+      "serial_number": "excavators_000",
       "company": "aaa회사",
       "equipment_area": "구역A"
   },

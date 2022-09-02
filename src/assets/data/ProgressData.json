@@ -1,30 +1,58 @@
 {
   "message": "SUCCESS",
-  "results": [
+  "results": {
+    "A구역": [
+        {
+            "day": 23,
+            "progress": 5
+        },
+        {
+            "day": 24,
+            "progress": 9
+        },
+        {
+            "day": 25,
+            "progress": 13
+        },
+        {
+            "day": 26,
+            "progress": 18
+        },
+        {
+            "day": 29,
+            "progress": 50
+        },
+        {
+            "day": 30,
+            "progress": 60
+        },
+        {
+            "day": 31,
+            "progress": 70
+        }
+    ],
+    "B구역": [
       {
           "day": 23,
-          "구역A": 5,
-          "구역B": "없음"
+          "progress": 10
       },
       {
           "day": 24,
-          "구역A": 9,
-          "구역B": "없음"
+          "progress": 15
       },
       {
           "day": 25,
-          "구역A": 13,
-          "구역B": "없음"
+          "progress": 30
       },
       {
           "day": 26,
-          "구역A": 18,
-          "구역B": "없음"
+          "progress": 18
       },
       {
           "day": 29,
-          "구역A": 50,
-          "구역B": "없음"
+          "progress": 50
       }
   ]
+  }
+  
 }

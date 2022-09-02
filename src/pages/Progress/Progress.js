@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import timeStore from '../../stores/timeStore';
-import AareaLineChart from './components/AareaLineChart';
-import ProgressData from '../../assets/data/ProgressData.json';
+import { AreaLineChart } from './components/AreaLineChart';
+import timeStore from 'stores/timeStore';
+import ProgressData from 'assets/data/ProgressData.json';
 
 const Progress = observer(() => {
   const navigate = useNavigate();
   const [areaData, setAreaData] = useState([]);
+
   const getProgressData = async () => {
     const queryString = `?select=${timeStore.ProgressTime}`;
     navigate(`/progress${queryString}`);
-    // const res = await fetch(
-    //   `http://192.168.0.136:8000/progress${queryString}`
-    // ).then(res => res.json());
-    const res = ProgressData;
+    const res = await fetch(
+      `http://192.168.0.136:8000/progress${queryString}`
+    ).then(res => res.json());
+    // const res = ProgressData;
     setAreaData(res.results);
   };
 
@@ -43,7 +44,7 @@ const Progress = observer(() => {
         })}
       </div>
       <div>
-        <AareaLineChart areaData={areaData} />
+        <AreaLineChart areaData={areaData} />
       </div>
     </div>
   );
