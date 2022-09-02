@@ -5,15 +5,14 @@ import {
   Circle,
   Marker,
 } from '@react-google-maps/api';
-import cctv from '../../../assets/images/cctv.svg';
+import cctv from 'assets/images/cctv.svg';
 
 export default function AreaDetailMap({ areaMapData }) {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP,
   });
 
-  const isData = areaMapData.length !== 0;
-  if (!isData) return <div>로딩중입니다.</div>;
+  if (!areaMapData) return <div>로딩중입니다.</div>;
 
   if (!isLoaded) return <div>Loading...</div>;
   return <Map areaMapData={areaMapData} />;

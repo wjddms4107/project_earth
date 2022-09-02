@@ -67,7 +67,7 @@ const AreaDetail = () => {
           <AreaDetailMap areaMapData={areaMapData} />
         </div>
       </div>
-      <div className="flex h-56 p-20 m-6 bg-achromatic-bg_paper">
+      <div className="flex h-56 p-20 m-6">
         {EQUIP_DETAIL_DATA.map(({ id, title, area, lan, lng }) => {
           return (
             <div className="w-1/4" key={id}>
