@@ -8,13 +8,14 @@ import ProgressData from '../../assets/data/ProgressData.json';
 const Progress = observer(() => {
   const navigate = useNavigate();
   const [areaData, setAreaData] = useState([]);
+
   const getProgressData = async () => {
     const queryString = `?select=${timeStore.ProgressTime}`;
     navigate(`/progress${queryString}`);
-    // const res = await fetch(
-    //   `http://192.168.0.136:8000/progress${queryString}`
-    // ).then(res => res.json());
-    const res = ProgressData;
+    const res = await fetch(
+      `http://192.168.0.136:8000/progress${queryString}`
+    ).then(res => res.json());
+    // const res = ProgressData;
     setAreaData(res.results);
   };
 

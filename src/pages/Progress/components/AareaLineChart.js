@@ -13,15 +13,20 @@ export default function AareaLineChart({ areaData }) {
   if (!isData) return <div>로딩중입니다.</div>;
 
   const CustomizedLabel = props => {
-    const { x, y, value } = props;
+    const { x, y, value, index } = props;
 
     return (
       <text x={x} y={y} dy={-20} fontSize={18} textAnchor="middle">
-        {value}
+        {index === 0 ? null : value}
       </text>
     );
   };
 
+  const customLine = (one, two) => {
+    one.unshift({ day: null, progress: two });
+    return one;
+  };
+  // console.log(test());
   return (
     <div className="pl-3 pt-14">
       {Object.keys(areaData).map(area => {
@@ -32,7 +37,7 @@ export default function AareaLineChart({ areaData }) {
               <LineChart
                 width={500}
                 height={200}
-                data={areaData[area]}
+                data={customLine(areaData[area], areaData[area][0].progress)}
                 syncId="anyId"
                 margin={{
                   top: 20,
@@ -42,9 +47,10 @@ export default function AareaLineChart({ areaData }) {
                 }}
               >
                 <CartesianGrid stroke="#FFFFFF" fill="#FFFFFF" />
-                <XAxis dataKey="day" dy={10} padding={{ left: 30 }} />
+                <XAxis dataKey="day" dy={10} />
                 <YAxis domain={[0, 100]} dx={-10} />
                 <Line
+                  connectNulls
                   type="linear"
                   dataKey="progress"
                   stroke="#036DB7"
