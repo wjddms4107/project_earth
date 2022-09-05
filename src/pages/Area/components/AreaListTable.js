@@ -18,8 +18,8 @@ export const AreaListTable = ({ areaList }) => {
    * Detail 페이지 진입 navigate
    * @param {*} area_id
    */
-  const goToDetailPage = area_name => {
-    navigate(`/area/detail/${area_name}`);
+  const goToDetailPage = area_id => {
+    navigate(`/area/detail/${area_id}`);
   };
 
   const createData = (
@@ -75,7 +75,7 @@ export const AreaListTable = ({ areaList }) => {
           {rows.map(row => {
             return (
               <TableRow
-                onClick={() => goToDetailPage(row.area_name)}
+                onClick={() => goToDetailPage(row.area_id)}
                 key={row.area_id}
               >
                 <TableCell className={classes.tableCell}>
