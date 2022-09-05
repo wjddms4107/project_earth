@@ -65,7 +65,11 @@ export const Nav = ({ open, setOpen }) => {
           <Fragment key={index}>
             <li>
               <Link
-                to={Menu.URL ? `${Menu.URL}` : `${location.pathname}`}
+                to={
+                  Menu.URL
+                    ? `${Menu.URL + location.search}`
+                    : `${location.pathname + location.search}`
+                }
                 className={`flex items-center relative hover:bg-blue-blue90 h-10 gap-x-2 rounded-sm cursor-pointer ${
                   !open && 'justify-center'
                 }`}
@@ -112,7 +116,11 @@ export const Nav = ({ open, setOpen }) => {
                 {Menu.sub_categories.map(Sub => {
                   return (
                     <Link
-                      to={Sub.URL ? `${Sub.URL}` : `${location.pathname}`}
+                      to={
+                        Sub.URL
+                          ? `${Sub.URL + location.search}`
+                          : `${location.pathname + location.search}`
+                      }
                       key={Sub.menu_id}
                       className={`flex items-center relative hover:bg-blue-blue90 h-10 pl-7 gap-x-2 rounded-sm cursor-pointer ${
                         !open && 'justify-center'

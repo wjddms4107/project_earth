@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { BsHouseDoorFill } from 'react-icons/bs';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 
-export const Header = ({ open, title }) => {
+export const Header = ({ open }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
