@@ -30,8 +30,7 @@ function Map({ areaMapData }) {
   };
 
   const containerStyle = {
-    width: 'auto',
-    height: '310px',
+    height: '100%',
   };
 
   const options = {

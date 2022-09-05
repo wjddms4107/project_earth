@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { AreaDetailMap, AareaDetailLineChart } from '.';
 import Streamedian from 'components/Streamedian';
 import previous from 'assets/images/previous.svg';
 import AreaDetailDataAPI from 'assets/data/AreaDetailData.json';
 import AreaDetaiLineChartAPI from 'assets/data/AreaDetailLineChartAPI.json';
+import { customizeLine } from 'utils/functions/area/areaDetail';
 
 export const AreaDetail = () => {
   let { area_id } = useParams();
@@ -28,26 +29,36 @@ export const AreaDetail = () => {
     },
   ];
 
+  /**
+   * google map 데이터 요청
+   */
   const getAreaDetailData = async () => {
-    // const res = await fetch(
-    //   `http://192.168.0.136:8000/area/detail/${area_id}`
-    // ).then(res => res.json());
-    // const resChart = await fetch(
-    //   `http://192.168.0.136:8000/progress?select=weekly&area=${area_id}`
-    // ).then(res => res.json());
-    const res = AreaDetailDataAPI;
-    const resChart = AreaDetaiLineChartAPI;
-
+    const res = await fetch(
+      `http://192.168.0.136:8000/area/detail/${area_id}`
+    ).then(res => res.json());
+    // const res = AreaDetailDataAPI;
     const areaMap = res.results;
+    setAreaMapData(areaMap);
+  };
+
+  /**
+   * Line Chart 데이터 요청
+   */
+  const getAreaDetailLineChartData = async () => {
+    const resChart = await fetch(
+      `http://192.168.0.136:8000/progress?select=weekly&area=${area_id}`
+    ).then(res => res.json());
+    // const resChart = AreaDetaiLineChartAPI;
     const areaChart = resChart.results;
     const finalAreaChart = areaChart[Object.keys(areaChart)[0]];
-
-    setAreaMapData(areaMap);
-    setAreaLineChartData(finalAreaChart);
+    setAreaLineChartData(
+      customizeLine(finalAreaChart, finalAreaChart[0].progress)
+    );
   };
 
   useEffect(() => {
     getAreaDetailData();
+    getAreaDetailLineChartData();
   }, []);
 
   return (
@@ -62,9 +73,7 @@ export const AreaDetail = () => {
       </div>
       <div className="flex mt-5">
         <div className="w-2/5 mr-10">
-          <div className="w-fit h-full">
-            <Streamedian id="test1" url={process.env.REACT_APP_RTSP_URL01} />
-          </div>
+          <Streamedian id="test1" url={process.env.REACT_APP_RTSP_URL01} />
         </div>
         <div className="w-3/5 ">
           <AreaDetailMap areaMapData={areaMapData} />
