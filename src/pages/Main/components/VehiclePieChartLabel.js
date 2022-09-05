@@ -24,7 +24,7 @@ export const renderCustomizedLabel = ({
         x={x}
         y={sin > 0 ? y - sin * 15 : y}
         fill="white"
-        textAnchor={value > 3 ? 'end' : 'middle'}
+        textAnchor="middle"
         dominantBaseline="central"
       >
         {value === 0 ? null : name}
