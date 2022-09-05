@@ -9,9 +9,11 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+
 export const EquipListTable = ({ equipList }) => {
   const classes = useStyles();
   const navigate = useNavigate();
+
   /**
    * List Detail 페이지 진입 navigete
    * @param {*} equipment_id
@@ -19,6 +21,7 @@ export const EquipListTable = ({ equipList }) => {
   const goToDetailPage = equipment_id => {
     navigate(`/equipment/detail/${equipment_id}`);
   };
+
   function createData(
     serial_number,
     equipment_type,
@@ -34,6 +37,7 @@ export const EquipListTable = ({ equipList }) => {
       equipment_id,
     };
   }
+
   const rows = equipList.map(
     ({
       serial_number,
@@ -50,6 +54,7 @@ export const EquipListTable = ({ equipList }) => {
         equipment_id
       )
   );
+
   if (!equipList) return <div>로딩중입니다.</div>;
   return (
     <TableContainer className={classes.tableContainer}>
@@ -88,6 +93,7 @@ export const EquipListTable = ({ equipList }) => {
     </TableContainer>
   );
 };
+
 const useStyles = makeStyles({
   tableContainer: {
     border: '1px solid #D5DDE4',
