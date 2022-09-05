@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { AreaTypeSelect, AreaListTable } from '.';
+import { AreaListAreaSelect, AreaListTable } from '.';
 
 export const AreaList = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export const AreaList = () => {
           <div className="flex w-full gap-5">
             <div className="">
               <div className="text-sm font-semibold">이름</div>
-              <AreaTypeSelect area={area} handleSelect={handleSelect} />
+              <AreaListAreaSelect area={area} handleSelect={handleSelect} />
             </div>
           </div>
           <div className="flex justify-end items-end w-full gap-5">

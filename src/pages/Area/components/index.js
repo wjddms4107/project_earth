@@ -1,4 +1,4 @@
 export * from './AreaDetailLineChart';
 export * from './AreaDetailMap';
 export * from './AreaListTable';
-export * from './AreaListTypeSelect';
+export * from './AreaListAreaSelect';
