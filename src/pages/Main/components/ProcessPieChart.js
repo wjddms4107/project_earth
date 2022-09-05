@@ -13,7 +13,7 @@ export const ProcessPieChart = ({ data }) => {
             className="flex justify-center items-center flex-col gap-5"
             key={state.name}
           >
-            <PieChart width={190} height={190}>
+            <PieChart width={240} height={240}>
               <Pie
                 data={[state, { name: 'rest', progress: 100 - state.progress }]}
                 cx="50%"
