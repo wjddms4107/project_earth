@@ -2,30 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EquipListTypeSelect, EquipListAreaSelect, EquipListTable } from '.';
 import EquipListDataAPI from 'assets/data/equipListData.json';
-
 export const EquipList = () => {
   const navigate = useNavigate();
   const [equipList, setEquipList] = useState([]);
   const [type, setType] = useState('');
   const [area, setArea] = useState('');
-
+  /**
+   * 장비 리스트 데이터 요청 함수
+   */
   const getEquipList = async () => {
     navigate('/equipment/list');
-    // const res = await fetch(`http://192.168.0.129:8000/equipment/list`).then(
-    //   res => res.json()
-    // );
-    const res = EquipListDataAPI;
+    const res = await fetch(`http://192.168.0.129:8000/equipment/list`).then(
+      res => res.json()
+    );
+    // const res = EquipListDataAPI;
     const list = res.message;
     setEquipList(list);
   };
-
   useEffect(() => {
     getEquipList();
   }, []);
-
+  /**
+   * 조회 버튼 클릭 시 쿼리 파라미터 수정, 해당 데이터 요청 함수
+   */
   const clickSearch = () => {
     const typeQuery = `type=${type}`;
-    const areaQuery = `area=${area}`;
+    const areaQuery = `area_id=${area}`;
     const finalQuery =
       (type === '') & (area !== '')
         ? `?area=${area}`
@@ -39,20 +41,27 @@ export const EquipList = () => {
       .then(res => res.json())
       .then(data => setEquipList(data.message));
   };
-
+  /**
+   * 초기화 버튼 클릭 시 장비타입, 장비구역 state 초기화 함수
+   */
   const clickInitialization = () => {
     setType('');
     setArea('');
   };
-
+  /**
+   * 장비 타입 select 선택 시 state 변경 함수
+   * @param {*} event
+   */
   const handleType = event => {
     setType(event.target.value);
   };
-
+  /**
+   * 장비 구역 select 선택 시 state 변경 함수
+   * @param {*} event
+   */
   const handleArea = event => {
     setArea(event.target.value);
   };
-
   return (
     <section className="flex justify-center items-start flex-col w-full px-10 pt-3 gap-5 ">
       <div className="equipSelectContainer w-full">
