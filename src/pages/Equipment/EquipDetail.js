@@ -11,16 +11,17 @@ import previous from 'assets/images/previous.svg';
 export const EquipDetail = () => {
   let { equipment_id } = useParams();
   let navigate = useNavigate();
-
   const [datailBarChartData, setDatailBarChartData] = useState([]);
   const [equipDetailData, setEquipDetailData] = useState([]);
 
+  /**
+   * 장비 디테일 데이터 요청 함수
+   */
   const getEquipDetailData = async () => {
-    // const res = await fetch(
-    //   `http://192.168.0.129:8000/equipment/detail/${equipment_id}`
-    // ).then(res => res.json());
-    // navigate(`/equipment/detail/${equipment_id}`);
-    const res = EquipDetailDataAPI;
+    const res = await fetch(
+      `http://192.168.0.129:8000/equipment/detail/${equipment_id}`
+    ).then(res => res.json());
+    // const res = EquipDetailDataAPI;
     const detailBarChart = res.availablete_rating;
     const equipDetail = res.message;
     setDatailBarChartData(detailBarChart);
@@ -31,6 +32,11 @@ export const EquipDetail = () => {
     getEquipDetailData();
   }, []);
 
+  /**
+   * 장비에 따른 이미지를 선택해주는 함수
+   * @param {*} data
+   * @returns 해당 장비 이미지
+   */
   const selectImage = data => {
     switch (data) {
       case 'backhoe':
@@ -69,14 +75,11 @@ export const EquipDetail = () => {
           <img
             src={selectImage(equipDetailData.equipment_type)}
             alt="equipment"
-            width={494}
-            height={309}
+            className="mt-3 ml-7"
           />
         </div>
-        <div className="w-full">
-          <div className="mb-3 ml-2 mt-2 text-2xl font-semibold">
-            주간 가동률
-          </div>
+        <div className="w-full ml-11">
+          <div className="mt-2 text-2xl font-semibold">주간 가동률</div>
           <EquipDetailBarChart datailBarChartData={datailBarChartData} />
         </div>
       </div>
