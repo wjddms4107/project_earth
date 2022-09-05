@@ -4,29 +4,42 @@ import { observer } from 'mobx-react-lite';
 import { ProgressLineChart } from './components/ProgressLineChart';
 import { timeStore } from 'stores/timeStore';
 import ProgressData from 'assets/data/ProgressData.json';
+import { customizeLine } from 'utils/functions/area/areaDetail';
 
 export const Progress = observer(() => {
   const navigate = useNavigate();
   const [areaData, setAreaData] = useState([]);
-
   const TIME_DATA = [
     { id: 1, time: '주별', name: 'weekly' },
     { id: 2, time: '월별', name: 'monthly' },
   ];
 
+  /**
+   * 지역별 공정률 데이터 요청
+   */
   const getProgressData = async () => {
-    const queryString = `?select=${timeStore.ProgressTime}`;
-    navigate(`/progress${queryString}`);
     const res = await fetch(
-      `http://192.168.0.136:8000/progress${queryString}`
+      `http://192.168.0.136:8000/progress?select=${timeStore.ProgressTime}`
     ).then(res => res.json());
-    // const res = ProgressData;
+    Object.keys(res.results).map(area =>
+      customizeLine(res.results[area], res.results[area][0].progress)
+    );
     setAreaData(res.results);
   };
 
   useEffect(() => {
+    updateOffset(timeStore.ProgressTime);
     getProgressData();
   }, [timeStore.ProgressTime]);
+
+  /**
+   * 주별/월별 버튼 클릭 시 쿼리 파라미터 수정 함수
+   * @param {*} progressTime
+   */
+  const updateOffset = progressTime => {
+    const queryString = `?select=${progressTime}`;
+    navigate(`/progress${queryString}`);
+  };
 
   return (
     <div className="relative bg-achromatic-bg_default">
@@ -34,7 +47,10 @@ export const Progress = observer(() => {
         {TIME_DATA.map(({ id, time, name }) => {
           return (
             <button
-              onClick={e => timeStore.onChangeTime(e)}
+              onClick={e => {
+                timeStore.onChangeTime(e);
+                updateOffset(timeStore.ProgressTime);
+              }}
               className={
                 timeStore.ProgressTime === name
                   ? 'text-achromatic-bg_paper bg-blue-blue90 rounded-full h-8 w-16 '

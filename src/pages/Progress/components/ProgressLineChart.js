@@ -11,17 +11,11 @@ import {
 export const ProgressLineChart = ({ areaData }) => {
   const CustomizedLabel = props => {
     const { x, y, value, index } = props;
-
     return (
       <text x={x} y={y} dy={-20} fontSize={18} textAnchor="middle">
         {index === 0 ? null : value}
       </text>
     );
-  };
-
-  const customizeLine = (LineData, value) => {
-    LineData.unshift({ day: null, progress: value });
-    return LineData;
   };
 
   if (!areaData) return <div>로딩중입니다.</div>;
@@ -36,7 +30,7 @@ export const ProgressLineChart = ({ areaData }) => {
               <LineChart
                 width={500}
                 height={200}
-                data={customizeLine(areaData[area], areaData[area][0].progress)}
+                data={areaData[area]}
                 syncId="anyId"
                 margin={{
                   top: 0,
