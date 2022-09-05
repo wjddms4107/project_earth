@@ -40,14 +40,14 @@ export const VehiclePieChart = ({ data }) => {
             key={state.id}
           >
             {mapToArray(data.typeByState.get(state.name)).length > 0 ? (
-              <PieChart width={240} height={240}>
+              <PieChart width={190} height={190}>
                 <Pie
                   data={mapToArray(data.typeByState.get(state.name))}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
                   label={renderCustomizedLabel}
-                  outerRadius={100}
+                  outerRadius={90}
                   fill="#8884d8"
                   nameKey="name"
                   dataKey="value"
@@ -64,7 +64,7 @@ export const VehiclePieChart = ({ data }) => {
                 </Pie>
               </PieChart>
             ) : (
-              <div className="flex justify-center items-center w-[240px] h-[240px] font-bold text-3xl">
+              <div className="flex justify-center items-center w-[190px] h-[190px] font-bold text-3xl">
                 NO DATA
               </div>
             )}
