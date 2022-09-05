@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EquipListTypeSelect, EquipListAreaSelect, EquipListTable } from '.';
 import EquipListDataAPI from 'assets/data/equipListData.json';
+
 export const EquipList = () => {
   const navigate = useNavigate();
   const [equipList, setEquipList] = useState([]);
   const [type, setType] = useState('');
   const [area, setArea] = useState('');
+
   /**
    * 장비 리스트 데이터 요청 함수
    */
@@ -19,9 +21,11 @@ export const EquipList = () => {
     const list = res.message;
     setEquipList(list);
   };
+
   useEffect(() => {
     getEquipList();
   }, []);
+
   /**
    * 조회 버튼 클릭 시 쿼리 파라미터 수정, 해당 데이터 요청 함수
    */
@@ -41,6 +45,7 @@ export const EquipList = () => {
       .then(res => res.json())
       .then(data => setEquipList(data.message));
   };
+
   /**
    * 초기화 버튼 클릭 시 장비타입, 장비구역 state 초기화 함수
    */
@@ -48,6 +53,7 @@ export const EquipList = () => {
     setType('');
     setArea('');
   };
+
   /**
    * 장비 타입 select 선택 시 state 변경 함수
    * @param {*} event
@@ -55,6 +61,7 @@ export const EquipList = () => {
   const handleType = event => {
     setType(event.target.value);
   };
+
   /**
    * 장비 구역 select 선택 시 state 변경 함수
    * @param {*} event
@@ -62,6 +69,7 @@ export const EquipList = () => {
   const handleArea = event => {
     setArea(event.target.value);
   };
+
   return (
     <section className="flex justify-center items-start flex-col w-full px-10 pt-3 gap-5 ">
       <div className="equipSelectContainer w-full">

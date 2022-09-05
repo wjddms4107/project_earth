@@ -1,8 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { MenuItem, FormControl, Select } from '@mui/material';
+
 export const EquipListAreaSelect = ({ area, handleArea }) => {
   const classes = useStyles();
+
   return (
     <FormControl>
       <Select
