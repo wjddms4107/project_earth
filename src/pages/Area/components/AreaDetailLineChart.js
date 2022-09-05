@@ -7,15 +7,10 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
-import { customizeLine } from 'utils/functions/area/areaDetail';
 
 export const AareaDetailLineChart = ({ areaLineChartData }) => {
-  const isData = areaLineChartData.length !== 0;
-  if (!isData) return <div>로딩중입니다.</div>;
-
   const CustomizedLabel = props => {
     const { x, y, value, index } = props;
-
     return (
       <text x={x} y={y} dy={-20} fontSize={18} textAnchor="middle">
         {index === 0 ? null : value}
@@ -23,13 +18,14 @@ export const AareaDetailLineChart = ({ areaLineChartData }) => {
     );
   };
 
+  if (!areaLineChartData) return <div>로딩중입니다.</div>;
   return (
     <div className="pl-3">
       <ResponsiveContainer width="95%" height={400} className="pt-3">
         <LineChart
           width={500}
           height={200}
-          data={customizeLine(areaLineChartData, areaLineChartData[0].progress)}
+          data={areaLineChartData}
           syncId="anyId"
           margin={{
             top: 20,
