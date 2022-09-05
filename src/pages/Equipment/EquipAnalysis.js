@@ -28,13 +28,14 @@ export const EquipAnalysis = observer(() => {
     { id: 4, sort: Object.keys(equipData)[3] },
   ];
 
+  /**
+   * 작업 장비 가동률, Not Idle Time 비율, 운송 장비 가동률 데이터 요청
+   */
   const getEquipData = async () => {
-    const queryString = `?select=${timeStore.equipTime}`;
-    navigate(`/equipment/analysis${queryString}`);
-    // const res = await fetch(
-    //   `http://192.168.0.136:8000/equipment/analysis${queryString}`
-    // ).then(res => res.json());
-    const res = EquipDataAPI;
+    const res = await fetch(
+      `http://192.168.0.136:8000/equipment/analysis?select=${timeStore.equipTime}`
+    ).then(res => res.json());
+    // const res = EquipDataAPI;
     const equip = res.states;
     const rate = res.utilization_rates;
     const truckCount = res.truck_count;
@@ -44,8 +45,19 @@ export const EquipAnalysis = observer(() => {
   };
 
   useEffect(() => {
+    updateOffset(timeStore.equipTime);
     getEquipData();
   }, [timeStore.equipTime]);
+
+  /**
+   * 일별/주별/월별 버튼 클릭 시 쿼리 파라미터 수정 함수
+   * @param {*} equipTime
+   */
+
+  const updateOffset = equipTime => {
+    const queryString = `?select=${equipTime}`;
+    navigate(`/equipment/analysis${queryString}`);
+  };
 
   return (
     <div className="relative">
@@ -53,7 +65,10 @@ export const EquipAnalysis = observer(() => {
         {TIME_DATA.map(({ id, time, name }) => {
           return (
             <button
-              onClick={e => timeStore.onChangeTime(e)}
+              onClick={e => {
+                timeStore.onChangeTime(e);
+                updateOffset(timeStore.equipTime);
+              }}
               className={
                 timeStore.equipTime === name
                   ? 'text-achromatic-bg_paper bg-blue-blue90 rounded-full h-8 w-16 '
