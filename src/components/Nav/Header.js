@@ -29,7 +29,7 @@ export const Header = ({ open, title }) => {
   };
 
   useEffect(() => {
-    let headerArray = location.pathname.split('/');
+    let headerArray = decodeURI(location.pathname).split('/');
     headerArray.shift();
     setHeaderTitle(headerArray);
   }, [location]);
