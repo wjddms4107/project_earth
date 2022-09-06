@@ -19,7 +19,7 @@ export const EquipDetail = () => {
    */
   const getEquipDetailData = async () => {
     const res = await fetch(
-      `http://192.168.0.129:8000/equipment/detail/${equipment_id}`
+      `http://192.168.0.136:8000/equipment/detail/${equipment_id}`
     ).then(res => res.json());
     // const res = EquipDetailDataAPI;
     const detailBarChart = res.availablete_rating;

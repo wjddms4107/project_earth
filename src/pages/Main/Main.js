@@ -41,13 +41,13 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    // equipRequest();
-    // progressRequest();
-    setData(DATA[0]);
-    setProgressData(PROGRESS_RATE);
+    equipRequest();
+    progressRequest();
+    // setData(DATA[0]);
+    // setProgressData(PROGRESS_RATE);
     const timer = setInterval(() => {
-      // equipRequest();
-      setData(DATA[0]);
+      equipRequest();
+      // setData(DATA[0]);
     }, 1000 * 10);
     return () => clearInterval(timer);
   }, []);

@@ -14,7 +14,7 @@ export const EquipList = () => {
    */
   const getEquipList = async () => {
     navigate('/equipment/list');
-    const res = await fetch(`http://192.168.0.129:8000/equipment/list`).then(
+    const res = await fetch(`http://192.168.0.136:8000/equipment/list`).then(
       res => res.json()
     );
     // const res = EquipListDataAPI;
@@ -41,7 +41,7 @@ export const EquipList = () => {
         ? ''
         : `?${typeQuery}&${areaQuery}`;
     navigate(`/equipment/list${finalQuery}`);
-    fetch(`http://192.168.0.129:8000/equipment/list${finalQuery}`)
+    fetch(`http://192.168.0.136:8000/equipment/list${finalQuery}`)
       .then(res => res.json())
       .then(data => setEquipList(data.message));
   };

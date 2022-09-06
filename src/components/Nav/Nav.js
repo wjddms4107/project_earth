@@ -67,7 +67,7 @@ export const Nav = ({ open, setOpen }) => {
               <Link
                 to={
                   Menu.URL
-                    ? `${Menu.URL + location.search}`
+                    ? `${Menu.URL}`
                     : `${location.pathname + location.search}`
                 }
                 className={`flex items-center relative hover:bg-blue-blue90 h-10 gap-x-2 rounded-sm cursor-pointer ${
@@ -118,7 +118,7 @@ export const Nav = ({ open, setOpen }) => {
                     <Link
                       to={
                         Sub.URL
-                          ? `${Sub.URL + location.search}`
+                          ? `${Sub.URL}`
                           : `${location.pathname + location.search}`
                       }
                       key={Sub.menu_id}

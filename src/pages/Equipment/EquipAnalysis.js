@@ -36,6 +36,7 @@ export const EquipAnalysis = observer(() => {
       `http://192.168.0.136:8000/equipment/analysis?select=${timeStore.equipTime}`
     ).then(res => res.json());
     // const res = EquipDataAPI;
+    console.log(res);
     const equip = res.states;
     const rate = res.utilization_rates;
     const truckCount = res.truck_count;
@@ -66,7 +67,7 @@ export const EquipAnalysis = observer(() => {
           return (
             <button
               onClick={e => {
-                timeStore.onChangeTime(e);
+                timeStore.onChangeEquipTime(e);
                 updateOffset(timeStore.equipTime);
               }}
               className={
@@ -85,8 +86,8 @@ export const EquipAnalysis = observer(() => {
       <div className="px-10 pt-3">
         <div className="pb-1 text-2xl font-semibold">작업 장비 가동률</div>
         <div className="text-xl font-normal text-achromatic-text_secondary">
-          중장비별 Idle, Travel, Load, Unload Time 비율과 작업 시간 대비 Not
-          Idle Time 비율입니다.
+          중장비별 Idle, Travel, Working Time 비율과 일과시간 대비 작업시간
+          비율입니다.
         </div>
         <div className="text-xl font-normal text-achromatic-text_secondary">
           <EquipAnalysisDate time={timeStore.equipTime} />

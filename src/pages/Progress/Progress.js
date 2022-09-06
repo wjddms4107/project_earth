@@ -48,7 +48,7 @@ export const Progress = observer(() => {
           return (
             <button
               onClick={e => {
-                timeStore.onChangeTime(e);
+                timeStore.onChangeProgressTime(e);
                 updateOffset(timeStore.ProgressTime);
               }}
               className={

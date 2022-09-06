@@ -13,14 +13,14 @@ export const AreaList = () => {
    * @param {*} search
    */
   async function request(search) {
-    const res = await fetch(`http://192.168.0.129:8000/area/list${search}`);
+    const res = await fetch(`http://192.168.0.136:8000/area/list${search}`);
     const result = await res.json();
-    setData(result.message);
+    setData(result.results);
   }
 
   useEffect(() => {
-    // request();
-    setData(AREA_LIST.results);
+    request(location.search);
+    // setData(AREA_LIST.results);
   }, [location.search]);
 
   /**

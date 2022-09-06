@@ -36,6 +36,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['Pretendard-Regular', 'sans-serif'],
+      },
       width: {
         52.5: '210px',
         57: '228px',

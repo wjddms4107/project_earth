@@ -22,7 +22,7 @@ export const renderCustomizedLabel = ({
       fill="white"
       textAnchor="middle"
       dominantBaseline="central"
-      fontSize={15}
+      fontSize={17}
     >
       {value === 0 ? null : name}
     </text>
