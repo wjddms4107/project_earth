@@ -8,6 +8,7 @@ import {
 } from '.';
 import { timeStore } from 'stores/timeStore';
 import EquipDataAPI from 'assets/data/equipData.json';
+import { API } from 'config';
 
 export const EquipAnalysis = observer(() => {
   const navigate = useNavigate();
@@ -32,11 +33,10 @@ export const EquipAnalysis = observer(() => {
    * 작업 장비 가동률, Not Idle Time 비율, 운송 장비 가동률 데이터 요청
    */
   const getEquipData = async () => {
-    const res = await fetch(
-      `http://192.168.0.136:8000/equipment/analysis?select=${timeStore.equipTime}`
-    ).then(res => res.json());
+    const res = await fetch(`${API.EQUIP_ANALYSIS}${timeStore.equipTime}`).then(
+      res => res.json()
+    );
     // const res = EquipDataAPI;
-    console.log(res);
     const equip = res.states;
     const rate = res.utilization_rates;
     const truckCount = res.truck_count;

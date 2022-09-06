@@ -5,6 +5,7 @@ import { ProgressLineChart } from './components/ProgressLineChart';
 import { timeStore } from 'stores/timeStore';
 import ProgressData from 'assets/data/ProgressData.json';
 import { customizeLine } from 'utils/functions/area/areaDetail';
+import { API } from 'config';
 
 export const Progress = observer(() => {
   const navigate = useNavigate();
@@ -18,9 +19,9 @@ export const Progress = observer(() => {
    * 지역별 공정률 데이터 요청
    */
   const getProgressData = async () => {
-    const res = await fetch(
-      `http://192.168.0.136:8000/progress?select=${timeStore.ProgressTime}`
-    ).then(res => res.json());
+    const res = await fetch(`${API.PROGRESS}${timeStore.ProgressTime}`).then(
+      res => res.json()
+    );
     Object.keys(res.results).map(area =>
       customizeLine(res.results[area], res.results[area][0].progress)
     );

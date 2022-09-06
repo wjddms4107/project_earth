@@ -7,6 +7,7 @@ import bulldozer from 'assets/images/bulldozer.png';
 import excavators from 'assets/images/excavators.png';
 import wheel_loader from 'assets/images/wheel_loader.png';
 import previous from 'assets/images/previous.svg';
+import { API } from 'config';
 
 export const EquipDetail = () => {
   let { equipment_id } = useParams();
@@ -18,9 +19,9 @@ export const EquipDetail = () => {
    * 장비 디테일 데이터 요청 함수
    */
   const getEquipDetailData = async () => {
-    const res = await fetch(
-      `http://192.168.0.136:8000/equipment/detail/${equipment_id}`
-    ).then(res => res.json());
+    const res = await fetch(`${API.EQUIP_DETAIL}${equipment_id}`).then(res =>
+      res.json()
+    );
     // const res = EquipDetailDataAPI;
     const detailBarChart = res.availablete_rating;
     const equipDetail = res.message;

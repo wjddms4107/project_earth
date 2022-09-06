@@ -50,7 +50,6 @@ export default class StreamedianPlayer extends React.Component {
   infHandler(inf) {
     this.setState({ info: inf });
   }
-
   render() {
     return (
       <div>

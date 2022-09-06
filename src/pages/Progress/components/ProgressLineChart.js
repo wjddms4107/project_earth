@@ -33,15 +33,31 @@ export const ProgressLineChart = ({ areaData }) => {
                 data={areaData[area]}
                 syncId="anyId"
                 margin={{
-                  top: 0,
+                  top: 10,
                   right: 20,
                   left: 30,
                   bottom: 50,
                 }}
               >
                 <CartesianGrid />
-                <XAxis dataKey="day" dy={10} />
-                <YAxis domain={[0, 100]} dx={-10} />
+                <XAxis
+                  dataKey="day"
+                  dy={10}
+                  label={{
+                    value: '(일별)',
+                    position: 'center',
+                    dy: 37,
+                  }}
+                />
+                <YAxis
+                  domain={[0, 100]}
+                  dx={-10}
+                  label={{
+                    value: '(%)',
+                    position: 'center',
+                    dx: -33,
+                  }}
+                />
                 <Line
                   connectNulls
                   type="linear"

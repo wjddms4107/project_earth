@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { MenuItem, FormControl, Select } from '@mui/material';
 
-export const AreaListAreaSelect = ({ area, handleSelect }) => {
+export const AreaListAreaSelect = ({ data, area, handleSelect }) => {
   const classes = useStyles();
+  const [selectArr, setSelectArr] = useState([]);
 
   const AREA_INFO = [
     {
@@ -38,6 +39,21 @@ export const AreaListAreaSelect = ({ area, handleSelect }) => {
     },
   ];
 
+  const makeSelectList = areaList => {
+    let selectArr = [];
+    areaList.forEach(area => {
+      let tempObj = {};
+      tempObj.area_id = area.area_id;
+      tempObj.area_name = area.area_name;
+      selectArr.push(tempObj);
+    });
+    setSelectArr(selectArr);
+  };
+
+  useEffect(() => {
+    makeSelectList(data);
+  }, [data]);
+
   return (
     <FormControl sx={{ minWidth: 120 }}>
       <Select
@@ -48,13 +64,15 @@ export const AreaListAreaSelect = ({ area, handleSelect }) => {
         onChange={handleSelect}
         displayEmpty={true}
       >
-        {AREA_INFO.map(area => {
-          return (
-            <MenuItem key={area.id} value={area.area_value}>
-              {area.area_name}
-            </MenuItem>
-          );
-        })}
+        <MenuItem value="">전체</MenuItem>
+        {selectArr &&
+          selectArr.map((area, index) => {
+            return (
+              <MenuItem key={index} value={area.area_id}>
+                {area.area_name}
+              </MenuItem>
+            );
+          })}
       </Select>
     </FormControl>
   );

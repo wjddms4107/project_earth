@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { VehiclePieChart, ProcessPieChart, TableChart } from '.';
 import Streamedian from 'components/Streamedian';
 import { DataFilter } from 'types/Main/dataFilter';
+import { API } from 'config';
 
 export const Main = () => {
   const [data, setData] = useState();
@@ -13,7 +14,7 @@ export const Main = () => {
    */
   const equipRequest = async () => {
     try {
-      const res = await fetch('http://192.168.0.136:8000');
+      const res = await fetch(`${API.MAIN}`);
       const result = await res.json();
       if (result.message === 'Not_Detected') {
         throw Error('Not_Detected');
@@ -30,9 +31,7 @@ export const Main = () => {
    */
   const progressRequest = async () => {
     try {
-      const res = await fetch(
-        'http://192.168.0.136:8000/progress?select=realtime'
-      );
+      const res = await fetch(`${API.MAIN_PROGRESS}`);
       const result = await res.json();
       setProgressData(result.results);
     } catch (error) {

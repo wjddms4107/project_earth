@@ -35,8 +35,24 @@ export const AareaDetailLineChart = ({ areaLineChartData }) => {
           }}
         >
           <CartesianGrid />
-          <XAxis dataKey="day" dy={10} />
-          <YAxis domain={[0, 100]} dx={-10} />
+          <XAxis
+            dataKey="day"
+            dy={10}
+            label={{
+              value: '(일별)',
+              position: 'center',
+              dy: 35,
+            }}
+          />
+          <YAxis
+            domain={[0, 100]}
+            dx={-10}
+            label={{
+              value: '(%)',
+              position: 'center',
+              dx: -35,
+            }}
+          />
           <Line
             type="linear"
             dataKey="progress"

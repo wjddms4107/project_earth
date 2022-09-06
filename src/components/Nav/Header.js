@@ -31,6 +31,7 @@ export const Header = ({ open }) => {
   useEffect(() => {
     let headerArray = decodeURI(location.pathname).split('/');
     headerArray.shift();
+    headerArray.splice(2);
     setHeaderTitle(headerArray);
   }, [location]);
 

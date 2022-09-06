@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { EquipListTypeSelect, EquipListAreaSelect, EquipListTable } from '.';
 import EquipListDataAPI from 'assets/data/equipListData.json';
+import { API } from 'config';
 
 export const EquipList = () => {
-  const navigate = useNavigate();
   const [equipList, setEquipList] = useState([]);
   const [type, setType] = useState('');
   const [area, setArea] = useState('');
+  const [menuItemType, setMenuItemType] = useState([]);
+  const [menuItemArea, setMenuItemArea] = useState([]);
 
   /**
    * 장비 리스트 데이터 요청 함수
    */
   const getEquipList = async () => {
-    navigate('/equipment/list');
-    const res = await fetch(`http://192.168.0.136:8000/equipment/list`).then(
-      res => res.json()
-    );
+    const res = await fetch(`${API.EQUIP_LIST}`).then(res => res.json());
     // const res = EquipListDataAPI;
     const list = res.message;
+    const menuItemType = [...new Set(list.map(data => data.equipment_type))];
+    const menuItemArea = [...new Set(list.map(data => data.equipment_area))];
     setEquipList(list);
+    setMenuItemType(menuItemType);
+    setMenuItemArea(menuItemArea);
   };
 
   useEffect(() => {
@@ -31,7 +33,7 @@ export const EquipList = () => {
    */
   const clickSearch = () => {
     const typeQuery = `type=${type}`;
-    const areaQuery = `area_id=${area}`;
+    const areaQuery = `area=${area}`;
     const finalQuery =
       (type === '') & (area !== '')
         ? `?area=${area}`
@@ -40,34 +42,9 @@ export const EquipList = () => {
         : (area === '') & (type === '')
         ? ''
         : `?${typeQuery}&${areaQuery}`;
-    navigate(`/equipment/list${finalQuery}`);
-    fetch(`http://192.168.0.136:8000/equipment/list${finalQuery}`)
+    fetch(`${API.EQUIP_LIST}${finalQuery}`)
       .then(res => res.json())
       .then(data => setEquipList(data.message));
-  };
-
-  /**
-   * 초기화 버튼 클릭 시 장비타입, 장비구역 state 초기화 함수
-   */
-  const clickInitialization = () => {
-    setType('');
-    setArea('');
-  };
-
-  /**
-   * 장비 타입 select 선택 시 state 변경 함수
-   * @param {*} event
-   */
-  const handleType = event => {
-    setType(event.target.value);
-  };
-
-  /**
-   * 장비 구역 select 선택 시 state 변경 함수
-   * @param {*} event
-   */
-  const handleArea = event => {
-    setArea(event.target.value);
   };
 
   return (
@@ -78,11 +55,19 @@ export const EquipList = () => {
           <div className="flex w-full gap-5">
             <div className="equipSelect">
               <div className="text-sm font-semibold">장비 타입</div>
-              <EquipListTypeSelect type={type} handleType={handleType} />
+              <EquipListTypeSelect
+                type={type}
+                handleType={e => setType(e.target.value)}
+                menuItemType={menuItemType}
+              />
             </div>
             <div>
               <div className="text-sm font-semibold">장비 구역</div>
-              <EquipListAreaSelect area={area} handleArea={handleArea} />
+              <EquipListAreaSelect
+                area={area}
+                handleArea={e => setArea(e.target.value)}
+                menuItemArea={menuItemArea}
+              />
             </div>
           </div>
           <div className="flex justify-end items-end w-full gap-5">
@@ -90,7 +75,8 @@ export const EquipList = () => {
               className="resetButton max-w-[270px] min-w-[80px] w-full h-8 py-1 text-blue text-sm border-blue border-[1px] rounded-md"
               onClick={() => {
                 getEquipList();
-                clickInitialization();
+                setType('');
+                setArea('');
               }}
             >
               초기화

@@ -106,7 +106,6 @@ const useStyles = makeStyles({
   },
   tableCell: {
     width: '25%',
-    // fontFamily: 'Pretendard-Regular',
     '&.MuiTableCell-head': {
       padding: 0,
       textAlign: 'center',

@@ -1,45 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { AreaListAreaSelect, AreaListTable } from '.';
+import { API } from 'config';
 
 export const AreaList = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [area, setArea] = useState('');
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   /**
    * 구역 리스트 데이터 요청 함수
    * @param {*} search
    */
-  async function request(search) {
-    const res = await fetch(`http://192.168.0.136:8000/area/list${search}`);
-    const result = await res.json();
-    setData(result.results);
-  }
+  const request = async () => {
+    try {
+      const res = await fetch(`${API.AREA_LIST}`);
+      const result = await res.json();
+      if (result.message === 'Value_Error') {
+        throw Error('Value_Error');
+      } else {
+        setData(result.results);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  /**
+   * 조회 클릭 시 데이터 필터링하는 함수
+   */
+  const dataFilter = () => {
+    let result = data.filter(value => value.area_id === area);
+    setFilteredData(result);
+  };
 
   useEffect(() => {
-    request(location.search);
+    request();
     // setData(AREA_LIST.results);
-  }, [location.search]);
-
-  /**
-   * 조회 버튼 클릭 시 쿼리 파라미터 수정 함수
-   * @param {*} areaIndex
-   */
-  const updateOffset = areaIndex => {
-    let queryString = '';
-    area && (queryString = `?area=${areaIndex}`);
-    navigate(queryString);
-  };
-
-  /**
-   * Select 선택 시 state 저장 함수
-   * @param {*} event
-   */
-  const handleSelect = event => {
-    setArea(event.target.value);
-  };
+  }, []);
 
   return (
     <section className="flex justify-center items-start flex-col w-full px-10 pt-3 gap-5">
@@ -49,7 +46,11 @@ export const AreaList = () => {
           <div className="flex w-full gap-5">
             <div className="">
               <div className="text-sm font-semibold">이름</div>
-              <AreaListAreaSelect area={area} handleSelect={handleSelect} />
+              <AreaListAreaSelect
+                data={data}
+                area={area}
+                handleSelect={event => setArea(event.target.value)}
+              />
             </div>
           </div>
           <div className="flex justify-end items-end w-full gap-5">
@@ -57,6 +58,7 @@ export const AreaList = () => {
               className="max-w-[270px] min-w-[80px] w-full h-8 py-1 text-blue text-sm border-blue border-2 rounded-md"
               onClick={() => {
                 setArea('');
+                setFilteredData([]);
               }}
             >
               초기화
@@ -64,7 +66,7 @@ export const AreaList = () => {
             <button
               className="max-w-[270px] min-w-[80px] w-full h-8 py-1 text-achromatic-bg_default text-sm bg-blue border-2 rounded-md"
               onClick={() => {
-                updateOffset(area);
+                dataFilter();
               }}
             >
               조 회
@@ -73,13 +75,12 @@ export const AreaList = () => {
         </div>
       </div>
       <div className="pt-12 text-2xl font-semibold">
-        조회 구역 ({data.length}개)
+        조회 구역 ({filteredData.length ? filteredData.length : data.length}개)
       </div>
-      <AreaListTable areaList={data} />
+      <AreaListTable areaList={filteredData.length ? filteredData : data} />
     </section>
   );
 };
-
 const AREA_LIST = {
   message: 'SUCCESS',
   area_list: {

@@ -75,6 +75,7 @@ export const AreaListTable = ({ areaList }) => {
           {rows.map(row => {
             return (
               <TableRow
+                className={classes.tableBodyRow}
                 onClick={() => goToDetailPage(row.area_id)}
                 key={row.area_id}
               >
@@ -107,18 +108,22 @@ const useStyles = makeStyles({
     background: '#EFF2F5',
   },
   tableCell: {
-    '&:last-child': {
-      borderRight: '0px',
-    },
+    width: '25%',
     '&.MuiTableCell-head': {
       padding: 0,
       textAlign: 'center',
       borderRight: '1px solid #D5DDE4',
+      '&:last-child': {
+        borderRight: '0px',
+      },
     },
     '&.MuiTableCell-body': {
       height: 35,
       padding: 0,
       textAlign: 'center',
     },
+  },
+  tableBodyRow: {
+    cursor: 'pointer',
   },
 });

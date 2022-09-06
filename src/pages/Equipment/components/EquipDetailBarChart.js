@@ -2,6 +2,7 @@ import React from 'react';
 import {
   BarChart,
   Bar,
+  LabelList,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -17,8 +18,8 @@ export const EquipDetailBarChart = ({ datailBarChartData }) => {
         data={datailBarChartData}
         margin={{
           top: 30,
-          right: 30,
-          left: 0,
+          right: 0,
+          left: 7,
           bottom: 40,
         }}
       >

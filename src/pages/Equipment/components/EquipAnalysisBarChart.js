@@ -38,7 +38,7 @@ export const EquipAnalysisBarChart = ({ truckData }) => {
           top: 30,
           right: 30,
           left: 20,
-          bottom: 5,
+          bottom: 15,
         }}
       >
         <CartesianGrid />

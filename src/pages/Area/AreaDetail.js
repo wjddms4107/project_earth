@@ -6,13 +6,13 @@ import previous from 'assets/images/previous.svg';
 import AreaDetailDataAPI from 'assets/data/AreaDetailData.json';
 import AreaDetaiLineChartAPI from 'assets/data/AreaDetailLineChartAPI.json';
 import { customizeLine } from 'utils/functions/area/areaDetail';
+import { API } from 'config';
 
 export const AreaDetail = () => {
   let { area_id } = useParams();
   const navigate = useNavigate();
   const [areaMapData, setAreaMapData] = useState([]);
   const [areaLineChartData, setAreaLineChartData] = useState([]);
-
   const EQUIP_DETAIL_DATA = [
     { id: 1, title: 'Area Name', area: areaMapData.area_name },
     {
@@ -33,9 +33,9 @@ export const AreaDetail = () => {
    * google map 데이터 요청
    */
   const getAreaDetailData = async () => {
-    const res = await fetch(
-      `http://192.168.0.136:8000/area/detail/${area_id}`
-    ).then(res => res.json());
+    const res = await fetch(`${API.AREA_DETAIL}${area_id}`).then(res =>
+      res.json()
+    );
     // const res = AreaDetailDataAPI;
     const areaMap = res.results;
     setAreaMapData(areaMap);
@@ -45,9 +45,9 @@ export const AreaDetail = () => {
    * Line Chart 데이터 요청
    */
   const getAreaDetailLineChartData = async () => {
-    const resChart = await fetch(
-      `http://192.168.0.136:8000/progress?select=weekly&area=${area_id}`
-    ).then(res => res.json());
+    const resChart = await fetch(`${API.AREA_DETAIL_LINECHART}${area_id}`).then(
+      res => res.json()
+    );
     // const resChart = AreaDetaiLineChartAPI;
     const areaChart = resChart.results;
     const finalAreaChart = areaChart[Object.keys(areaChart)[0]];
