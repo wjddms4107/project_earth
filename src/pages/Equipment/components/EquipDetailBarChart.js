@@ -10,6 +10,24 @@ import {
 } from 'recharts';
 
 export const EquipDetailBarChart = ({ datailBarChartData }) => {
+  const renderCustomizedLabel = props => {
+    const { x, y, width, value } = props;
+    const radius = 10;
+
+    return (
+      <g>
+        <text
+          x={x + width / 2}
+          y={y - radius}
+          textAnchor="middle"
+          dominantBaseline="top"
+        >
+          {value}회
+        </text>
+      </g>
+    );
+  };
+
   if (!datailBarChartData) return <div>로딩중입니다.</div>;
 
   return (
@@ -17,7 +35,7 @@ export const EquipDetailBarChart = ({ datailBarChartData }) => {
       <BarChart
         data={datailBarChartData}
         margin={{
-          top: 30,
+          top: 27,
           right: 0,
           left: 7,
           bottom: 40,
@@ -26,7 +44,9 @@ export const EquipDetailBarChart = ({ datailBarChartData }) => {
         <CartesianGrid />
         <XAxis dataKey="date" dy={10} />
         <YAxis type="number" dx={-10} />
-        <Bar dataKey="rate" fill="#FFC506" barSize={70} />
+        <Bar dataKey="rate" fill="#FFC506" barSize={70}>
+          <LabelList dataKey="rate" content={renderCustomizedLabel} />
+        </Bar>
       </BarChart>
     </ResponsiveContainer>
   );

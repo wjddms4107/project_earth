@@ -23,10 +23,9 @@ export const EquipAnalysis = observer(() => {
   ];
 
   const EQUIPINFO_DATA = [
-    { id: 1, sort: Object.keys(equipData)[0] },
-    { id: 2, sort: Object.keys(equipData)[1] },
-    { id: 3, sort: Object.keys(equipData)[2] },
-    { id: 4, sort: Object.keys(equipData)[3] },
+    Object.keys(equipData).map((data, index) => {
+      return { id: index + 1, sort: data };
+    }),
   ];
 
   /**
@@ -54,7 +53,6 @@ export const EquipAnalysis = observer(() => {
    * 일별/주별/월별 버튼 클릭 시 쿼리 파라미터 수정 함수
    * @param {*} equipTime
    */
-
   const updateOffset = equipTime => {
     const queryString = `?select=${equipTime}`;
     navigate(`/equipment/analysis${queryString}`);
@@ -92,10 +90,10 @@ export const EquipAnalysis = observer(() => {
         <div className="text-xl font-normal text-achromatic-text_secondary">
           <EquipAnalysisDate time={timeStore.equipTime} />
         </div>
-        <div className="flex justify-center mb-16 ">
-          {EQUIPINFO_DATA.map(({ id, sort }) => {
+        <div className="flex flex-wrap gap-x-24 gap-y-12 justify-center mb-16 ">
+          {EQUIPINFO_DATA[0].map(({ id, sort }) => {
             return (
-              <div className="w-full h-full flex flex-col pr-2 pl-2" key={id}>
+              <div className="h-full pr-2 pl-2" key={id}>
                 <div className="flex justify-center align-middle relative text-2xl font-bold top-[131px]">
                   {!rateData[sort]
                     ? 'NO DATA'

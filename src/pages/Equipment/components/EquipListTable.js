@@ -56,6 +56,7 @@ export const EquipListTable = ({ equipList }) => {
   );
 
   if (!equipList) return <div>로딩중입니다.</div>;
+
   return (
     <TableContainer className={classes.tableContainer}>
       <Table>
