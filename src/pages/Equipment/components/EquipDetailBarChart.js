@@ -22,7 +22,7 @@ export const EquipDetailBarChart = ({ datailBarChartData }) => {
           textAnchor="middle"
           dominantBaseline="top"
         >
-          {value}회
+          {value}%
         </text>
       </g>
     );

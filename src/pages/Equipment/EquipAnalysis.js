@@ -90,7 +90,7 @@ export const EquipAnalysis = observer(() => {
         <div className="text-xl font-normal text-achromatic-text_secondary">
           <EquipAnalysisDate time={timeStore.equipTime} />
         </div>
-        <div className="flex flex-wrap gap-x-24 gap-y-12 justify-center mb-16 ">
+        <div className="flex flex-wrap gap-x-32 gap-y-12 justify-center mb-16 ">
           {EQUIPINFO_DATA[0].map(({ id, sort }) => {
             return (
               <div className="h-full pr-2 pl-2" key={id}>
