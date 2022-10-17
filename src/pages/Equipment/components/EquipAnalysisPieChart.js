@@ -3,8 +3,6 @@ import React from 'react';
 import { COLORS, renderCustomizedLabel } from '.';
 
 export const EquipAnalysisPieChart = ({ equipData, sort }) => {
-  const isData = equipData.length !== 0;
-
   const data = [
     {
       name: 'Idle',
@@ -24,7 +22,7 @@ export const EquipAnalysisPieChart = ({ equipData, sort }) => {
     },
   ];
 
-  if (!isData) return <div>로딩중입니다.</div>;
+  if (!equipData) return <div>로딩중입니다.</div>;
 
   return (
     <PieChart width={220} height={230}>

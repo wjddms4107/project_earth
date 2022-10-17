@@ -32,10 +32,10 @@ export const EquipAnalysis = observer(() => {
    * 작업 장비 가동률, Not Idle Time 비율, 운송 장비 가동률 데이터 요청
    */
   const getEquipData = async () => {
-    const res = await fetch(`${API.EQUIP_ANALYSIS}${timeStore.equipTime}`).then(
-      res => res.json()
-    );
-    // const res = EquipDataAPI;
+    // const res = await fetch(`${API.EQUIP_ANALYSIS}${timeStore.equipTime}`).then(
+    //   res => res.json()
+    // );
+    const res = EquipDataAPI;
     const equip = res.states;
     const rate = res.utilization_rates;
     const truckCount = res.truck_count;
@@ -59,7 +59,7 @@ export const EquipAnalysis = observer(() => {
   };
 
   return (
-    <div className="relative">
+    <article className="relative">
       <div className="absolute top-3 right-10 flex justify-center py-1.5 h-11 w-52 rounded-full bg-achromatic-btn_action_select text-achromatic-text_secondary">
         {TIME_DATA.map(({ id, time, name }) => {
           return (
@@ -82,7 +82,7 @@ export const EquipAnalysis = observer(() => {
         })}
       </div>
       <div className="px-10 pt-3">
-        <div className="pb-1 text-2xl font-semibold">작업 장비 가동률</div>
+        <h1 className="pb-1 text-2xl font-semibold">작업 장비 가동률</h1>
         <div className="text-xl font-normal text-achromatic-text_secondary">
           중장비별 Idle, Travel, Working Time 비율과 일과시간 대비 작업시간
           비율입니다.
@@ -113,11 +113,11 @@ export const EquipAnalysis = observer(() => {
             );
           })}
         </div>
-        <div className="pb-5 text-2xl font-semibold">운송 장비 가동률</div>
+        <h1 className="pb-5 text-2xl font-semibold">운송 장비 가동률</h1>
         <div className="w-full h-auto">
           <EquipAnalysisBarChart truckData={truckData} />
         </div>
       </div>
-    </div>
+    </article>
   );
 });

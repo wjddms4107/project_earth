@@ -19,9 +19,10 @@ export const ProgressLineChart = ({ areaData }) => {
   };
 
   if (!areaData) return <div>로딩중입니다.</div>;
+
   return (
-    <div className="pl-[40px] pt-[12px]">
-      <div className="text-2xl font-bold pb-6">지역별 공정률</div>
+    <section className="pl-[40px] pt-[12px]">
+      <h1 className="text-2xl font-bold pb-6">지역별 공정률</h1>
       {Object.keys(areaData).map(area => {
         return (
           <>
@@ -72,6 +73,6 @@ export const ProgressLineChart = ({ areaData }) => {
           </>
         );
       })}
-    </div>
+    </section>
   );
 };

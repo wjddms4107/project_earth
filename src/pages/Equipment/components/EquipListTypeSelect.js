@@ -6,6 +6,7 @@ export const EquipListTypeSelect = ({ type, handleType, menuItemType }) => {
   const classes = useStyles();
 
   if (!menuItemType) return <div>로딩중입니다.</div>;
+
   return (
     <FormControl>
       <Select

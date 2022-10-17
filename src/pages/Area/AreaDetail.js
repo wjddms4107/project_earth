@@ -62,14 +62,14 @@ export const AreaDetail = () => {
   }, []);
 
   return (
-    <div className="px-10 pt-3">
+    <article className="px-10 pt-3">
       <div className="flex mb-3 ">
         <img
           src={previous}
           alt="previous"
           onClick={() => navigate('/area/list')}
         />
-        <div className="text-4xl font-bold ml-2">{areaMapData.area_name}</div>
+        <h1 className="text-4xl font-bold ml-2">{areaMapData.area_name}</h1>
       </div>
       <div className="flex mt-5">
         <div className="w-2/5 mr-10">
@@ -92,6 +92,6 @@ export const AreaDetail = () => {
       </div>
       <div className="text-2xl font-semibold">주간 공정률</div>
       <AareaDetailLineChart areaLineChartData={areaLineChartData} />
-    </div>
+    </article>
   );
 };

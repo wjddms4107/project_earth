@@ -10,6 +10,7 @@ import { API } from 'config';
 export const Progress = observer(() => {
   const navigate = useNavigate();
   const [areaData, setAreaData] = useState([]);
+
   const TIME_DATA = [
     { id: 1, time: '주별', name: 'weekly' },
     { id: 2, time: '월별', name: 'monthly' },
@@ -22,6 +23,7 @@ export const Progress = observer(() => {
     const res = await fetch(`${API.PROGRESS}${timeStore.ProgressTime}`).then(
       res => res.json()
     );
+    // const res = ProgressData;
     Object.keys(res.results).map(area =>
       customizeLine(res.results[area], res.results[area][0].progress)
     );
@@ -43,7 +45,7 @@ export const Progress = observer(() => {
   };
 
   return (
-    <div className="relative bg-achromatic-bg_default">
+    <article className="relative bg-achromatic-bg_default">
       <div className="absolute top-3 right-10 flex justify-center py-1.5 h-11 w-36 rounded-full bg-achromatic-btn_action_select text-achromatic-text_secondary">
         {TIME_DATA.map(({ id, time, name }) => {
           return (
@@ -68,6 +70,6 @@ export const Progress = observer(() => {
       <div>
         <ProgressLineChart areaData={areaData} />
       </div>
-    </div>
+    </article>
   );
 });

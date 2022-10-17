@@ -14,8 +14,8 @@ export const EquipList = () => {
    * 장비 리스트 데이터 요청 함수
    */
   const getEquipList = async () => {
-    const res = await fetch(`${API.EQUIP_LIST}`).then(res => res.json());
-    // const res = EquipListDataAPI;
+    // const res = await fetch(`${API.EQUIP_LIST}`).then(res => res.json());
+    const res = EquipListDataAPI;
     const list = res.message;
     const menuItemType = [...new Set(list.map(data => data.equipment_type))];
     const menuItemArea = [...new Set(list.map(data => data.equipment_area))];
@@ -54,7 +54,7 @@ export const EquipList = () => {
         <div className="flex justify-between mt-5 px-14 py-10 gap-10 border-achromatic-text_disabled border-[1px] rounded-md bg-achromatic-bg_paper">
           <div className="flex w-full gap-5">
             <div>
-              <div className="text-sm font-semibold">장비 타입</div>
+              <h2 className="text-sm font-semibold">장비 타입</h2>
               <EquipListTypeSelect
                 type={type}
                 handleType={e => setType(e.target.value)}
@@ -62,7 +62,7 @@ export const EquipList = () => {
               />
             </div>
             <div>
-              <div className="text-sm font-semibold">장비 구역</div>
+              <h2 className="text-sm font-semibold">장비 구역</h2>
               <EquipListAreaSelect
                 area={area}
                 handleArea={e => setArea(e.target.value)}
@@ -92,9 +92,9 @@ export const EquipList = () => {
           </div>
         </div>
       </div>
-      <div className="pt-12 text-2xl font-semibold">
+      <h1 className="pt-12 text-2xl font-semibold">
         조회 장비 ({equipList.length}대)
-      </div>
+      </h1>
       <EquipListTable equipList={equipList} />
     </section>
   );

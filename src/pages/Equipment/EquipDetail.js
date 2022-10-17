@@ -19,10 +19,10 @@ export const EquipDetail = () => {
    * 장비 디테일 데이터 요청 함수
    */
   const getEquipDetailData = async () => {
-    const res = await fetch(`${API.EQUIP_DETAIL}${equipment_id}`).then(res =>
-      res.json()
-    );
-    // const res = EquipDetailDataAPI;
+    // const res = await fetch(`${API.EQUIP_DETAIL}${equipment_id}`).then(res =>
+    //   res.json()
+    // );
+    const res = EquipDetailDataAPI;
     const detailBarChart = res.availablete_rating;
     const equipDetail = res.message;
     setDatailBarChartData(detailBarChart);
@@ -59,7 +59,7 @@ export const EquipDetail = () => {
   ];
 
   return (
-    <div className="px-10 pt-3">
+    <article className="px-10 pt-3">
       <div className="flex">
         <div className="w-2/5 mr-10">
           <div className="flex mb-3 ">
@@ -69,9 +69,9 @@ export const EquipDetail = () => {
               onClick={() => navigate('/equipment/list')}
               className="cursor-pointer"
             />
-            <span className="text-4xl font-bold ml-2">
+            <h1 className="text-4xl font-bold ml-2">
               {equipDetailData.serial_number}
-            </span>
+            </h1>
           </div>
           <img
             src={selectImage(equipDetailData.equipment_type)}
@@ -94,6 +94,6 @@ export const EquipDetail = () => {
           );
         })}
       </div>
-    </div>
+    </article>
   );
 };
