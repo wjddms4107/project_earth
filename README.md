@@ -1,7 +1,10 @@
 # project_earth_frontend
 > 실시간 CCTV 영상을 활용한 공정 모니터링 시스템 </br>
 > [데모 영상](https://youtu.be/CRZ2Smt_EfQ) </br>
-> [웹 페이지](https://project-earth-js.netlify.app/)
+> [웹 페이지](https://project-earth-js.netlify.app/) </br>
+> : 웹 페이지는 해당 기업 서버로 배포를 했었지만 내려진 상태입니다. </br>
+> : 이에 netlify로 다시 배포를 했고 Equipment와 Progress 페이지를 mock data로 대체 구현해놓았습니다! </br>
+> : 전체 구현에 대한 사항은 데모 영상 참고 부탁드립니다 : ) </br>
 
 
 ## 1. 제작 기간 & 참여 인원
