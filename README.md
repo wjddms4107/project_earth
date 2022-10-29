@@ -1,6 +1,7 @@
 # project_earth_frontend
-> 실시간 CCTV 영상을 활용한 공정 모니터링 시스템</br>
-> [데모 영상](https://youtu.be/CRZ2Smt_EfQ)
+> 실시간 CCTV 영상을 활용한 공정 모니터링 시스템 </br>
+> [데모 영상](https://youtu.be/CRZ2Smt_EfQ) </br>
+> [웹 페이지](https://project-earth-js.netlify.app/)
 
 
 ## 1. 제작 기간 & 참여 인원
