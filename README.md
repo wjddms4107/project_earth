@@ -1,4 +1,4 @@
-# project_earth_frontend
+project_earth_frontend
 > 실시간 CCTV 영상을 활용한 공정 모니터링 시스템 </br>
 > [데모 영상](https://youtu.be/CRZ2Smt_EfQ) </br>
 > [웹 페이지](https://project-earth-js.netlify.app/) </br>
@@ -16,7 +16,6 @@ Back-End : 홍현진, 황유정
 - React
 - Javascrips
 - Tailwind CSS
-- Mobx
 - RESTful API
 - 라이브러리 : Recharts, MUI, google map
 
@@ -33,6 +32,8 @@ Back-End : 홍현진, 황유정
 - 고객사 insight 제공
 
 #### `개발 내용`
+<img width="871" alt="스크린샷 2023-07-16 오후 9 46 53" src="https://github.com/wjddms4107/project_earth/assets/78889402/79a00717-35c4-4f6d-80d9-15b887a8bf13">
+
 * 현황 모니터링 </br>
 ➡️ 중장비 운영 상태 및 구역 공정률 현황 실시간 모니터링 / CCTV 영상 송출로 사용자 확인 가능 </br>
 
@@ -47,7 +48,7 @@ Back-End : 홍현진, 황유정
 
 #### `FRONTEND 각 담당페이지`
 - [노정은](https://jeongeuni.tistory.com/54?category=1103401): 중장비 통계 페이지, 중장비 관리 페이지, 중장비 세부 페이지, 구역 통계 페이지, 구역 세부 페이지 </br>
-- 오창훈 : 내브바, 실시간 모니터링 페이지, 구역 관리 페이지
+- 오창훈 : 네브바, 실시간 모니터링 페이지, 구역 관리 페이지
 
 ## 4. 핵심 문제 해결 경험
 ### 4.1 실시간으로 바뀌는 데이터 만지기 ➡️ [코드로 이동: EquipAnalysis](https://github.com/wjddms4107/project_earth/blob/9bfeaf453d3cfac8aeab9483d5d690bfb6538a7a/src/pages/Equipment/EquipAnalysis.js#L25), [코드로 이동: EquipAnalysisPieChart](https://github.com/wjddms4107/project_earth/blob/9bfeaf453d3cfac8aeab9483d5d690bfb6538a7a/src/pages/Equipment/components/EquipAnalysisPieChart.js#L8)
